@@ -1,5 +1,13 @@
 .body-bg {
     height: 513px;
     width: 100%;
-    background-color: #8F8B8B;
+    background-color: #c9c3c3;
+}
+
+.menu li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: 3;
 }

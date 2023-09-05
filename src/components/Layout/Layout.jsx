@@ -9,7 +9,9 @@ const Layout = () => {
         <div>
             <Routers />
         </div>
-        <Footer />
+        <div className='mt-10'>
+            <Footer />
+        </div>
     </>
 }
 
