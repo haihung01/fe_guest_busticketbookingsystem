@@ -1,7 +1,8 @@
 import React from 'react'
-import { Col, Container, Row } from 'reactstrap'
+import { Card, Col, Container, Row } from 'reactstrap'
 import Bg_Banner from '../UI/Bg_Banner'
 import Banner from '../UI/Banner'
+import CardList from '../UI/CardList'
 
 const Home = () => {
     return (
@@ -20,7 +21,32 @@ const Home = () => {
                 <Container>
                     <Row>
                         <Col lg="12">
-                            <h1>choosFrom_wrap</h1>
+                            <div>
+                                <div className='btn From_wrap'>
+                                    <div className="w-[980.53px] h-[55px] rounded-[30px] mx-auto bg-slate-50 mt-[-20px] shadow-2xl border border-gray-400 ">
+                                    </div>
+                                </div>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
+
+
+            <section className='bg-Adtech-desk'>
+                <Container>
+                    <Row>
+                        <Col lg="12">
+                            <div>
+                                <div className='Adtech-desk'>
+                                    <div className="w-[968.5px] h-[88.5px] rounded-2xl mx-auto bg-slate-50 mt-5 border border-gray-200 ">
+                                        <img
+                                            src='https://platforms.makemytrip.com/contents/a50e89c2-2cd4-4970-a67d-4593e36688cd'
+                                            className='rounded-2xl w-[968px] h-[88px]'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                         </Col>
                     </Row>
                 </Container>
@@ -31,6 +57,45 @@ const Home = () => {
                     <Row>
                         <Col lg="12" className="">
                             <Banner />
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
+
+            <section className='mt-16'>
+                <Container >
+                    <Row>
+                        <Col lg="12" className="">
+                            <CardList />
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
+
+            <section className='mt-16'>
+                <Container >
+                    <Row>
+                        <Col lg="12" className="">
+                            <div className="time_sales w-full grid grid-cols-2 shadow-2xl rounded-lg relative ">
+                                <div className='w-[1200px] '>
+                                    <div>
+                                        <h1 className="text-blue-900 text-3xl font-bold text-center p-14">
+                                            All tickets are 50% off now! <br />Don't miss such a deal!
+                                        </h1>
+                                        <h1 className="text-center">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            <br /> Sed eu feugiat amet, libero ipsum enim pharetra
+                                            hac.
+                                        </h1>
+                                    </div>
+                                    <div className="flex justify-center items-center p-16">
+                                        {/* <Clock className="" /> */}
+                                    </div>
+                                </div>
+                                <div className="p-10">
+                                    <img src='https://promos.makemytrip.com/Hotels_product/Luxe/mmtLuxe/IHLuxe/Luxe_IH/images/slide1.png' className="w-[600px] h-[450px]" />
+                                </div>
+                            </div>
                         </Col>
                     </Row>
                 </Container>

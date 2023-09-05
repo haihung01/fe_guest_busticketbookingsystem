@@ -44,6 +44,7 @@ const Banner = () => {
             navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
+
         >
             {slide_img.map((item) => (
                 <SwiperSlide key={item.id}>
