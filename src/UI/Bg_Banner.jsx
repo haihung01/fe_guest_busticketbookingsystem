@@ -92,20 +92,32 @@ const Bg_Banner = () => {
                                         </Col>
 
                                         <Col className=' align-items-center  mx-auto w-[798px] h-[200px]'>
-                                            <div className='mt-9 flex  gap-4'>
-                                                <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                    <input className='' placeholder='Chọn điểm đi'></input>
+                                            <div className='mt-3 flex  gap-4'>
+                                                <div>
+                                                    <span className='ml-3'>Điểm đi :</span>
+                                                    <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
+                                                        <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn điểm đến'></input>
+                                                    </div>
                                                 </div>
-                                                <div className=' border border-gray-300 flex rounded-lg  w-[252px] h-[67px]'>
-                                                    <input className='' placeholder='Chọn điểm đến'></input>
+                                                <div>
+                                                    <span className='ml-3'>Điểm đến :</span>
+                                                    <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
+                                                        <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn điểm đi'></input>
+                                                    </div>
                                                 </div>
-                                                <div className=' border border-gray-300 flex rounded-lg  w-[252px] h-[67px]'>
-                                                    <input className=''></input>
+                                                <div>
+                                                    <span className='ml-3'>Ngày đi :</span>
+                                                    <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
+                                                        <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn ngày '></input>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px] mt-10'>
-                                                <input className='' placeholder=''></input>
+                                            <div className='mt-4'>
+                                                <span className='ml-3'>Tìm kiếm gần đây :</span>
+                                                <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
+                                                    <input className='mx-auto text-center font-medium text-lg'></input>
+                                                </div>
                                             </div>
                                         </Col>
                                     </Row>
