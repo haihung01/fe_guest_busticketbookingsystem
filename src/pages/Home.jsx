@@ -76,24 +76,29 @@ const Home = () => {
                 <Container >
                     <Row>
                         <Col lg="12" className="">
-                            <div className="time_sales w-full grid grid-cols-2 shadow-2xl rounded-lg relative ">
-                                <div className='w-[1200px] '>
-                                    <div>
-                                        <h1 className="text-blue-900 text-3xl font-bold text-center p-14">
-                                            All tickets are 50% off now! <br />Don't miss such a deal!
-                                        </h1>
-                                        <h1 className="text-center">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                            <br /> Sed eu feugiat amet, libero ipsum enim pharetra
-                                            hac.
-                                        </h1>
-                                    </div>
-                                    <div className="flex justify-center items-center p-16">
-                                        {/* <Clock className="" /> */}
-                                    </div>
+                            <div>
+                                <div>
+                                    <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center mt-10">
+                                        FUTA BUS LINES - KẾT NỐI FUTA GROUP
+                                    </h1>
                                 </div>
-                                <div className="p-10">
-                                    <img src='https://promos.makemytrip.com/Hotels_product/Luxe/mmtLuxe/IHLuxe/Luxe_IH/images/slide1.png' className="w-[600px] h-[450px]" />
+
+                                <div className="time_sales rounded-lg relative  mt-7">
+                                    <div className='w-[1200px]  mx-auto justify-between flex'>
+                                        <div>
+                                            <h1 className="text-blue-900 text-3xl font-bold text-center p-14">
+                                                All tickets are 50% off now! <br />Don't miss such a deal!
+                                            </h1>
+                                            <h1 className="text-center">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                <br /> Sed eu feugiat amet, libero ipsum enim pharetra
+                                                hac.
+                                            </h1>
+                                        </div>
+                                        <img
+                                            src='https://free.vector6.com/wp-content/uploads/2020/04/072-Vector-Viet-Nam-poeqrc006.jpg'
+                                            className="w-[600px] h-[470px]" />
+                                    </div>
                                 </div>
                             </div>
                         </Col>
