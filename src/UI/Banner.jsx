@@ -44,11 +44,10 @@ const Banner = () => {
             navigation={false}
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
-
         >
             {slide_img.map((item) => (
                 <SwiperSlide key={item.id}>
-                    <div className="h-[640px] w-[1200px]">
+                    <div className="h-screen w-[1200px] flex justify-center items-center mx-auto">
                         <div className="swipper shadow-2xl">
                             <img src={item.img} className="img_banner rounded-2xl shadow-2xl" alt="" />
                         </div>

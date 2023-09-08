@@ -1,16 +1,40 @@
-import React from 'react';
-import { NavLink, Link } from "react-router-dom";
+import React, { useEffect, useRef } from 'react';
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import './Bg_Banner.scss';
 import { Col, Container, Row } from 'reactstrap';
+import { useSelector } from 'react-redux';
 
 const Bg_Banner = () => {
+
+    // const headerRef = useRef(null)
+
+
+    // const menuRef = useRef(null)
+
+    // const stickyHeaderFunc = () => {
+    //     window.addEventListener('scroll', () => {
+    //         if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+    //             headerRef.current.classList.add('sticky_header')
+    //         } else {
+    //             headerRef.current.classList.remove('sticky_header')
+    //         }
+    //     })
+    // }
+
+    // useEffect(() => {
+    //     stickyHeaderFunc()
+
+    //     return () => window.removeEventListener('scroll', stickyHeaderFunc);
+    // });
+
+
     return (
         <section>
             <Container className='body-bg'>
                 <Row>
                     <Col className="navigation flex">
                         <div className="w-[876.2px] h-[79px] p-12 rounded-2xl mx-auto bg-slate-50 mt-10 shadow-2xl ">
-                            <ul className='menu flex justify-center space-x-20 mt-[-35px]'>
+                            <ul className='menu flex justify-center gap-[78px] mt-[-35px]'>
                                 <li className='nav_item'>
                                     <NavLink to='/'>
                                         <img
@@ -18,7 +42,7 @@ const Bg_Banner = () => {
                                             className='w-[42px] h-[42px]'
                                             alt='Home Icon'
                                         />
-                                        Home
+                                        Trang chủ
                                     </NavLink>
                                 </li>
                                 <li className='nav_item'>
@@ -28,7 +52,7 @@ const Bg_Banner = () => {
                                             className='w-[39px] h-[38px]'
                                             alt='Schedule Icon'
                                         />
-                                        Schedule
+                                        Lịch trình
                                     </NavLink>
                                 </li>
                                 <li className='nav_item'>
@@ -38,7 +62,7 @@ const Bg_Banner = () => {
                                             className='w-[39px] h-[38px]'
                                             alt='News Icon'
                                         />
-                                        News
+                                        Tin tức
                                     </Link>
                                 </li>
                                 <li className='nav_item'>
@@ -48,7 +72,7 @@ const Bg_Banner = () => {
                                             className='w-[39px] h-[38px]'
                                             alt='Bill Icon'
                                         />
-                                        Bill
+                                        Hóa đơn
                                     </NavLink>
                                 </li>
                                 <li className='nav_item'>
@@ -58,7 +82,7 @@ const Bg_Banner = () => {
                                             className='w-[39px] h-[38px]'
                                             alt='Contact Icon'
                                         />
-                                        Contact
+                                        Liên hệ
                                     </NavLink>
                                 </li>
                                 <li className='nav_item'>
@@ -68,7 +92,7 @@ const Bg_Banner = () => {
                                             className='w-[39px] h-[38px]'
                                             alt='About Us Icon'
                                         />
-                                        About us
+                                        Về chúng tôi
                                     </NavLink>
                                 </li>
                             </ul>

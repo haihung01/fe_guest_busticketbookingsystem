@@ -33,13 +33,13 @@ const Home = () => {
             </section>
 
 
-            <section className='bg-Adtech-desk'>
+            <section className='bg-Adtech-desk '>
                 <Container>
                     <Row>
                         <Col lg="12">
                             <div>
                                 <div className='Adtech-desk'>
-                                    <div className="w-[968.5px] h-[88.5px] rounded-2xl mx-auto bg-slate-50 mt-5 border border-gray-200 ">
+                                    <div className="w-[968.5px] h-[88.5px] rounded-2xl mx-auto bg-slate-50 mt-5  border border-gray-200 ">
                                         <img
                                             src='https://platforms.makemytrip.com/contents/a50e89c2-2cd4-4970-a67d-4593e36688cd'
                                             className='rounded-2xl w-[968px] h-[88px]'
@@ -52,7 +52,7 @@ const Home = () => {
                 </Container>
             </section>
 
-            <section className="banner mt-16">
+            <section className="banner mt-[-50px]">
                 <Container >
                     <Row>
                         <Col lg="12" className="">

@@ -4,6 +4,17 @@
         line-height: 87px;
         margin: 0 auto;
 
+        &.sticky {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
     }
 
 
@@ -17,7 +28,6 @@
         width: 155px;
         height: 43px;
         border-radius: 16px;
-        // background-color: rgb(186, 185, 184);
         text-align: center;
         display: flex;
         align-items: center;
