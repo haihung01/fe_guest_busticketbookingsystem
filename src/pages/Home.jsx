@@ -1,13 +1,13 @@
 import React from 'react'
 import { Card, Col, Container, Row } from 'reactstrap'
-import Bg_Banner from '../UI/Bg_Banner'
+import Bg_Banner from '../UI/bg-banner/Bg_Banner'
 import Banner from '../UI/Banner'
-import CardList from '../UI/CardList'
+import CardList from '../UI/AdvertisementList'
 
 const Home = () => {
     return (
         <>
-            <section className="home-banner" >
+            {/* <section className="home-banner" >
                 <Container>
                     <Row>
                         <Col lg="12">
@@ -15,7 +15,7 @@ const Home = () => {
                         </Col>
                     </Row>
                 </Container>
-            </section>
+            </section> */}
 
             <section className='choosFrom_wrap'>
                 <Container>
@@ -23,7 +23,7 @@ const Home = () => {
                         <Col lg="12">
                             <div>
                                 <div className='btn From_wrap'>
-                                    <div className="w-[980.53px] h-[55px] rounded-[30px] mx-auto bg-slate-50 mt-[-20px] shadow-2xl border border-gray-400 ">
+                                    <div className="w-[980.53px] h-[55px] rounded-[30px] mx-auto bg-slate-50 mt-[-25px] shadow-2xl border border-gray-400 ">
                                     </div>
                                 </div>
                             </div>

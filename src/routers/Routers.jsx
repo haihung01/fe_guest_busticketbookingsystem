@@ -6,6 +6,7 @@ import News from '../pages/News'
 import Contact from '../pages/Contact'
 import AboutUs from '../pages/AboutUs'
 import Bill from '../pages/Bill'
+import ProductCart from '../UI/product-cart/ProductCart'
 
 const Routers = () => {
     return (
@@ -17,6 +18,9 @@ const Routers = () => {
             <Route path='news' element={<News />} />
             <Route path='contact' element={<Contact />} />
             <Route path='about-us' element={<AboutUs />} />
+            <Route path='product-cart' element={<ProductCart />} />
+
+
         </Routes>
     )
 }
