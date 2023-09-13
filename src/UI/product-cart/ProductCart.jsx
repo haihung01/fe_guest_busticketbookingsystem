@@ -24,7 +24,7 @@ const ProductCart = () => {
                 <Container>
                     <Row>
                         <Col className=' mt-20'>
-                            <div className="w-[1200px] h-[900px] p-12  rounded-2xl mx-auto bg-slate-50 border border-gray-200">
+                            <div className="w-[1200px] h-[800px] p-12  rounded-2xl mx-auto bg-slate-50 border border-gray-200">
                                 <section>
                                     <Container>
                                         <Row className='flex justify-between'>
@@ -145,12 +145,15 @@ const ProductCart = () => {
 
                     </Row>
                 </Container>
-            </section></>
+            </section>
+
+        </>
     )
 }
 
 function Table() {
     return (
+
         <table className="table-fixed">
             <tbody>
                 {Array(6).fill().map((_, rowIndex) => (
@@ -165,6 +168,9 @@ function Table() {
                 ))}
             </tbody>
         </table>
+
+
+
     )
 }
 

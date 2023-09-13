@@ -22,10 +22,7 @@ const slide_img = [
         id: 4,
         img: "https://storage.googleapis.com/futa-busline-web-cms-prod/343_x_184_px_0b1588190d/343_x_184_px_0b1588190d.png",
     },
-    // {
-    //     id: 5,
-    //     img: "https://storage.googleapis.com/futa-busline-web-cms-prod/VNPAYFUTA_67_Resize_343_x_184_bd2e13cd77/VNPAYFUTA_67_Resize_343_x_184_bd2e13cd77.png",
-    // },
+
 ];
 
 const Banner = () => {
