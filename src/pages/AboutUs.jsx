@@ -3,10 +3,10 @@ import { Col, Container, Row } from 'reactstrap'
 
 const AboutUs = () => {
     return (
-        <section className="home-banner" >
-            <Container className="w-[1200px] h-[2000px] rounded-2xl mx-auto bg-slate-50 border border-gray-500 mt-20">
-                <Row className='h-[780px] bg-slate-400' >
-                    <Col className='lg text-center justify-center items-center font-medium text-4xl mt-5'>
+        <section className="home-banner " >
+            <Container className="w-[1200px] h-full mx-auto  mt-20">
+                <Row className='h-[780px]' >
+                    <Col className='lg text-center justify-center items-center font-medium text-4xl mt-4'>
                         <span className=''>Chúng tôi ở đây để đảm bảo </span>
                         <br />
                         <span className='text-orange-500'>"THÀNH CÔNG của bạn"</span>
@@ -31,35 +31,111 @@ const AboutUs = () => {
                     </Col>
                 </Row>
 
-                <Row className='h-[780px] bg-red-300'>
-                    <Col className=''>
-                        <div className='flex mx-auto text-center justify-center gap-2 font-medium text-4xl'>
+                <Row className='h-[780px]  w-full'>
+                    <Col className='w-[1000px] mx-auto'>
+                        <div className='flex ml-4 gap-2 font-medium text-4xl'>
                             <h1>Our</h1>
                             <h1 className='text-orange-500'>Misson</h1>
                         </div>
 
-                        <div className=' border border-gray-200 rounded-2xl shadow-xl mt-5 w-[1000px] mx-auto flex gap-5'>
-                            <div className=' mt-3 ml-4 '>
-                                <tr className=''>
-                                    <td className='text-gray-400 font-normal'>Dịch vụ chưa từng có</td>
-                                    <td className='mr-6 font-normal'>Hỗ trợ khách hàng doanh nghiệp và nhà đầu tư tài chính về chiến lược tăng trưởng và phát triển quốc tế của họ.</td>
+                        <div className=' mt-1 w-[1000px] h-[300px] mx-auto'>
+                            <div className=' mt-2 p-5 w-[1000px]  flex flex-col'>
+                                <tr className='flex justify-start gap-[104px]'>
+                                    <td className=' font-semibold text-lg'>Dịch vụ chưa từng có</td>
+                                    <td className='text-gray-400 mr-6 font-normal'>Hỗ trợ khách hàng doanh nghiệp và nhà đầu tư tài chính về chiến lược <br /> tăng trưởng và phát triển quốc tế của họ.</td>
                                 </tr>
-                                <tr className='flex justify-between'>
-                                    <td className='text-gray-400 font-normal'>Thời gian</td>
-                                    <td className='mr-6 text-green-800 font-normal'>19:00 11-0r-6063</td>
+                                <tr className='flex justify-start gap-56 mt-4'>
+                                    <td className=' font-semibold text-lg'>Cụ thể</td>
+                                    <td className='text-gray-400 mr-6  font-normal'>Chuyên môn cốt lõi của ConsultUs nằm ở khả năng hỗ trợ khách hàng hiểu,<br />
+                                        phân tích và thực hiện các chiến lược thương mại và đầu tư tại các thị trường cụ thể.</td>
                                 </tr>
-                                <tr className='flex justify-between'>
-                                    <td className='text-gray-400 font-normal'>Số lượng ghế</td>
-                                    <td className='mr-6 font-normal'>1 Ghế</td>
+                                <tr className='flex justify-start gap-[216px] mt-4'>
+                                    <td className=' font-semibold text-lg'>Kinh nghiệm</td>
+                                    <td className='text-gray-400 mr-6 font-normal'>Có kinh nghiệm làm việc và hỗ trợ nhiều khách hàng từ các tập đoàn quốc tế
+                                        đến doanh nghiệp vừa/nhỏ, từ các nhà cung cấp nợ doanh nghiệp lớn đến các nhà tư cổ phần tư nhân tầm trung.</td>
                                 </tr>
-                                <tr className='flex justify-between'>
-                                    <td className='text-gray-400 font-normal'>Số ghế</td>
-                                    <td className='mr-6 text-green-800 font-normal'>B06</td>
+                                <tr className='flex justify-start gap-48 mt-4'>
+                                    <td className=' font-semibold text-lg'>Công nghệ</td>
+                                    <td className='text-gray-400 mr-6 font-normal'>Sự kết hợp tốt nhất giữa công nghệ và con người.</td>
                                 </tr>
-                                <tr className='flex justify-between'>
-                                    <td className='text-gray-400 font-normal'>Tổng tiền lượt đi</td>
-                                    <td className='mr-6 text-green-800 font-normal'>280.000đ</td>
+
+                            </div>
+                        </div>
+                    </Col>
+
+                    <Col className='w-[1000px] mx-auto mt-14'>
+                        <div className='flex ml-4 gap-2 font-medium text-4xl'>
+                            <h1>Our</h1>
+                            <h1 className='text-orange-500'>Commitment</h1>
+                        </div>
+
+                        <div className=' mt-1 w-[1000px] h-[300px] mx-auto'>
+                            <div className=' mt-2 p-5 w-[1000px]  flex flex-col'>
+                                <tr className='flex justify-start gap-[105px]'>
+                                    <td className=' font-semibold text-lg'>Dịch vụ chưa từng có</td>
+                                    <td className='text-gray-400 mr-6 font-normal'>Hỗ trợ khách hàng doanh nghiệp và nhà đầu tư tài chính về chiến lược <br /> tăng trưởng và phát triển quốc tế của họ.</td>
                                 </tr>
+                                <tr className='flex justify-start gap-56 mt-4'>
+                                    <td className=' font-semibold text-lg'>Cụ thể</td>
+                                    <td className='text-gray-400 mr-6  font-normal'>Chuyên môn cốt lõi của ConsultUs nằm ở khả năng hỗ trợ khách hàng hiểu,<br />
+                                        phân tích và thực hiện các chiến lược thương mại và đầu tư tại các thị trường cụ thể.</td>
+                                </tr>
+                                <tr className='flex justify-start gap-[216px] mt-4'>
+                                    <td className=' font-semibold text-lg'>Kinh nghiệm</td>
+                                    <td className='text-gray-400 mr-6 font-normal'>Có kinh nghiệm làm việc và hỗ trợ nhiều khách hàng từ các tập đoàn quốc tế
+                                        đến doanh nghiệp vừa/nhỏ, từ các nhà cung cấp nợ doanh nghiệp lớn đến các nhà tư cổ phần tư nhân tầm trung.</td>
+                                </tr>
+                                <tr className='flex justify-start gap-48 mt-4'>
+                                    <td className=' font-semibold text-lg'>Công nghệ</td>
+                                    <td className='text-gray-400 mr-6 font-normal'>Sự kết hợp tốt nhất giữa công nghệ và con người.</td>
+                                </tr>
+
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+
+                <Row className='h-[550px] '>
+                    <Col>
+                        <div className='flex text-center justify-center font-medium text-4xl'>
+                            <h1 className='text-orange-500 mt-10'>Our Success Team</h1>
+                        </div>
+
+                        <div className='flex gap-16 justify-center mt-12 '>
+                            <img src='https://public.nftstatic.com/static/nft/res/8edfc7e2444f43e681d653e3e7ea037b.png' className='w-[250px] h-[350px] rounded-lg ' />
+                            <img src='https://public.nftstatic.com/static/nft/res/8edfc7e2444f43e681d653e3e7ea037b.png' className='w-[250px] h-[350px] rounded-lg ' />
+                            <img src='https://public.nftstatic.com/static/nft/res/8edfc7e2444f43e681d653e3e7ea037b.png' className='w-[250px] h-[350px] rounded-lg ' />
+                            <img src='https://public.nftstatic.com/static/nft/res/8edfc7e2444f43e681d653e3e7ea037b.png' className='w-[250px] h-[350px] rounded-lg ' />
+
+                        </div>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col lg="12" className="">
+                        <div>
+                            <div>
+                                <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center mt-10">
+                                    FUTA BUS LINES - KẾT NỐI FUTA GROUP
+                                </h1>
+                            </div>
+
+                            <div className="time_sales rounded-lg relative  mt-7">
+                                <div className='w-[1200px]  mx-auto justify-between flex'>
+                                    <div>
+                                        <h1 className="text-blue-900 text-3xl font-bold text-center p-14">
+                                            All tickets are 50% off now! <br />Don't miss such a deal!
+                                        </h1>
+                                        <h1 className="text-center">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            <br /> Sed eu feugiat amet, libero ipsum enim pharetra
+                                            hac.
+                                        </h1>
+                                    </div>
+                                    <img
+                                        src='https://free.vector6.com/wp-content/uploads/2020/04/072-Vector-Viet-Nam-poeqrc006.jpg'
+                                        className="w-[600px] h-[470px]" />
+                                </div>
                             </div>
                         </div>
                     </Col>
