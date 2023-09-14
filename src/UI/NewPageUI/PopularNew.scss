@@ -1,0 +1,44 @@
+.PopularNewContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+
+}
+.wrap_New_pop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 28px
+}
+.Title_new_pop{
+    display: flex;
+    align-self: start;
+}
+.card-list{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+}
+.wrap_New_NewPost{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 28px
+}
+.card-list-Newpost{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.card-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
