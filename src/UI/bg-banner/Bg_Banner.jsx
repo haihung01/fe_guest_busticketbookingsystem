@@ -1,33 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import './Bg_Banner.scss';
 import { Col, Container, Row } from 'reactstrap';
 import { useSelector } from 'react-redux';
+import Data from '../../data/data.js'
 
 const Bg_Banner = () => {
+    const [isRoundTrip, setIsRoundTrip] = useState(false);
 
-    // const headerRef = useRef(null)
+    const [moveSearchRecently, setMoveSearchRecently] = useState(false);
 
-
-    // const menuRef = useRef(null)
-
-    // const stickyHeaderFunc = () => {
-    //     window.addEventListener('scroll', () => {
-    //         if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-    //             headerRef.current.classList.add('sticky_header')
-    //         } else {
-    //             headerRef.current.classList.remove('sticky_header')
-    //         }
-    //     })
-    // }
-
-    // useEffect(() => {
-    //     stickyHeaderFunc()
-
-    //     return () => window.removeEventListener('scroll', stickyHeaderFunc);
-    // });
+    const [diemDi, setDiemDi] = useState('');
 
 
+    const toggleRoundTrip = () => {
+        setIsRoundTrip(!isRoundTrip);
+        setMoveSearchRecently(!isRoundTrip); // Dịch phải nếu là khứ hồi
+    };
     return (
         <section>
             <Container className='body-bg'>
@@ -104,43 +93,77 @@ const Bg_Banner = () => {
                             <section>
                                 <Container>
                                     <Row>
-                                        <Col className='flex align-items-center gap-28  mx-auto w-[876.2px] round-checkbox mt-3'>
+                                        <Col className='flex align-items-center gap-28 mx-auto w-[876.2px] round-checkbox mt-3'>
                                             <div>
-                                                <input type="checkbox" id="myCheck1" />
-                                                <label for="myCheck1">Một chiều</label>
+                                                <input
+                                                    type="checkbox"
+                                                    id="myCheck1"
+                                                    checked={!isRoundTrip}
+                                                    onChange={toggleRoundTrip}
+                                                />
+                                                <label
+                                                    for="myCheck1"
+                                                    className={!isRoundTrip ? 'selected' : ''}
+                                                >
+                                                    Một chiều
+                                                </label>
                                             </div>
                                             <div>
-                                                <input type="checkbox" id="myCheck2" />
-                                                <label for="myCheck2">Khứ hồi</label>
+                                                <input
+                                                    type="checkbox"
+                                                    id="myCheck2"
+                                                    checked={isRoundTrip}
+                                                    onChange={toggleRoundTrip}
+                                                />
+                                                <label
+                                                    for="myCheck2"
+                                                    className={isRoundTrip ? 'selected' : ''}
+                                                >
+                                                    Khứ hồi
+                                                </label>
                                             </div>
                                         </Col>
+                                        <Col className='mx-auto w-[1100px] h-[200px] '>
+                                            <div className='mt-3 flex gap-6'>
+                                                <div className='flex gap-7'>
+                                                    <div className=''>
+                                                        <span className='ml-3'>Điểm đi :</span>
+                                                        <div className='border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
+                                                            <input
+                                                                className='mx-auto text-center font-medium text-lg'
+                                                                placeholder='Chọn điểm đến'
+                                                                value={diemDi}
+                                                                onChange={(e) => setDiemDi(e.target.value)}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <span className='ml-3'>Điểm đến :</span>
+                                                        <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
+                                                            <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn điểm đi'></input>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <span className='ml-3'>Ngày đi :</span>
+                                                        <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
+                                                            <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn ngày '></input>
+                                                        </div>
+                                                    </div>
+                                                    {isRoundTrip && (
+                                                        <div>
+                                                            <span className='ml-4'>Ngày về :</span>
+                                                            <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px] ml-1'>
+                                                                <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn ngày '></input>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
 
-                                        <Col className=' align-items-center  mx-auto w-[798px] h-[200px]'>
-                                            <div className='mt-3 flex  gap-4'>
-                                                <div>
-                                                    <span className='ml-3'>Điểm đi :</span>
-                                                    <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                        <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn điểm đến'></input>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <span className='ml-3'>Điểm đến :</span>
-                                                    <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                        <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn điểm đi'></input>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <span className='ml-3'>Ngày đi :</span>
-                                                    <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                        <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn ngày '></input>
-                                                    </div>
-                                                </div>
                                             </div>
-
-                                            <div className='mt-4'>
-                                                <span className='ml-3'>Tìm kiếm gần đây :</span>
-                                                <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                    <input className='mx-auto text-center font-medium text-lg'></input>
+                                            <div className='flex mt-2'>
+                                                <div>
+                                                    <span className='ml-2 '>Tìm kiếm gần đây    </span>
+                                                    <div className='border border-gray-300 bg-pink-50 flex rounded-lg w-[252px] h-[67px] '>                                                        </div>
                                                 </div>
                                             </div>
                                         </Col>

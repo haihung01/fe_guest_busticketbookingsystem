@@ -11,12 +11,12 @@ const ProductCart = () => {
     });
 
     // Hàm xử lý khi checkbox thay đổi trạng thái
-    const handleCheckboxChange = (name) => {
-        setIsChecked({
-            ...isChecked,
-            [name]: !isChecked[name],
-        });
-    };
+    // const handleCheckboxChange = (name) => {
+    //     setIsChecked({
+    //         ...isChecked,
+    //         [name]: !isChecked[name],
+    //     });
+    // };
 
     return (
         <>
