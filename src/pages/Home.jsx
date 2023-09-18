@@ -7,15 +7,6 @@ import CardList from '../UI/AdvertisementList'
 const Home = () => {
     return (
         <>
-            {/* <section className="home-banner" >
-                <Container>
-                    <Row>
-                        <Col lg="12">
-                            <Bg_Banner />
-                        </Col>
-                    </Row>
-                </Container>
-            </section> */}
 
             <section className='choosFrom_wrap'>
                 <Container>
@@ -56,7 +47,7 @@ const Home = () => {
                 <Container >
                     <Row>
                         <Col lg="12" className="">
-                            <Banner />
+                            {/* <Banner /> */}
                         </Col>
                     </Row>
                 </Container>

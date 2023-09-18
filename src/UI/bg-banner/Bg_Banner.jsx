@@ -3,9 +3,23 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import './Bg_Banner.scss';
 import { Col, Container, Row } from 'reactstrap';
 import { useSelector } from 'react-redux';
-import Data from '../../data/data.js'
+import '../../data/data.js'
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
 
 const Bg_Banner = () => {
+
+    const [openOrigin, setOpenOrigin] = useState(false);
+    const handleOpenOrigin = () => setOpenOrigin(true);
+    const handleCloseOrigin = () => setOpenOrigin(false);
+
+    const [openDestination, setOpenDestination] = useState(false);
+    const handleOpenDestination = () => setOpenDestination(true);
+    const handleCloseDestination = () => setOpenDestination(false);
+
     const [isRoundTrip, setIsRoundTrip] = useState(false);
 
     const [moveSearchRecently, setMoveSearchRecently] = useState(false);
@@ -93,7 +107,7 @@ const Bg_Banner = () => {
                             <section>
                                 <Container>
                                     <Row>
-                                        <Col className='flex align-items-center gap-28 mx-auto w-[876.2px] round-checkbox mt-3'>
+                                        <Col className='flex align-items-center gap-16  round-checkbox mt-3 '>
                                             <div>
                                                 <input
                                                     type="checkbox"
@@ -131,16 +145,43 @@ const Bg_Banner = () => {
                                                         <div className='border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
                                                             <input
                                                                 className='mx-auto text-center font-medium text-lg'
-                                                                placeholder='Chọn điểm đến'
+                                                                placeholder='Chọn điểm đi'
                                                                 value={diemDi}
                                                                 onChange={(e) => setDiemDi(e.target.value)}
+                                                                onClick={handleOpenOrigin}
                                                             />
+                                                            <div>
+                                                                <Modal
+                                                                    open={openOrigin}
+                                                                    onClose={handleCloseOrigin}
+                                                                    aria-labelledby="modal-modal-title"
+                                                                    aria-describedby="modal-modal-description"
+                                                                >
+                                                                    <Box sx={origin} className='origin rounded-xl'>
+                                                                        <Origin />
+                                                                    </Box>
+                                                                </Modal>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div>
                                                         <span className='ml-3'>Điểm đến :</span>
                                                         <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                            <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn điểm đi'></input>
+                                                            <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn điểm đến' value={diemDi}
+                                                                onChange={(e) => setDiemDi(e.target.value)}
+                                                                onClick={handleOpenDestination} />
+                                                            <div>
+                                                                <Modal
+                                                                    open={openDestination}
+                                                                    onClose={handleCloseDestination}
+                                                                    aria-labelledby="modal-modal-title"
+                                                                    aria-describedby="modal-modal-description"
+                                                                >
+                                                                    <Box sx={destination} className='rounded-xl'>
+                                                                        <Destination />
+                                                                    </Box>
+                                                                </Modal>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div>
@@ -185,6 +226,78 @@ const Bg_Banner = () => {
             </Container>
         </section>
     );
+};
+
+function Origin() {
+    return (
+        <Container className='mt-[-15px]'>
+            <Row >
+                <Col className=' ml-[-12px]'>
+                    <h5 className='ml-2'>Điểm đi</h5>
+                    <div className='w-[332px] h-[67px] border border-gray-300 flex mt-2  rounded-xl'>
+                        <input placeholder='Chọn điểm đi' className='ml-2' />
+                    </div>
+                </Col>
+
+                <Col className='mt-7 ml-[-12px]'>
+                    <h1 className='ml-2'>TỈNH/THÀNH PHỐ</h1>
+                    <div className='w-[150px] h-[30px] rounded-lg border border-gray-300 mt-2 flex'>
+                        <span className='mx-auto'>Tp.Hồ Chí Minh</span>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+    )
+};
+
+function Destination() {
+    return (
+        <Container className='mt-[-15px]'>
+            <Row >
+                <Col className=' ml-[-12px]'>
+                    <h5 className='ml-2'>Điểm đến</h5>
+                    <div className='w-[332px] h-[67px] border border-gray-300 flex mt-2  rounded-xl'>
+                        <input placeholder='Chọn điểm đến' className='ml-2' />
+                    </div>
+                </Col>
+
+                <Col className='mt-7 ml-[-12px]'>
+                    <h1 className='ml-2'>TỈNH/THÀNH PHỐ</h1>
+                    <div className='w-[150px] h-[30px] rounded-lg border border-gray-300 mt-2 flex'>
+                        <span className='mx-auto'>Tp.Hồ Chí Minh</span>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+    )
 }
 
+
+const origin = {
+    position: 'absolute',
+    top: '42%',
+    left: '28.5%',
+    transform: 'translate(-50%, -50%)',
+    width: 380,
+    bgcolor: 'background.paper',
+    border: '2px solid #e6e4e4',
+    boxShadow: 24,
+    p: 4,
+    height: 240,
+
+};
+
+const destination = {
+    position: 'absolute',
+    top: '42%',
+    left: '42.5%',
+    transform: 'translate(-50%, -50%)',
+    width: 380,
+    bgcolor: 'background.paper',
+    border: '2px solid #e6e4e4',
+    boxShadow: 24,
+    p: 4,
+    height: 240,
+
+};
 export default Bg_Banner;
