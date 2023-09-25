@@ -1,35 +1,47 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { NavLink, Link, } from "react-router-dom";
 import './Bg_Banner.scss';
 import { Col, Container, Row } from 'reactstrap';
-import { useSelector } from 'react-redux';
 import '../../data/data.js'
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 
 
 const Bg_Banner = () => {
 
+    const [diemDi, setDiemDi] = useState('');
+    const [diemDen, setDiemDen] = useState('');
+
     const [openOrigin, setOpenOrigin] = useState(false);
     const handleOpenOrigin = () => setOpenOrigin(true);
-    const handleCloseOrigin = () => setOpenOrigin(false);
+    const handleCloseOrigin = () => {
+        setOpenOrigin(false);
+        setDiemDi(tempDiemDi);
 
+    };
     const [openDestination, setOpenDestination] = useState(false);
     const handleOpenDestination = () => setOpenDestination(true);
-    const handleCloseDestination = () => setOpenDestination(false);
+    const handleCloseDestination = () => {
+        setOpenDestination(false);
+        setDiemDen(tempDiemDen)
+    }
 
     const [isRoundTrip, setIsRoundTrip] = useState(false);
 
     const [moveSearchRecently, setMoveSearchRecently] = useState(false);
+    const [tempDiemDi, setTempDiemDi] = useState('');
+    const [tempDiemDen, setTempDiemDen] = useState('');
 
-    const [diemDi, setDiemDi] = useState('');
+
 
 
     const toggleRoundTrip = () => {
         setIsRoundTrip(!isRoundTrip);
-        setMoveSearchRecently(!isRoundTrip); // Dịch phải nếu là khứ hồi
+        setMoveSearchRecently(!isRoundTrip);
     };
     return (
         <section>
@@ -158,7 +170,7 @@ const Bg_Banner = () => {
                                                                     aria-describedby="modal-modal-description"
                                                                 >
                                                                     <Box sx={origin} className='origin rounded-xl'>
-                                                                        <Origin />
+                                                                        <Origin tempDiemDi={tempDiemDi} setTempDiemDi={setTempDiemDi} />
                                                                     </Box>
                                                                 </Modal>
                                                             </div>
@@ -167,7 +179,9 @@ const Bg_Banner = () => {
                                                     <div>
                                                         <span className='ml-3'>Điểm đến :</span>
                                                         <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                            <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn điểm đến' value={diemDi}
+                                                            <input className='mx-auto text-center font-medium text-lg'
+                                                                placeholder='Chọn điểm đến'
+                                                                value={diemDen}
                                                                 onChange={(e) => setDiemDi(e.target.value)}
                                                                 onClick={handleOpenDestination} />
                                                             <div>
@@ -178,7 +192,7 @@ const Bg_Banner = () => {
                                                                     aria-describedby="modal-modal-description"
                                                                 >
                                                                     <Box sx={destination} className='rounded-xl'>
-                                                                        <Destination />
+                                                                        <Destination tempDiemDen={tempDiemDen} setTempDiemDen={setTempDiemDen} />
                                                                     </Box>
                                                                 </Modal>
                                                             </div>
@@ -186,16 +200,37 @@ const Bg_Banner = () => {
                                                     </div>
                                                     <div>
                                                         <span className='ml-3'>Ngày đi :</span>
-                                                        <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                            <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn ngày '></input>
+                                                        <div className=''>
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                                                <DemoContainer components={['DatePicker']}  >
+                                                                    <DatePicker />
+                                                                </DemoContainer>
+                                                            </LocalizationProvider>
                                                         </div>
+
+                                                    </div>
+                                                    <div>
+                                                        <span className='ml-4'>Ngày về :</span>
+                                                        <div
+                                                        // className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px] ml-1'
+                                                        >
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs}  >
+                                                                <DemoContainer components={['DatePicker']}  >
+                                                                    <DatePicker disabled />
+                                                                </DemoContainer>
+                                                            </LocalizationProvider>                                                            </div>
                                                     </div>
                                                     {isRoundTrip && (
                                                         <div>
                                                             <span className='ml-4'>Ngày về :</span>
-                                                            <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px] ml-1'>
-                                                                <input className='mx-auto text-center font-medium text-lg' placeholder='Chọn ngày '></input>
-                                                            </div>
+                                                            <div
+                                                            // className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px] ml-1'
+                                                            >
+                                                                <LocalizationProvider dateAdapter={AdapterDayjs}  >
+                                                                    <DemoContainer components={['DatePicker']}  >
+                                                                        <DatePicker disabled />
+                                                                    </DemoContainer>
+                                                                </LocalizationProvider>                                                            </div>
                                                         </div>
                                                     )}
                                                 </div>
@@ -228,14 +263,19 @@ const Bg_Banner = () => {
     );
 };
 
-function Origin() {
+function Origin({ tempDiemDi, setTempDiemDi }) {
     return (
         <Container className='mt-[-15px]'>
             <Row >
                 <Col className=' ml-[-12px]'>
                     <h5 className='ml-2'>Điểm đi</h5>
                     <div className='w-[332px] h-[67px] border border-gray-300 flex mt-2  rounded-xl'>
-                        <input placeholder='Chọn điểm đi' className='ml-2' />
+                        <input
+                            placeholder='Chọn điểm đi'
+                            className='ml-2'
+                            value={tempDiemDi}
+                            onChange={(e) => setTempDiemDi(e.target.value)}
+                        />
                     </div>
                 </Col>
 
@@ -250,14 +290,19 @@ function Origin() {
     )
 };
 
-function Destination() {
+function Destination({ tempDiemDen, setTempDiemDen }) {
     return (
         <Container className='mt-[-15px]'>
             <Row >
                 <Col className=' ml-[-12px]'>
                     <h5 className='ml-2'>Điểm đến</h5>
                     <div className='w-[332px] h-[67px] border border-gray-300 flex mt-2  rounded-xl'>
-                        <input placeholder='Chọn điểm đến' className='ml-2' />
+                        <input
+                            placeholder='Chọn điểm đến'
+                            className='ml-2'
+                            value={tempDiemDen}
+                            onChange={(e) => setTempDiemDen(e.target.value)}
+                        />
                     </div>
                 </Col>
 

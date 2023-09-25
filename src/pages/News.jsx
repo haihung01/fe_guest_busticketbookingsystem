@@ -6,34 +6,25 @@ import PopularNew from '../UI/NewPageUI/PopularNew'
 const News = () => {
     return (
         <>
-        {/* <section className="home-banner" >
+            <section className='choosFrom_wrap'>
                 <Container>
                     <Row>
                         <Col lg="12">
-                            <Bg_Banner />
+                            <div>
+                                <div className='btn From_wrap'>
+                                    <div className="w-[980.53px] h-[55px] rounded-[30px] mx-auto bg-slate-50 mt-[-25px] shadow-2xl border border-gray-400 ">
+                                    </div>
+                                </div>
+                            </div>
                         </Col>
                     </Row>
                 </Container>
-            </section>    */}
-            <section className='choosFrom_wrap'>
-            <Container>
-                <Row>
-                    <Col lg="12">
-                        <div>
-                            <div className='btn From_wrap'>
-                                <div className="w-[980.53px] h-[55px] rounded-[30px] mx-auto bg-slate-50 mt-[-25px] shadow-2xl border border-gray-400 ">
-                                </div>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </section>
-        <section className="banner mt-16">
+            </section>
+            <section className="banner mt-16">
                 <Container >
                     <Row>
                         <Col lg="12" className="">
-                            <Banner />
+                            {/* <Banner /> */}
                         </Col>
                     </Row>
                 </Container>
@@ -48,9 +39,9 @@ const News = () => {
                 </Container>
             </section>
         </>
-            
 
-            )
+
+    )
 }
 
 export default News

@@ -84,7 +84,7 @@ const CardList = () => {
                                 className="card rounded-lg p-3 mx-auto"
                                 key={index}
                             >
-                                <Link to="/news">
+                                <Link to="/schedule">
                                     <img
                                         src={item.img}
                                         className="max-w-full h-auto sm:h-[200px] object-cover shadow-2xl rounded-lg relative"
