@@ -9,6 +9,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { motion } from 'framer-motion'
+
 
 
 const Bg_Banner = () => {
@@ -38,11 +40,19 @@ const Bg_Banner = () => {
 
 
 
+    const handleReverse = () => {
+        const temp = diemDi;
+        setDiemDi(diemDen);
+        setDiemDen(temp);
+    };
 
     const toggleRoundTrip = () => {
         setIsRoundTrip(!isRoundTrip);
         setMoveSearchRecently(!isRoundTrip);
     };
+
+
+
     return (
         <section>
             <Container className='body-bg'>
@@ -53,8 +63,8 @@ const Bg_Banner = () => {
                                 <li className='nav_item'>
                                     <NavLink to='/'>
                                         <img
-                                            src='https://www.svgrepo.com/show/489752/home.svg'
-                                            className='w-[42px] h-[42px]'
+                                            src='https://www.svgrepo.com/show/522409/home.svg'
+                                            className='w-[39px] h-[39px]'
                                             alt='Home Icon'
                                         />
                                         Trang chủ
@@ -151,88 +161,94 @@ const Bg_Banner = () => {
                                         </Col>
                                         <Col className='mx-auto w-[1100px] h-[200px] '>
                                             <div className='mt-3 flex gap-6'>
-                                                <div className='flex gap-7'>
-                                                    <div className=''>
-                                                        <span className='ml-3'>Điểm đi :</span>
-                                                        <div className='border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                            <input
-                                                                className='mx-auto text-center font-medium text-lg'
-                                                                placeholder='Chọn điểm đi'
-                                                                value={diemDi}
-                                                                onChange={(e) => setDiemDi(e.target.value)}
-                                                                onClick={handleOpenOrigin}
+                                                <div className='flex gap-5'>
+                                                    <Col className='flex'>
+                                                        <div className='flex gap-5'>
+                                                            <div className=''>
+                                                                <span className='ml-3'>Điểm đi :</span>
+                                                                <div className='border border-gray-300 flex rounded-lg w-[252px] h-[67px] relative'>
+                                                                    <input
+                                                                        className='mx-auto text-center font-medium text-lg'
+                                                                        placeholder='Chọn điểm đi'
+                                                                        value={diemDi}
+                                                                        onChange={(e) => setDiemDi(e.target.value)}
+                                                                        onClick={handleOpenOrigin}
+                                                                    />
+                                                                    <div>
+                                                                        <Modal
+                                                                            open={openOrigin}
+                                                                            onClose={handleCloseOrigin}
+                                                                            aria-labelledby="modal-modal-title"
+                                                                            aria-describedby="modal-modal-description"
+                                                                        >
+                                                                            <Box sx={origin} className='origin rounded-xl'>
+                                                                                <Origin tempDiemDi={tempDiemDi} setTempDiemDi={setTempDiemDi} />
+                                                                            </Box>
+                                                                        </Modal>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className='relative'>
+                                                                <span className='ml-3'>Điểm đến :</span>
+                                                                <div className='border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
+                                                                    <input className='mx-auto text-center font-medium text-lg'
+                                                                        placeholder='Chọn điểm đến'
+                                                                        value={diemDen}
+                                                                        onChange={(e) => setDiemDi(e.target.value)}
+                                                                        onClick={handleOpenDestination} />
+                                                                    <div>
+                                                                        <Modal
+                                                                            open={openDestination}
+                                                                            onClose={handleCloseDestination}
+                                                                            aria-labelledby="modal-modal-title"
+                                                                            aria-describedby="modal-modal-description"
+                                                                        >
+                                                                            <Box sx={destination} className='rounded-xl'>
+                                                                                <Destination tempDiemDen={tempDiemDen} setTempDiemDen={setTempDiemDen} />
+                                                                            </Box>
+                                                                        </Modal>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <motion.div
+                                                            whileHover={{ rotate: 180 }}
+                                                            onClick={handleReverse}
+                                                            className='rounded-3xl border border-red-500 w-[35px] h-[35px] absolute mt-10'>
+                                                            <img
+                                                                src='https://www.svgrepo.com/show/253335/reverse.svg'
+                                                                className='w-[25px] h-[25px] justify-content-center align-items-center flex mx-auto my-1'
+                                                                alt='Reverse Icon'
                                                             />
-                                                            <div>
-                                                                <Modal
-                                                                    open={openOrigin}
-                                                                    onClose={handleCloseOrigin}
-                                                                    aria-labelledby="modal-modal-title"
-                                                                    aria-describedby="modal-modal-description"
-                                                                >
-                                                                    <Box sx={origin} className='origin rounded-xl'>
-                                                                        <Origin tempDiemDi={tempDiemDi} setTempDiemDi={setTempDiemDi} />
-                                                                    </Box>
-                                                                </Modal>
+                                                        </motion.div>
+                                                    </Col>
+
+
+                                                    <Col className='flex gap-5'>
+                                                        <div>
+                                                            <span className='ml-3'>Ngày đi :</span>
+                                                            <div className=''>
+                                                                <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                                                    <DemoContainer components={['DatePicker']}  >
+                                                                        <DatePicker />
+                                                                    </DemoContainer>
+                                                                </LocalizationProvider>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <span className='ml-3'>Điểm đến :</span>
-                                                        <div className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                            <input className='mx-auto text-center font-medium text-lg'
-                                                                placeholder='Chọn điểm đến'
-                                                                value={diemDen}
-                                                                onChange={(e) => setDiemDi(e.target.value)}
-                                                                onClick={handleOpenDestination} />
-                                                            <div>
-                                                                <Modal
-                                                                    open={openDestination}
-                                                                    onClose={handleCloseDestination}
-                                                                    aria-labelledby="modal-modal-title"
-                                                                    aria-describedby="modal-modal-description"
-                                                                >
-                                                                    <Box sx={destination} className='rounded-xl'>
-                                                                        <Destination tempDiemDen={tempDiemDen} setTempDiemDen={setTempDiemDen} />
-                                                                    </Box>
-                                                                </Modal>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <span className='ml-3'>Ngày đi :</span>
-                                                        <div className=''>
-                                                            <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                                                <DemoContainer components={['DatePicker']}  >
-                                                                    <DatePicker />
-                                                                </DemoContainer>
-                                                            </LocalizationProvider>
+
                                                         </div>
 
-                                                    </div>
-                                                    <div>
-                                                        <span className='ml-4'>Ngày về :</span>
-                                                        <div
-                                                        // className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px] ml-1'
-                                                        >
-                                                            <LocalizationProvider dateAdapter={AdapterDayjs}  >
-                                                                <DemoContainer components={['DatePicker']}  >
-                                                                    <DatePicker disabled />
-                                                                </DemoContainer>
-                                                            </LocalizationProvider>                                                            </div>
-                                                    </div>
-                                                    {isRoundTrip && (
                                                         <div>
                                                             <span className='ml-4'>Ngày về :</span>
-                                                            <div
-                                                            // className=' border border-gray-300 flex rounded-lg w-[252px] h-[67px] ml-1'
-                                                            >
-                                                                <LocalizationProvider dateAdapter={AdapterDayjs}  >
-                                                                    <DemoContainer components={['DatePicker']}  >
-                                                                        <DatePicker disabled />
+                                                            <div>
+                                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                    <DemoContainer components={['DatePicker']}>
+                                                                        <DatePicker disabled={!isRoundTrip} />
                                                                     </DemoContainer>
-                                                                </LocalizationProvider>                                                            </div>
+                                                                </LocalizationProvider>
+                                                            </div>
                                                         </div>
-                                                    )}
+                                                    </Col>
                                                 </div>
 
                                             </div>

@@ -39,7 +39,7 @@ const Header = () => {
                             </div>
                             <div className='button'>
                                 <div className='btn button-login'>
-                                    <button>Đăng nhập/Đăng kí</button>
+                                    <button>Tải xuống</button>
                                 </div>
                             </div>
                         </div>
