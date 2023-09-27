@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 
 const Schedule = () => {
@@ -203,13 +204,15 @@ const Schedule = () => {
                   <span class="text-orange">34 chỗ trống</span>
                   <span class="cursor-pointer text-blue-400 underline">Chọn ghế</span>
                 </div>
-                <button
-                  type="button"
-                  class="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block"
-                  fdprocessedid="ujvv0l"
-                >
-                  <span>Chọn chuyến</span>
-                </button>
+                <Link to='/product-cart'>
+                  <button
+                    type="button"
+                    class="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block"
+                    fdprocessedid="ujvv0l"
+                  >
+                    <span>Chọn chuyến</span>
+                  </button>
+                </Link>
               </div>
             </div>
             <div class="mb-2 flex w-full flex-col border border-[#DDE2E8] bg-white p-3 pb-4 sm:mb-6 sm:rounded-xl sm:p-6">
@@ -258,13 +261,15 @@ const Schedule = () => {
                   <span class="text-orange">30 chỗ trống</span>
                   <span class="cursor-pointer text-blue-400 underline">Chọn ghế</span>
                 </div>
-                <button
-                  type="button"
-                  class="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block"
-                  fdprocessedid="fv7b3s"
-                >
-                  <span>Chọn chuyến</span>
-                </button>
+                <Link to='/product-cart'>
+                  <button
+                    type="button"
+                    class="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block"
+                    fdprocessedid="fv7b3s"
+                  >
+                    <span>Chọn chuyến</span>
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

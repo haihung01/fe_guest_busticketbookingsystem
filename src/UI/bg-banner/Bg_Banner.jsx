@@ -10,6 +10,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { motion } from 'framer-motion'
+import { Typography } from '@mui/material';
+
 
 
 
@@ -51,7 +53,28 @@ const Bg_Banner = () => {
         setMoveSearchRecently(!isRoundTrip);
     };
 
+    const [loading, setLoading] = useState(false)
+    const [searchCompleted, setSearchCompleted] = useState(false); // Add this state variable
 
+    // ... other code ...
+
+    const handleSearch = () => {
+        // Show loading indicator
+        setLoading(true);
+
+        // Perform any necessary actions (e.g., making an API request)
+        // Simulate a delay using setTimeout
+        setTimeout(() => {
+            // Hide loading indicator
+            setLoading(false);
+            // Mark search as completed
+            setSearchCompleted(true);
+        }, 100); // Simulated 2-second delay (you can replace this with your actual API request)
+    };
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     return (
         <section>
@@ -91,14 +114,40 @@ const Bg_Banner = () => {
                                     </Link>
                                 </li>
                                 <li className='nav_item'>
-                                    <NavLink to='/bill'>
+                                    <NavLink onClick={handleOpen}>
                                         <img
                                             src='https://www.svgrepo.com/show/259026/invoice-bill.svg'
                                             className='w-[39px] h-[38px]'
                                             alt='Bill Icon'
                                         />
                                         Hóa đơn
+
                                     </NavLink>
+                                    <Modal
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                    >
+                                        <Box sx={style}>
+                                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                                DOWNLOAD THE FUTA APP
+                                            </Typography>
+                                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                                Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
+                                            </Typography>
+                                            <div className='flex mt-10 justify-between '>
+                                                <img
+                                                    className='h-9'
+                                                    src='https://storage.googleapis.com/futa-busline-cms-dev/CH_Play_712783c88a/CH_Play_712783c88a.svg'
+                                                />
+                                                <img
+                                                    className='h-9'
+                                                    src='https://storage.googleapis.com/futa-busline-cms-dev/App_Store_60da92cb12/App_Store_60da92cb12.svg'
+                                                />
+                                            </div>
+                                        </Box>
+                                    </Modal>
                                 </li>
                                 <li className='nav_item'>
                                     <NavLink to='/contact'>
@@ -109,6 +158,7 @@ const Bg_Banner = () => {
                                         />
                                         Liên hệ
                                     </NavLink>
+
                                 </li>
                                 <li className='nav_item'>
                                     <NavLink to='/about-us'>
@@ -266,13 +316,20 @@ const Bg_Banner = () => {
                         </div>
                     </Col>
 
-                    <Col className="flex justify-center mt-9">
+                    {loading ? (<Col lg='12' className='text-center'>
+                        <h5 className='fw-bold'>Loading...</h5>
+                    </Col>) : (<Col className="flex justify-center mt-9">
                         <div className="w-[216px] h-[44px] rounded-3xl flex bg-[#E3E3E3] mt-[-55px] justify-center shadow-2xl relative ">
-                            <button className="font-sans w-[216px] h-[44px]">
-                                Tìm chuyến xe
-                            </button>
+                            <Link to='/schedule'>
+                                <button
+                                    onClick={handleSearch}
+                                    className="font-sans w-[216px] h-[44px]">
+                                    Tìm chuyến xe
+                                </button>
+                            </Link>
                         </div>
-                    </Col>
+                    </Col>)}
+
                 </Row>
             </Container>
         </section>
@@ -360,5 +417,18 @@ const destination = {
     p: 4,
     height: 240,
 
+};
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    // height: 200,
+    bgcolor: 'background.paper',
+    // border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+    borderRadius: 3,
 };
 export default Bg_Banner;
