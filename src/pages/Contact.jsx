@@ -15,7 +15,7 @@ const Contact = () => {
                     <Row>
                         <h1 className='text-4xl text-center justify-center mt-10'>Liên hệ FUTA EXPRESS</h1>
                         <Col className=' mt-10'>
-                            <div className="w-[1200px] h-[700px] p-12  rounded-2xl mx-auto bg-slate-50 border border-gray-200">
+                            <div className="w-[1200px] h-[750px] p-12  rounded-2xl mx-auto bg-slate-50 border border-gray-200">
                                 <section>
                                     <Container>
                                         <Row className='flex gap-9'>
@@ -59,16 +59,17 @@ const Contact = () => {
                                                 <h1 className='ml-6 mt-9 font-medium text-lg '>Gửi thắc mắc - yêu cầu</h1>
                                                 <div className='ml-6 flex flex-col mt-3'>
                                                     <div className='flex gap-10'>
-                                                        <Col>
+                                                        <Col className='d-flex'>
                                                             <span>Họ và tên</span>
-                                                            <div className='w-[266px] h-[36px] border border-gray-300 rounded-lg mt-1'>
-                                                                <input placeholder='Nhập họ và tên' />
+                                                            <div className='w-[266px] h-[36px] border border-gray-300 rounded-lg mt-1 relative'>
+                                                                <input placeholder='Nhập họ và tên' className=' h-[25px] pl-2 ml-2 pt-2 placeholder-center placeholder-[5px] text-left' />
                                                             </div>
                                                         </Col>
+
                                                         <Col>
                                                             <span>Điện thoai</span>
                                                             <div className='w-[266px] h-[36px] border border-gray-300 rounded-lg mt-1'>
-                                                                <input placeholder='Nhập số điện thoại' />
+                                                                <input placeholder='Nhập số điện thoại' className=' h-[25px] pl-2 ml-2 pt-2 placeholder-center placeholder-[5px] text-left' />
                                                             </div>
                                                         </Col>
                                                     </div>
@@ -76,13 +77,13 @@ const Contact = () => {
                                                         <Col>
                                                             <span>Email</span>
                                                             <div className='w-[266px] h-[36px] border border-gray-300 rounded-lg mt-1'>
-                                                                <input placeholder='Nhập email' />
+                                                                <input placeholder='Nhập email' className=' h-[25px] pl-2 ml-2 pt-2 placeholder-center placeholder-[5px] text-left' />
                                                             </div>
                                                         </Col>
                                                         <Col>
                                                             <span>Địa chỉ</span>
                                                             <div className='w-[266px] h-[36px] border border-gray-300 rounded-lg mt-1'>
-                                                                <input placeholder='Nhập địa chỉ ' />
+                                                                <input placeholder='Nhập địa chỉ ' className=' h-[25px] pl-2 ml-2 pt-2 placeholder-center placeholder-[5px] text-left' />
                                                             </div>
                                                         </Col>
                                                     </div>
@@ -90,14 +91,23 @@ const Contact = () => {
                                                     <Col className='mt-7'>
                                                         <span>Tiêu đề</span>
                                                         <div className='w-[574px] h-[36px] border border-gray-300 rounded-lg mt-1'>
-                                                            <input placeholder='Tiêu đề' />
+                                                            <input placeholder='Tiêu đề' className=' h-[25px] pl-2 ml-2 pt-2 placeholder-center placeholder-[5px] text-left' />
                                                         </div>
                                                     </Col>
 
                                                     <Col className='mt-7'>
                                                         <span>Nội dung</span>
-                                                        <div className='w-[574px] h-[36px] border border-gray-300 rounded-lg mt-1'>
-                                                            <input placeholder='Nội dung' />
+                                                        <div className='w-[574px] h-[56px] border border-gray-300 rounded-lg mt-1'>
+                                                            <input placeholder='Nội dung' className=' h-[35px] pl-2 ml-2 pt-3 placeholder-center placeholder-[5px] text-left' />
+                                                        </div>
+                                                    </Col>
+
+                                                    <Col>
+                                                        <div className="w-[216px] h-[44px] rounded-3xl flex bg-[#E3E3E3] mt-20 justify-center  relative ">
+                                                            <button
+                                                                className="font-sans w-[216px] h-[44px]">
+                                                                Gửi nội dung
+                                                            </button>
                                                         </div>
                                                     </Col>
                                                 </div>

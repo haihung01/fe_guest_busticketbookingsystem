@@ -92,7 +92,7 @@ const Header = () => {
                                             </NavLink>
                                         </li>
                                         <li className='nav_item'>
-                                            <NavLink to='/schedule' style={{ transform: 'translateY(-30px)' }}>
+                                            <NavLink to='/schedule2' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src='https://www.svgrepo.com/show/513101/calendar.svg'
                                                     className='w-[39px] h-[38px]'

@@ -7,6 +7,7 @@ import Contact from '../pages/Contact'
 import AboutUs from '../pages/AboutUs'
 import Bill from '../pages/Bill'
 import ProductCart from '../UI/product-cart/ProductCart'
+import Schedule2 from '../pages/Schedule2'
 
 const Routers = () => {
     return (
@@ -19,6 +20,9 @@ const Routers = () => {
             <Route path='contact' element={<Contact />} />
             <Route path='about-us' element={<AboutUs />} />
             <Route path='product-cart' element={<ProductCart />} />
+            <Route path='schedule2' element={<Schedule2 />} />
+
+
 
 
         </Routes>

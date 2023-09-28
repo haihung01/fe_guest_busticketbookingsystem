@@ -94,7 +94,7 @@ const Bg_Banner = () => {
                                     </NavLink>
                                 </li>
                                 <li className='nav_item'>
-                                    <NavLink to='/schedule'>
+                                    <NavLink to='/schedule2'>
                                         <img
                                             src='https://www.svgrepo.com/show/513101/calendar.svg'
                                             className='w-[39px] h-[38px]'
@@ -265,10 +265,10 @@ const Bg_Banner = () => {
                                                         <motion.div
                                                             whileHover={{ rotate: 180 }}
                                                             onClick={handleReverse}
-                                                            className='rounded-3xl border border-red-500 w-[35px] h-[35px] absolute mt-10'>
+                                                            className='rounded-3xl border border-gray-300 w-[33px] h-[33px] absolute mt-10 mx-auto flex ml-[245px]'>
                                                             <img
-                                                                src='https://www.svgrepo.com/show/253335/reverse.svg'
-                                                                className='w-[25px] h-[25px] justify-content-center align-items-center flex mx-auto my-1'
+                                                                src='https://www.svgrepo.com/show/494968/swap.svg'
+                                                                className='w-[25px] h-[25px] justify-content-center align-items-center flex mx-auto my-1 '
                                                                 alt='Reverse Icon'
                                                             />
                                                         </motion.div>
