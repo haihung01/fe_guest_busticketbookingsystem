@@ -1,18 +1,57 @@
 import React from 'react'
 import { Col, Container, Row } from 'reactstrap';
 import { schedule } from '../data/data';
-import { other } from '../data/data';
-
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { useState } from 'react';
 
 const Schedule2 = ({ routes, route, time, disance }) => {
+    const [age, setAge] = useState('');
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
     return (
         <>
             <section className="home-banner" >
                 <Container>
                     <Row>
-                        <Col className=''>
-                            <h1 className='text-4xl text-center d-flex p-12'>Lộ trình các tuyến xe bus tại Bình Dương</h1>
-                            <div className="w-[1200px] h-[4650px] p-12  rounded-2xl mx-auto bg-slate-50 border border-gray-200  gap-3 ">
+                        <Col>
+                            <div className="flex w-[1200px] mx-auto mt-10">
+                                <div className="w-60">
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Address</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={age}
+                                            label="Address"
+                                            onChange={handleChange}
+                                        >
+                                            <MenuItem value={10}>Hồ Chí Minh</MenuItem>
+                                            <MenuItem value={20}>Bình Dương</MenuItem>
+                                            <MenuItem value={30}>Hà Nội</MenuItem>
+                                            <MenuItem value={10}>Hồ Chí Minh</MenuItem>
+                                            <MenuItem value={20}>Bình Dương</MenuItem>
+                                            <MenuItem value={30}>Hà Nội</MenuItem>
+                                            <MenuItem value={10}>Hồ Chí Minh</MenuItem>
+                                            <MenuItem value={20}>Bình Dương</MenuItem>
+                                            <MenuItem value={30}>Hà Nội</MenuItem>
+                                            <MenuItem value={10}>Hồ Chí Minh</MenuItem>
+                                            <MenuItem value={20}>Bình Dương</MenuItem>
+                                            <MenuItem value={30}>Hà Nội</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+
+                                <h1 className="text-4xl self-center px-12">
+                                    Lộ trình các tuyến xe bus tại Bình Dương
+                                </h1>
+                            </div>
+                            <div className="w-[1200px] h-[4650px] p-12  rounded-2xl mx-auto bg-slate-50 border border-gray-200 gap-3 mt-10 ">
                                 <Row>
                                     <span className='font-medium'>Nhằm hỗ trợ hành khách dễ dàng tra cứu các tuyến xe buýt đang hoạt động tại Bình Dương, dưới đây là một số thông tin giới thiệu lộ trình xe bus tại Bình Dương.</span>
                                     <img
