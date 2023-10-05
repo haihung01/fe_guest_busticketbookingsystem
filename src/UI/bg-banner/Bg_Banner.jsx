@@ -83,7 +83,7 @@ const Bg_Banner = () => {
                     <Col className="navigation flex">
                         <div className="w-[876.2px] h-[79px] p-12 rounded-2xl mx-auto bg-slate-50 mt-10 shadow-2xl ">
                             <ul className='menu flex justify-center gap-[78px] mt-[-35px]'>
-                                <li className='nav_item'>
+                                <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink to='/'>
                                         <img
                                             src='https://www.svgrepo.com/show/522409/home.svg'
@@ -92,8 +92,8 @@ const Bg_Banner = () => {
                                         />
                                         Trang chủ
                                     </NavLink>
-                                </li>
-                                <li className='nav_item'>
+                                </motion.li>
+                                <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink to='/schedule2'>
                                         <img
                                             src='https://www.svgrepo.com/show/513101/calendar.svg'
@@ -102,8 +102,8 @@ const Bg_Banner = () => {
                                         />
                                         Lịch trình
                                     </NavLink>
-                                </li>
-                                <li className='nav_item'>
+                                </motion.li>
+                                <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <Link to='/news'>
                                         <img
                                             src='https://www.svgrepo.com/show/494016/news-publishing.svg'
@@ -112,8 +112,8 @@ const Bg_Banner = () => {
                                         />
                                         Tin tức
                                     </Link>
-                                </li>
-                                <li className='nav_item'>
+                                </motion.li>
+                                <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink onClick={handleOpen}>
                                         <img
                                             src='https://www.svgrepo.com/show/259026/invoice-bill.svg'
@@ -148,8 +148,8 @@ const Bg_Banner = () => {
                                             </div>
                                         </Box>
                                     </Modal>
-                                </li>
-                                <li className='nav_item'>
+                                </motion.li>
+                                <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink to='/contact'>
                                         <img
                                             src='https://www.svgrepo.com/show/415825/contact-headset-communication.svg'
@@ -159,8 +159,8 @@ const Bg_Banner = () => {
                                         Liên hệ
                                     </NavLink>
 
-                                </li>
-                                <li className='nav_item'>
+                                </motion.li>
+                                <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink to='/about-us'>
                                         <img
                                             src='https://www.svgrepo.com/show/521200/people.svg'
@@ -169,7 +169,7 @@ const Bg_Banner = () => {
                                         />
                                         Về chúng tôi
                                     </NavLink>
-                                </li>
+                                </motion.li>
                             </ul>
                         </div>
                     </Col>

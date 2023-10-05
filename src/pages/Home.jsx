@@ -70,7 +70,7 @@ const Home = () => {
                             <div>
                                 <div>
                                     <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center mt-10">
-                                        FUTA BUS LINES - KẾT NỐI FUTA GROUP
+                                        TRIP TIX BUS LINES - MANG LẠI KỶ NIỆM ĐÁNG NHỚ
                                     </h1>
                                 </div>
 

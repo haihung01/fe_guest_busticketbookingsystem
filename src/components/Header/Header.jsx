@@ -4,13 +4,14 @@ import './header.scss';
 import { Link, NavLink } from 'react-router-dom';
 import Bg_Banner from '../../UI/bg-banner/Bg_Banner';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { motion } from 'framer-motion'
 
 const Header = () => {
     const headerRef = useRef(null);
     const [isSticky, setIsSticky] = useState(false);
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -81,17 +82,17 @@ const Header = () => {
                             <div className='contents-in-sticky'>
                                 <Col className="navigation">
                                     <ul className='menu flex justify-center gap-20 mt-[-42px] mx-auto'>
-                                        <li className='nav_item'>
+                                        <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
-                                                    src='https://www.svgrepo.com/show/489752/home.svg'
-                                                    className='w-[42px] h-[42px]'
+                                                    src='https://www.svgrepo.com/show/522409/home.svg'
+                                                    className='w-[39px] h-[39px]'
                                                     alt='Home Icon'
                                                 />
                                                 Trang chủ
                                             </NavLink>
-                                        </li>
-                                        <li className='nav_item'>
+                                        </motion.li>
+                                        <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/schedule2' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src='https://www.svgrepo.com/show/513101/calendar.svg'
@@ -100,8 +101,8 @@ const Header = () => {
                                                 />
                                                 Lịch trình
                                             </NavLink>
-                                        </li>
-                                        <li className='nav_item'>
+                                        </motion.li>
+                                        <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/news' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src='https://www.svgrepo.com/show/494016/news-publishing.svg'
@@ -110,8 +111,8 @@ const Header = () => {
                                                 />
                                                 Tin tức
                                             </NavLink>
-                                        </li>
-                                        <li className='nav_item'>
+                                        </motion.li>
+                                        <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink onClick={handleOpen} style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src='https://www.svgrepo.com/show/259026/invoice-bill.svg'
@@ -145,8 +146,8 @@ const Header = () => {
                                                     </div>
                                                 </Box>
                                             </Modal>
-                                        </li>
-                                        <li className='nav_item'>
+                                        </motion.li>
+                                        <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/contact' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src='https://www.svgrepo.com/show/415825/contact-headset-communication.svg'
@@ -155,8 +156,8 @@ const Header = () => {
                                                 />
                                                 Liên hệ
                                             </NavLink>
-                                        </li>
-                                        <li className='nav_item'>
+                                        </motion.li>
+                                        <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/about-us' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src='https://www.svgrepo.com/show/521200/people.svg'
@@ -165,7 +166,7 @@ const Header = () => {
                                                 />
                                                 Về chúng tôi
                                             </NavLink>
-                                        </li>
+                                        </motion.li>
                                     </ul>
                                 </Col>
                             </div>
