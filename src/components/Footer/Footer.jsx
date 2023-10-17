@@ -34,10 +34,10 @@ const Footer = () => {
                                         <span className='font-medium text-green-700 text-xl'>DOWNLOAD THE TRIPTIX APP</span>
                                         <div className="flex space-x-6 md:mt-7">
                                             <a href="#" className="text-gray-400 hover:text-gray-900 ">
-                                                <img src='https://storage.googleapis.com/futa-busline-cms-dev/CH_Play_712783c88a/CH_Play_712783c88a.svg' className='w-28 h-9' />
+                                                <img src='https://storage.googleapis.com/futa-busline-cms-dev/CH_Play_712783c88a/CH_Play_712783c88a.svg' className='w-28 h-9' alt=''/>
                                             </a>
                                             <a href="#" className="text-gray-400 hover:text-gray-900">
-                                                <img src='https://storage.googleapis.com/futa-busline-cms-dev/App_Store_60da92cb12/App_Store_60da92cb12.svg' className='w-28 h-9' />
+                                                <img src='https://storage.googleapis.com/futa-busline-cms-dev/App_Store_60da92cb12/App_Store_60da92cb12.svg' className='w-28 h-9' alt=''/>
                                             </a>
                                         </div>
                                     </div>
@@ -46,10 +46,10 @@ const Footer = () => {
                                         <span className='font-medium text-green-700 text-xl'>CONNECT WITH US</span>
                                         <div className="flex space-x-6 md:mt-5 gap-7 ">
                                             <a href="#" className="text-gray-400 hover:text-gray-900 ">
-                                                <img src='https://www.svgrepo.com/show/13642/facebook.svg' className='h-12 w-12 ' />
+                                                <img src='https://www.svgrepo.com/show/13642/facebook.svg' className='h-12 w-12 ' alt=''/>
                                             </a>
                                             <a href="#" className="text-gray-400 hover:text-gray-900">
-                                                <img src='https://www.svgrepo.com/show/157806/instagram.svg' className='h-12 w-12' />
+                                                <img src='https://www.svgrepo.com/show/157806/instagram.svg' className='h-12 w-12' alt=''/>
                                             </a>
                                         </div>
                                     </div>
