@@ -18,9 +18,9 @@ const Footer = () => {
                         <Col className='mt-5'>
                             <Row className="text-black flex gap-14">
                                 <div className=' flex flex-col'>
-                                    <span className="mb-4">Address: 01 To Hien Thanh, Ward 3, Da Lat City, Viet Nam.</span>
+                                    <span className="mb-4">Địa chỉ: 01 To Hien Thanh, Ward 3, Da Lat City, Viet Nam.</span>
                                     <span className="mb-4">Email: hotro@futa.vn</span>
-                                    <span className="mb-4">Phone: 02838386852</span>
+                                    <span className="mb-4">Điện thoại: 02838386852</span>
                                 </div>
                                 <div className=' flex flex-col my-auto mt-9'>
                                     <span className="mb-4">Email: hotro@futa.vn</span>

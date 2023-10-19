@@ -204,14 +204,7 @@ export const schedule = [
         distance: '15 phút/chuyến'
 
     },
-    {
-        id: 7,
-        routes: 'Tuyến số 01: Thủ Dầu Một – Mỹ Phước',
-        route: 'BX Khách Tỉnh Bình Dương – CMT8 – Cầu Ông Đành – Chợ Cây Dừa – Mũi Tàu – QL13 – Sở Sao – Mỹ Phước.',
-        time: '5h30 – 19h00',
-        distance: '15 phút/chuyến'
 
-    },
 ]
 
 export const other = [

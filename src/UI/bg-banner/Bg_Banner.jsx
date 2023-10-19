@@ -11,6 +11,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { motion } from 'framer-motion'
 import { Typography } from '@mui/material';
+import IconHome from '../../assets/icon/home-svgrepo-com.svg'
+import IconNews from '../../assets/icon/news-publishing-svgrepo-com.svg'
+import IconSchedule from '../../assets/icon/calendar-svgrepo-com.svg'
+import IconBill from '../../assets/icon/invoice-bill-svgrepo-com.svg'
+import IconContact from '../../assets/icon/contact-headset-communication-svgrepo-com.svg'
+import IconAboutUs from '../../assets/icon/people-svgrepo-com.svg'
+
 
 
 
@@ -86,7 +93,7 @@ const Bg_Banner = () => {
                                 <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink to='/'>
                                         <img
-                                            src='https://www.svgrepo.com/show/522409/home.svg'
+                                            src={IconHome}
                                             className='w-[39px] h-[39px]'
                                             alt='Home Icon'
                                         />
@@ -96,7 +103,7 @@ const Bg_Banner = () => {
                                 <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink to='/schedule2'>
                                         <img
-                                            src='https://www.svgrepo.com/show/513101/calendar.svg'
+                                            src={IconSchedule}
                                             className='w-[39px] h-[38px]'
                                             alt='Schedule Icon'
                                         />
@@ -106,7 +113,7 @@ const Bg_Banner = () => {
                                 <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <Link to='/news'>
                                         <img
-                                            src='https://www.svgrepo.com/show/494016/news-publishing.svg'
+                                            src={IconNews}
                                             className='w-[39px] h-[38px]'
                                             alt='News Icon'
                                         />
@@ -116,7 +123,7 @@ const Bg_Banner = () => {
                                 <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink onClick={handleOpen}>
                                         <img
-                                            src='https://www.svgrepo.com/show/259026/invoice-bill.svg'
+                                            src={IconBill}
                                             className='w-[39px] h-[38px]'
                                             alt='Bill Icon'
                                         />
@@ -152,7 +159,7 @@ const Bg_Banner = () => {
                                 <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink to='/contact'>
                                         <img
-                                            src='https://www.svgrepo.com/show/415825/contact-headset-communication.svg'
+                                            src={IconContact}
                                             className='w-[39px] h-[38px]'
                                             alt='Contact Icon'
                                         />
@@ -163,7 +170,7 @@ const Bg_Banner = () => {
                                 <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink to='/about-us'>
                                         <img
-                                            src='https://www.svgrepo.com/show/521200/people.svg'
+                                            src={IconAboutUs}
                                             className='w-[39px] h-[38px]'
                                             alt='About Us Icon'
                                         />
@@ -190,6 +197,7 @@ const Bg_Banner = () => {
                                                 <label
                                                     for="myCheck1"
                                                     className={!isRoundTrip ? 'selected' : ''}
+                                                    id="label1"
                                                 >
                                                     Một chiều
                                                 </label>

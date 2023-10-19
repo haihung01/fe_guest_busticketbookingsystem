@@ -44,7 +44,7 @@ const CardList = () => {
     return (
         <>
             <section>
-                <div className="w-full bg-slate-100">
+                <div className="w-full bg-orange-50">
                     <div className="flex">
                         <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center mt-10">
                             KHUYẾN MÃI NỔI BẬT

@@ -1,8 +1,9 @@
 .body-bg {
     height: 513px;
     width: 100%;
-    background-color: #c9c3c3;
+    background: linear-gradient(to bottom, #051322, #15457c);
 }
+
 
 .menu li a {
     display: flex;
@@ -37,9 +38,21 @@
 }
 
 .round-checkbox input[type="checkbox"]:checked+label:before {
-    background-color: #fc7600;
+    background: linear-gradient(to bottom, #051322, #15457c);
+    border-color: #15457c;
 }
 
+.selected {
+    color: #15457c;
+    text-decoration: underline;
+}
+
+.selected1 {
+    color: red;
+    /* Màu chữ khi được chọn */
+    text-decoration: underline;
+    /* Gạch chân */
+}
 
 .sticky_header {
     width: 100%;
