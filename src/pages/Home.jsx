@@ -18,6 +18,7 @@ const Home = () => {
                                             src='https://platforms.makemytrip.com/contents/a50e89c2-2cd4-4970-a67d-4593e36688cd'
                                             className='rounded-2xl w-[968px] h-[88px]'
                                             alt=''
+
                                         />
                                     </div>
                                 </div>

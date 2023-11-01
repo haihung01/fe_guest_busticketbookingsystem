@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Col, Container, Row } from 'reactstrap'
 import Bg_Banner from '../bg-banner/Bg_Banner'
+import Seat from '../../assets/img/SeatAvaiable.png';
 
 const ProductCart = () => {
 
@@ -9,15 +10,6 @@ const ProductCart = () => {
         empty: false,
         selected: false,
     });
-
-    // Hàm xử lý khi checkbox thay đổi trạng thái
-    // const handleCheckboxChange = (name) => {
-    //     setIsChecked({
-    //         ...isChecked,
-    //         [name]: !isChecked[name],
-    //     });
-    // };
-
     return (
         <>
             <section className="home-banner" >
@@ -34,14 +26,14 @@ const ProductCart = () => {
                                                         <h1 className='text-2xl font-normal'>Chọn ghế</h1>
                                                         <span className=''>Thông tin xe</span>
                                                     </div>
-                                                    <div className='flex gap-32 items-center ml-20 mt-4'>
+                                                    {/* <div className='flex gap-32 items-center ml-20 mt-4'>
                                                         <span>Tầng trên</span>
                                                         <span>Tầng dưới</span>
-                                                    </div>
+                                                    </div> */}
 
                                                 </Col>
 
-                                                <Col className='flex gap-5 ml-4'>
+                                                <Col className='flex ml-9'>
                                                     <div className='w-[475px] '>
                                                         <Table />
                                                     </div>
@@ -114,7 +106,7 @@ const ProductCart = () => {
                                             </Col>
                                         </Row>
 
-                                        <Row className='flex gap-5'>
+                                        {/* <Row className='flex gap-5'>
                                             <Col className='w-[700px] h-[210px] border border-gray-200 rounded-2xl shadow-xl mt-[-40px] '>
                                                 <h1 className='ml-7 text-xl font-normal mt-3 text-orange-500'>ĐIỀU KHOẢN & LƯU Ý</h1>
                                                 <div className='ml-7 mt-1'>
@@ -136,7 +128,7 @@ const ProductCart = () => {
                                                 </button>
                                             </Col>
 
-                                        </Row>
+                                        </Row> */}
                                     </Container>
                                 </section>
 
@@ -186,26 +178,80 @@ const ProductCart = () => {
 }
 
 function Table() {
+
+    const imageArray = Array(22).fill(Seat);
+
+    const upperDeckSeats = imageArray.slice(0, 11);
+    const lowerDeckSeats = imageArray.slice(11, 22);
+    const seatsPerRow = 2;
+
+
+    const [selectedCells, setSelectedCells] = useState([]);
+    const handleCellClick = (cellLabel) => {
+        if (selectedCells.includes(cellLabel)) {
+            setSelectedCells(selectedCells.filter((selectedCell) => selectedCell !== cellLabel));
+        } else {
+            if (selectedCells.length < 5) {
+                setSelectedCells([...selectedCells, cellLabel]);
+            }
+        }
+    };
+
+
     return (
-
         <table className="table-fixed">
-            <tbody>
-                {Array(6).fill().map((_, rowIndex) => (
-                    <tr key={rowIndex}>
-                        {Array(6).fill().map((_, colIndex) => (
-                            <td key={colIndex} className=" border px-6 py-[6.5px] m-4">
-                                {rowIndex * 6 + colIndex + 1}
-
-                            </td>
-                        ))}
+            <tbody className='flex gap-24'>
+                <div>
+                    <tr>
+                        <td className="text-center">
+                            <h2 className="text-xl">Tầng trên</h2>
+                        </td>
                     </tr>
-                ))}
+                    <tr>
+                        <td>
+                            {Array(Math.ceil(15 / seatsPerRow)).fill().map((_, rowIndex) => (
+                                <div key={rowIndex} className="flex gap-10 mt-3">
+                                    {upperDeckSeats.slice(rowIndex * seatsPerRow, (rowIndex + 1) * seatsPerRow).map((image, index) => (
+                                        <div key={index}>
+                                            <img
+                                                src={image}
+                                                alt={`Seat ${index + 1}`}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
+                        </td>
+                    </tr>
+                </div>
+
+                <div>
+                    <tr>
+                        <td className="text-center">
+                            <h2 className="text-xl">Tầng dưới</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {Array(Math.ceil(15 / seatsPerRow)).fill().map((_, rowIndex) => (
+                                <div key={rowIndex} className="flex gap-10 mt-3">
+                                    {lowerDeckSeats.slice(rowIndex * seatsPerRow, (rowIndex + 1) * seatsPerRow).map((image, index) => (
+                                        <div key={index}>
+                                            <img
+                                                src={image}
+                                                alt={`Seat ${index + 16}`}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
+                        </td>
+                    </tr>
+                </div>
+
             </tbody>
         </table>
-
-
-
-    )
+    );
 }
 
 export default ProductCart
