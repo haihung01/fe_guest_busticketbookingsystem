@@ -17,7 +17,8 @@ import IconSchedule from '../../assets/icon/calendar-svgrepo-com.svg'
 import IconBill from '../../assets/icon/invoice-bill-svgrepo-com.svg'
 import IconContact from '../../assets/icon/contact-headset-communication-svgrepo-com.svg'
 import IconAboutUs from '../../assets/icon/people-svgrepo-com.svg'
-
+import IconCHplay from '../../assets/icon/CHPlay.svg'
+import IconAppStore from '../../assets/icon/AppStore.svg'
 
 
 
@@ -88,7 +89,7 @@ const Bg_Banner = () => {
             <Container className='body-bg'>
                 <Row>
                     <Col className="navigation flex">
-                        <div className="w-[876.2px] h-[79px] p-12 rounded-2xl mx-auto bg-slate-50 mt-10 shadow-2xl ">
+                        <div className=" header-menu w-[876.2px] h-[79px] p-12 rounded-2xl mx-auto bg-slate-50 mt-10 shadow-2xl">
                             <ul className='menu flex justify-center gap-[78px] mt-[-35px]'>
                                 <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                     <NavLink to='/'>
@@ -146,11 +147,13 @@ const Bg_Banner = () => {
                                             <div className='flex mt-10 justify-between '>
                                                 <img
                                                     className='h-9'
-                                                    src='https://storage.googleapis.com/futa-busline-cms-dev/CH_Play_712783c88a/CH_Play_712783c88a.svg'
+                                                    src={IconCHplay}
+                                                    alt='CHplay'
                                                 />
                                                 <img
                                                     className='h-9'
-                                                    src='https://storage.googleapis.com/futa-busline-cms-dev/App_Store_60da92cb12/App_Store_60da92cb12.svg'
+                                                    src={IconAppStore}
+                                                    alt='AppStore'
                                                 />
                                             </div>
                                         </Box>
@@ -182,7 +185,7 @@ const Bg_Banner = () => {
                     </Col>
 
                     <Col className='Widget-Section'>
-                        <div className="w-[1200px] h-[321px] p-12 rounded-2xl mx-auto bg-slate-50 mt-[-40px] shadow-2xl ">
+                        <div className="header-choose w-[1200px] h-[321px] p-12 rounded-2xl mx-auto bg-slate-50 mt-[-40px] shadow-2xl ">
                             <section>
                                 <Container>
                                     <Row>
@@ -312,7 +315,7 @@ const Bg_Banner = () => {
                                             </div>
                                             <div className='flex mt-2'>
                                                 <div>
-                                                    <span className='ml-2 '>Tìm kiếm gần đây    </span>
+                                                    <span className='ml-2 '>Tìm kiếm gần đây </span>
                                                     <div className='border border-gray-300 bg-pink-50 flex rounded-lg w-[252px] h-[67px] '>                                                        </div>
                                                 </div>
                                             </div>
@@ -324,19 +327,19 @@ const Bg_Banner = () => {
                         </div>
                     </Col>
 
-                    {loading ? (<Col lg='12' className='text-center'>
-                        <h5 className='fw-bold'>Loading...</h5>
-                    </Col>) : (<Col className="flex justify-center mt-9">
-                        <div className="w-[216px] h-[44px] rounded-3xl flex bg-[#E3E3E3] mt-[-55px] justify-center shadow-2xl relative ">
+
+
+                    <Col className="flex justify-center mt-9">
+                        <div className="button-search  w-[216px] h-[44px] rounded-3xl flex bg-[#ef5222] mt-[-55px] justify-center shadow-2xl relative ">
                             <Link to='/schedule'>
                                 <button
                                     onClick={handleSearch}
-                                    className="font-sans w-[216px] h-[44px]">
+                                    className="font-sans text-white w-[216px] h-[44px]">
                                     Tìm chuyến xe
                                 </button>
                             </Link>
                         </div>
-                    </Col>)}
+                    </Col>
 
                 </Row>
             </Container>

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import Schedule_card from "../UI/schedule-card/schedule_card";
 import { dataSchedule } from "../data/dataSchedule";
+import IconPrice from '../assets/icon/price-tag-svgrepo-com.svg'
+
 const Schedule = () => {
   return (
     <>
@@ -160,12 +162,7 @@ const Schedule = () => {
             </div>
             <div class="flex w-full gap-3 overflow-y-auto bg-[#F7F7F7] p-3 sm:mt-3 sm:bg-white sm:p-0">
               <div class="flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border px-4 py-1 text-sm icon-orange border-[#FCDACE] bg-[#FEF6F3] text-orange">
-                <img
-                  src="./images/icons/save_money.svg"
-                  alt="icon"
-                  width="20"
-                  height="20"
-                />
+                {/* <IconPrice /> */}
                 Giá rẻ bất ngờ
               </div>
               <div class="flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border px-4 py-1 text-sm icon-orange border-[#FCDACE] bg-[#FEF6F3] text-orange">

@@ -1,9 +1,27 @@
 .body-bg {
     height: 513px;
     width: 100%;
-    background: linear-gradient(to bottom, #051322, #15457c);
+    // background: linear-gradient(to bottom, #051322, #15457c);
+    background-image: url(../../assets/img/background.jpg);
+    background-size: cover;
+    background-position: top;
+    box-shadow: 0 5px 5px rgba(245, 3, 3, 0.3);
+
 }
 
+.header-menu {
+    box-shadow: 0 2px 5px rgba(255, 2, 2, 0.3);
+
+}
+
+.header-choose {
+    box-shadow: 0 12px 5px rgba(11, 11, 11, 0.3);
+
+}
+
+.button-search {
+    box-shadow: 0 12px 5px rgba(11, 11, 11, 0.3);
+}
 
 .menu li a {
     display: flex;
@@ -11,6 +29,7 @@
     align-items: center;
     text-align: center;
     line-height: 3;
+
 }
 
 /* CSS để biến input thành hình tròn */

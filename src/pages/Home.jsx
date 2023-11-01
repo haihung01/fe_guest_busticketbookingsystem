@@ -7,33 +7,17 @@ import CardList from '../UI/AdvertisementList'
 const Home = () => {
     return (
         <>
-
-            {/* <section className='choosFrom_wrap'>
-                <Container>
-                    <Row>
-                        <Col lg="12">
-                            <div>
-                                <div className='btn From_wrap'>
-                                    <div className="w-[980.53px] h-[55px] rounded-[30px] mx-auto bg-slate-50 mt-[-25px] shadow-2xl border border-gray-400 ">
-                                    </div>
-                                </div>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            </section> */}
-
-
             <section className='bg-Adtech-desk  '>
                 <Container>
                     <Row>
                         <Col lg="12">
                             <div>
-                                <div className='Adtech-desk'>
-                                    <div className="w-[968.5px] h-[88.5px] rounded-2xl mx-auto mt-[-30px] bg-slate-50  border border-gray-200 ">
+                                <div className='Adtech-desk '>
+                                    <div className="w-[968.5px] h-[88.5px] rounded-2xl mx-auto mt-[-30px]  border border-gray-200 shadow-xl">
                                         <img
                                             src='https://platforms.makemytrip.com/contents/a50e89c2-2cd4-4970-a67d-4593e36688cd'
                                             className='rounded-2xl w-[968px] h-[88px]'
+                                            alt=''
                                         />
                                     </div>
                                 </div>

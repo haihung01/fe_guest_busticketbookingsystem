@@ -7,6 +7,15 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { motion } from 'framer-motion'
+import IconHome from '../../assets/icon/home-svgrepo-com.svg'
+import IconNews from '../../assets/icon/news-publishing-svgrepo-com.svg'
+import IconSchedule from '../../assets/icon/calendar-svgrepo-com.svg'
+import IconBill from '../../assets/icon/invoice-bill-svgrepo-com.svg'
+import IconContact from '../../assets/icon/contact-headset-communication-svgrepo-com.svg'
+import IconAboutUs from '../../assets/icon/people-svgrepo-com.svg'
+import IconCHplay from '../../assets/icon/CHPlay.svg'
+import IconAppStore from '../../assets/icon/AppStore.svg'
+import Logo from '../../assets/img/360_F_491242470_WdSpwKRMYiHqTvRBRpsH72cM4g1VWL22.jpg'
 
 const Header = () => {
     const headerRef = useRef(null);
@@ -44,38 +53,39 @@ const Header = () => {
                         <div className='nav-wrapper'>
                             <div className='logo'>
                                 <Link to='/home'>
-                                    <img src='https://t3.ftcdn.net/jpg/04/91/24/24/360_F_491242470_WdSpwKRMYiHqTvRBRpsH72cM4g1VWL22.jpg' style={{ width: 108, height: 81 }} alt='Logo' />
+                                    <img src={Logo} style={{ width: 108, height: 81 }} alt='Logo' />
                                 </Link>
                             </div>
                             <div className='button'>
-                                <div className='btn button-login'>
-                                    <button onClick={handleOpen}>Tải xuống</button>
-                                    <Modal
-                                        open={open}
-                                        onClose={handleClose}
-                                        aria-labelledby="modal-modal-title"
-                                        aria-describedby="modal-modal-description"
-                                    >
-                                        <Box sx={style}>
-                                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                                DOWNLOAD THE FUTA APP
-                                            </Typography>
-                                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                                Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
-                                            </Typography>
-                                            <div className='flex mt-10 justify-between '>
-                                                <img
-                                                    className='h-9'
-                                                    src='https://storage.googleapis.com/futa-busline-cms-dev/CH_Play_712783c88a/CH_Play_712783c88a.svg'
-                                                />
-                                                <img
-                                                    className='h-9'
-                                                    src='https://storage.googleapis.com/futa-busline-cms-dev/App_Store_60da92cb12/App_Store_60da92cb12.svg'
-                                                />
-                                            </div>
-                                        </Box>
-                                    </Modal>
-                                </div>
+                                <button className='btn button-login' onClick={handleOpen}>Tải xuống</button>
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={style}>
+                                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                                            DOWNLOAD THE FUTA APP
+                                        </Typography>
+                                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                            Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
+                                        </Typography>
+                                        <div className='flex mt-10 justify-between '>
+                                            <img
+                                                className='h-9'
+                                                src={IconCHplay}
+                                                alt='CHplay'
+                                            />
+                                            <img
+                                                className='h-9'
+                                                src={IconAppStore}
+                                                alt='AppStore'
+                                            />
+                                        </div>
+                                    </Box>
+                                </Modal>
+
                             </div>
                         </div>
                         {isSticky ? (
@@ -85,7 +95,7 @@ const Header = () => {
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
-                                                    src='https://www.svgrepo.com/show/522409/home.svg'
+                                                    src={IconHome}
                                                     className='w-[39px] h-[39px]'
                                                     alt='Home Icon'
                                                 />
@@ -95,7 +105,7 @@ const Header = () => {
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/schedule2' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
-                                                    src='https://www.svgrepo.com/show/513101/calendar.svg'
+                                                    src={IconSchedule}
                                                     className='w-[39px] h-[38px]'
                                                     alt='Schedule Icon'
                                                 />
@@ -105,7 +115,7 @@ const Header = () => {
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/news' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
-                                                    src='https://www.svgrepo.com/show/494016/news-publishing.svg'
+                                                    src={IconNews}
                                                     className='w-[39px] h-[38px]'
                                                     alt='News Icon'
                                                 />
@@ -115,7 +125,7 @@ const Header = () => {
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink onClick={handleOpen} style={{ transform: 'translateY(-30px)' }}>
                                                 <img
-                                                    src='https://www.svgrepo.com/show/259026/invoice-bill.svg'
+                                                    src={IconBill}
                                                     className='w-[39px] h-[38px]'
                                                     alt='Bill Icon'
                                                 />
@@ -137,11 +147,13 @@ const Header = () => {
                                                     <div className='flex mt-10 justify-between '>
                                                         <img
                                                             className='h-9'
-                                                            src='https://storage.googleapis.com/futa-busline-cms-dev/CH_Play_712783c88a/CH_Play_712783c88a.svg'
+                                                            src={IconCHplay}
+                                                            alt='CHplay'
                                                         />
                                                         <img
                                                             className='h-9'
-                                                            src='https://storage.googleapis.com/futa-busline-cms-dev/App_Store_60da92cb12/App_Store_60da92cb12.svg'
+                                                            src={IconAppStore}
+                                                            alt='AppStore'
                                                         />
                                                     </div>
                                                 </Box>
@@ -150,7 +162,7 @@ const Header = () => {
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/contact' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
-                                                    src='https://www.svgrepo.com/show/415825/contact-headset-communication.svg'
+                                                    src={IconContact}
                                                     className='w-[39px] h-[38px]'
                                                     alt='Contact Icon'
                                                 />
@@ -160,7 +172,7 @@ const Header = () => {
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
                                             <NavLink to='/about-us' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
-                                                    src='https://www.svgrepo.com/show/521200/people.svg'
+                                                    src={IconAboutUs}
                                                     className='w-[39px] h-[38px]'
                                                     alt='About Us Icon'
                                                 />
