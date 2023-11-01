@@ -33,7 +33,7 @@ const Home = () => {
                                     <div className="w-[968.5px] h-[88.5px] rounded-2xl mx-auto mt-[-30px] bg-slate-50  border border-gray-200 ">
                                         <img
                                             src='https://platforms.makemytrip.com/contents/a50e89c2-2cd4-4970-a67d-4593e36688cd'
-                                            className='rounded-2xl w-[968px] h-[88px]'
+                                            className='rounded-2xl w-[968px] h-[88px]'  
                                         />
                                     </div>
                                 </div>

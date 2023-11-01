@@ -9,7 +9,7 @@ const ProductCart = () => {
         empty: false,
         selected: false,
     });
-
+    
     // Hàm xử lý khi checkbox thay đổi trạng thái
     // const handleCheckboxChange = (name) => {
     //     setIsChecked({
@@ -185,27 +185,134 @@ const ProductCart = () => {
     )
 }
 
+// function Table() {
+//     return (
+
+//         <table className="table-fixed">
+//             <tbody>
+//                 {Array(6).fill().map((_, rowIndex) => (
+//                     <tr key={rowIndex}>
+//                         {Array(6).fill().map((_, colIndex) => (
+//                             <td key={colIndex} className=" border px-6 py-[6.5px] m-4">
+//                                 {rowIndex * 6 + colIndex + 1}
+
+//                             </td>
+//                         ))}
+//                     </tr>
+//                 ))}
+//             </tbody>
+//         </table>
+
+
+
+//     )
+// }
 function Table() {
+    const [selectedCells, setSelectedCells] = useState([]);
+    const cellValues = generateCellValues(6, 6);
+  
+    function generateCellValues(rows, columns) {
+      const cellValues = [];
+      let cellValue = 1;
+      for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+        for (let colIndex = 0; colIndex < columns; colIndex++) {
+          const cellLabel = `A${cellValue.toString().padStart(2, '0')}`;
+          cellValues.push(cellLabel);
+          cellValue++;
+        }
+      }
+      return cellValues;
+    }
+  
+    const handleCellClick = (cellLabel) => {
+      if (selectedCells.includes(cellLabel)) {
+        setSelectedCells(selectedCells.filter((selectedCell) => selectedCell !== cellLabel));
+      } else {
+        if (selectedCells.length < 5) {
+          setSelectedCells([...selectedCells, cellLabel]);
+        }
+      }
+    };
+  
     return (
-
-        <table className="table-fixed">
-            <tbody>
-                {Array(6).fill().map((_, rowIndex) => (
-                    <tr key={rowIndex}>
-                        {Array(6).fill().map((_, colIndex) => (
-                            <td key={colIndex} className=" border px-6 py-[6.5px] m-4">
-                                {rowIndex * 6 + colIndex + 1}
-
-                            </td>
-                        ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-
-
-
-    )
-}
-
+      <table className="table-fixed">
+        <tbody>
+          {Array(6).fill().map((_, rowIndex) => (
+            <tr key={rowIndex}>
+              {Array(6).fill().map((_, colIndex) => {
+                const cellIndex = rowIndex * 6 + colIndex;
+                const cellLabel = cellValues[cellIndex];
+                const isSelected = selectedCells.includes(cellLabel);
+  
+                return (
+                  <td
+                    key={cellLabel}
+                    className={`border px-6 py-[6.5px] m-4 ${isSelected ? 'bg-blue-300' : ''}`}
+                    onClick={() => handleCellClick(cellLabel)}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => handleCellClick(cellLabel)}
+                    />
+                    {cellLabel}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+  
+//   function formatCellLabel(rowIndex, colIndex) {
+//     const rowLabel = String.fromCharCode(65 + Math.floor(colIndex / 6)); // Converts 0 to A, 1 to B, etc.
+//     const colLabel = (colIndex % 6 + 1).toString().padStart(2, '0'); // Converts 0 to "01", 1 to "02", etc.
+//     return `${rowLabel}${colLabel}`;
+//   }
+  
+//   function Table() {
+//     const [selectedCells, setSelectedCells] = useState([]);
+  
+//     const handleCellClick = (rowIndex, colIndex) => {
+//       const cellKey = formatCellLabel(rowIndex, colIndex);
+  
+//       if (selectedCells.includes(cellKey)) {
+//         setSelectedCells(selectedCells.filter(cell => cell !== cellKey));
+//       } else {
+//         if (selectedCells.length < 5) {
+//           setSelectedCells([...selectedCells, cellKey]);
+//         }
+//       }
+//     };
+  
+//     return (
+//       <table className="table-fixed">
+//         <tbody>
+//           {Array(6).fill().map((_, rowIndex) => (
+//             <tr key={rowIndex}>
+//               {Array(6).fill().map((_, colIndex) => (
+//                 <td
+//                   key={colIndex}
+//                   className={`border px-6 py-[6.5px] m-4 ${
+//                     selectedCells.includes(formatCellLabel(rowIndex, colIndex)) ? 'bg-blue-300' : ''
+//                   }`}
+//                   onClick={() => handleCellClick(rowIndex, colIndex)}
+//                 >
+//                   <input
+//                     type="checkbox"
+//                     checked={selectedCells.includes(formatCellLabel(rowIndex, colIndex))}
+//                     onChange={() => handleCellClick(rowIndex, colIndex)}
+//                   />
+//                   {formatCellLabel(rowIndex, colIndex)}
+//                 </td>
+//               ))}
+//             </tr>
+//           ))}
+//         </tbody>
+//       </table>
+//     );
+//   }
+  
 export default ProductCart
