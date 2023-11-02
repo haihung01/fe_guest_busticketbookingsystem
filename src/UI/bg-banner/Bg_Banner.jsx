@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { NavLink, Link, } from "react-router-dom";
 import './Bg_Banner.scss';
 import { Col, Container, Row } from 'reactstrap';
@@ -19,6 +19,7 @@ import IconContact from '../../assets/icon/contact-headset-communication-svgrepo
 import IconAboutUs from '../../assets/icon/people-svgrepo-com.svg'
 import IconCHplay from '../../assets/icon/CHPlay.svg'
 import IconAppStore from '../../assets/icon/AppStore.svg'
+import axios from 'axios'; // Import Axios library
 
 
 
@@ -27,6 +28,7 @@ const Bg_Banner = () => {
 
     const [diemDi, setDiemDi] = useState('');
     const [diemDen, setDiemDen] = useState('');
+    const [loadingProvinces, setLoadingProvinces] = useState(true);
 
     const [openOrigin, setOpenOrigin] = useState(false);
     const handleOpenOrigin = () => setOpenOrigin(true);
@@ -35,6 +37,16 @@ const Bg_Banner = () => {
         setDiemDi(tempDiemDi);
 
     };
+    const [searchQueryOrigin, setSearchQueryOrigin] = useState('');
+    const [searchQueryDestination, setSearchQueryDestination] = useState('');
+
+    const [provinces, setProvinces] = useState([]); // Store provinces data
+    useEffect(() => {
+        axios.get('https://provinces.open-api.vn/api/p/').then((response) => {
+            setProvinces(response.data);
+            setLoadingProvinces(false);
+        });
+    }, []);
     const [openDestination, setOpenDestination] = useState(false);
     const handleOpenDestination = () => setOpenDestination(true);
     const handleCloseDestination = () => {
@@ -83,7 +95,13 @@ const Bg_Banner = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const originFilter = provinces.filter((province) =>
+    province.name.toLowerCase().includes(searchQueryOrigin.toLowerCase())
+);
 
+const destinationFilter = provinces.filter((province) =>
+    province.name.toLowerCase().includes(searchQueryDestination.toLowerCase())
+);
     return (
         <section>
             <Container className='body-bg'>
@@ -228,15 +246,20 @@ const Bg_Banner = () => {
                                                             <div className=''>
                                                                 <span className='ml-3'>Điểm đi :</span>
                                                                 <div className='border border-gray-300 flex rounded-lg w-[252px] h-[67px] relative'>
-                                                                    <input
-                                                                        className='mx-auto text-center font-medium text-lg'
-                                                                        placeholder='Chọn điểm đi'
+                                                                    <select
                                                                         value={diemDi}
                                                                         onChange={(e) => setDiemDi(e.target.value)}
                                                                         onClick={handleOpenOrigin}
-                                                                    />
+                                                                    >
+                                                                        <option value="">Chọn điểm đi</option>
+                                                                        {originFilter.map((province) => (
+                                                                            <option key={province.code} value={province.name}>
+                                                                                {province.name}
+                                                                            </option>
+                                                                        ))}
+                                                                    </select>
                                                                     <div>
-                                                                        <Modal
+                                                                        {/* <Modal
                                                                             open={openOrigin}
                                                                             onClose={handleCloseOrigin}
                                                                             aria-labelledby="modal-modal-title"
@@ -245,7 +268,7 @@ const Bg_Banner = () => {
                                                                             <Box sx={origin} className='origin rounded-xl'>
                                                                                 <Origin tempDiemDi={tempDiemDi} setTempDiemDi={setTempDiemDi} />
                                                                             </Box>
-                                                                        </Modal>
+                                                                        </Modal> */}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -253,13 +276,20 @@ const Bg_Banner = () => {
                                                             <div className='relative'>
                                                                 <span className='ml-3'>Điểm đến :</span>
                                                                 <div className='border border-gray-300 flex rounded-lg w-[252px] h-[67px]'>
-                                                                    <input className='mx-auto text-center font-medium text-lg'
-                                                                        placeholder='Chọn điểm đến'
+                                                                    <select
                                                                         value={diemDen}
-                                                                        onChange={(e) => setDiemDi(e.target.value)}
-                                                                        onClick={handleOpenDestination} />
+                                                                        onChange={(e) => setDiemDen(e.target.value)}
+                                                                        onClick={handleOpenDestination}
+                                                                    >
+                                                                        <option value="">Chọn điểm đến</option>
+                                                                        {destinationFilter.map((province) => (
+                                                                            <option key={province.code} value={province.name}>
+                                                                                {province.name}
+                                                                            </option>
+                                                                        ))}
+                                                                    </select>
                                                                     <div>
-                                                                        <Modal
+                                                                        {/* <Modal
                                                                             open={openDestination}
                                                                             onClose={handleCloseDestination}
                                                                             aria-labelledby="modal-modal-title"
@@ -268,7 +298,7 @@ const Bg_Banner = () => {
                                                                             <Box sx={destination} className='rounded-xl'>
                                                                                 <Destination tempDiemDen={tempDiemDen} setTempDiemDen={setTempDiemDen} />
                                                                             </Box>
-                                                                        </Modal>
+                                                                        </Modal> */}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -285,18 +315,16 @@ const Bg_Banner = () => {
                                                         </motion.div>
                                                     </Col>
 
-
                                                     <Col className='flex gap-5'>
                                                         <div>
                                                             <span className='ml-3'>Ngày đi :</span>
                                                             <div className=''>
-                                                                <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                                                    <DemoContainer components={['DatePicker']}  >
+                                                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                    <DemoContainer components={['DatePicker']}>
                                                                         <DatePicker />
                                                                     </DemoContainer>
                                                                 </LocalizationProvider>
                                                             </div>
-
                                                         </div>
 
                                                         <div>
@@ -311,12 +339,11 @@ const Bg_Banner = () => {
                                                         </div>
                                                     </Col>
                                                 </div>
-
                                             </div>
                                             <div className='flex mt-2'>
                                                 <div>
                                                     <span className='ml-2 '>Tìm kiếm gần đây </span>
-                                                    <div className='border border-gray-300 bg-pink-50 flex rounded-lg w-[252px] h-[67px] '>                                                        </div>
+                                                    <div className='border border-gray-300 bg-pink-50 flex rounded-lg w-[252px] h-[67px] '> </div>
                                                 </div>
                                             </div>
                                         </Col>
