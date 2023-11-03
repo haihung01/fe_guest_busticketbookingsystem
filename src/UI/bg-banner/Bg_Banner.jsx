@@ -22,24 +22,32 @@ import IconAppStore from "../../assets/icon/AppStore.svg";
 import axios from "axios"; // Import Axios library
 
 const Bg_Banner = () => {
-  const [diemDi, setDiemDi] = useState([{
-            id:"",
-            title:""
-  }]);
-  const [diemDen, setDiemDen] = useState([{
-    id:"",
-    title:""
-}]);
+  const [diemDi, setDiemDi] = useState([
+    {
+      id: "",
+      title: "",
+    },
+  ]);
+  const [diemDen, setDiemDen] = useState([
+    {
+      id: "",
+      title: "",
+    },
+  ]);
 
-  const [origin, setOrigin] = useState([{
-    id:"",
-    title:""
-}]);
-const [Destination, setDestination] = useState([{
-    id:"",
-    title:""
-}]);
-    console.log("hahaha2:",origin)
+  const [origin, setOrigin] = useState([
+    {
+      id: "",
+      title: "",
+    },
+  ]);
+  const [Destination, setDestination] = useState([
+    {
+      id: "",
+      title: "",
+    },
+  ]);
+  console.log("hahaha2:", origin);
   const [loadingProvinces, setLoadingProvinces] = useState(true);
 
   const [openOrigin, setOpenOrigin] = useState(false);
@@ -58,10 +66,11 @@ const [Destination, setDestination] = useState([{
   const [provinces, setProvinces] = useState([]); // Store provinces data
   useEffect(() => {
     axios.get("https://provinces.open-api.vn/api/p/").then((response) => {
-        const _provincesConvert = response.data ? response.data.map((item)=>({
+      const _provincesConvert = response.data
+        ? response.data.map((item) => ({
             id: item.code.toString(),
             title: item.name,
-        }))
+          }))
         : [];
       setProvinces(response.data);
       setLoadingProvinces(false);
@@ -74,20 +83,20 @@ const [Destination, setDestination] = useState([{
     setDiemDen(tempDiemDen);
   };
 
-//   const handleOriginSelect = (code) => {
-//     console.log("Code1234:", code); // Check the value of code
-//     const selectedProvince = provinces.find(
-//       (province) => province.code === code
-//     );
-//     console.log("Selected Province:", selectedProvince); // Check the selected province
-//     if (selectedProvince) {
-//       setSelectedProvinceCodeFrom(code); // Set the selected province code first
-//       setDiemDi(selectedProvince.name);
-//     }
-//     console.log("Selected Province Code:", selectedProvinceCodeFrom); // Check the value of selectedProvinceCodeFrom
-//     // The rest of your code...
-//   };
- 
+  //   const handleOriginSelect = (code) => {
+  //     console.log("Code1234:", code); // Check the value of code
+  //     const selectedProvince = provinces.find(
+  //       (province) => province.code === code
+  //     );
+  //     console.log("Selected Province:", selectedProvince); // Check the selected province
+  //     if (selectedProvince) {
+  //       setSelectedProvinceCodeFrom(code); // Set the selected province code first
+  //       setDiemDi(selectedProvince.name);
+  //     }
+  //     console.log("Selected Province Code:", selectedProvinceCodeFrom); // Check the value of selectedProvinceCodeFrom
+  //     // The rest of your code...
+  //   };
+
   const handleDestinationSelect = (code) => {
     const selectedProvince = provinces.find(
       (province) => province.code === code
@@ -98,7 +107,7 @@ const [Destination, setDestination] = useState([{
     }
     // setOpenDestination(false);
   };
-  console.log("hahaha:",diemDi)
+  console.log("hahaha:", diemDi);
   const [isRoundTrip, setIsRoundTrip] = useState(false);
 
   const [moveSearchRecently, setMoveSearchRecently] = useState(false);
@@ -289,10 +298,16 @@ const [Destination, setDestination] = useState([{
                                 <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px] relative">
                                   <select
                                     value={diemDi}
-                                    onChange={(e) => {const selectedId = e.target.value;
-                                        const selectedTitle = e.target.options[e.target.selectedIndex].text;
-                                             setOrigin({ id: selectedId, title: selectedTitle });
-                                            setDiemDi(e.target.value)
+                                    onChange={(e) => {
+                                      const selectedId = e.target.value;
+                                      const selectedTitle =
+                                        e.target.options[e.target.selectedIndex]
+                                          .text;
+                                      setOrigin({
+                                        id: selectedId,
+                                        title: selectedTitle,
+                                      });
+                                      setDiemDi(e.target.value);
                                     }}
                                   >
                                     <option value="">Chọn điểm đi</option>
@@ -300,7 +315,6 @@ const [Destination, setDestination] = useState([{
                                       <option
                                         key={province.code}
                                         value={province.code}
-                                       
                                       >
                                         {province.name}
                                       </option>
@@ -326,11 +340,17 @@ const [Destination, setDestination] = useState([{
                                 <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px]">
                                   <select
                                     value={diemDen}
-                                    onChange={(e) => {const selectedId = e.target.value;
-                                        const selectedTitle = e.target.options[e.target.selectedIndex].text;
-                                             setOrigin({ id: selectedId, title: selectedTitle });
-                                            setDiemDen(e.target.value)
-                                      }}
+                                    onChange={(e) => {
+                                      const selectedId = e.target.value;
+                                      const selectedTitle =
+                                        e.target.options[e.target.selectedIndex]
+                                          .text;
+                                      setOrigin({
+                                        id: selectedId,
+                                        title: selectedTitle,
+                                      });
+                                      setDiemDen(e.target.value);
+                                    }}
                                     // onClick={handleOpenDestination}
                                   >
                                     <option value="">Chọn điểm đến</option>
