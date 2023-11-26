@@ -60,7 +60,6 @@ const Bg_Banner = () => {
   const tripData = useSelector((state) => state.tripReducer.tripData);
 
 
-
   const [selectedDate, setSelectedDate] = useState(null); // State to hold the selected date
 
   // const convertDateToTimestamp = (selectedDate) => {
@@ -122,52 +121,93 @@ const Bg_Banner = () => {
   const convertDateToTimestamp = (date) => {
     return date ? Math.floor(dayjs(date).unix()) : null;
   };
+  // const fetchTripInformation = () => {
+  //   const timestamp = convertDateToTimestamp(selectedDate);
+
+  //   const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
+
+  //   axios
+  //     .get(url)
+  //     .then((response) => {
+  //       console.log("Trip information:", response.data);
+  //       // Handle the response data as needed
+  //       // const getTripData = response.data.map((item) => ({
+  //       //   id: item.idTrip.toString(),
+  //       //   idRoute: item.idTrip.toString(),
+  //       //   name: item.name, // Ensure the property name matches the actual key in the response
+  //       //   availableSeat: item.availableSeat,
+          
+
+  //       // }));
+  //       // setTripData(getTripData);
+        
+  //     // Access the 'data' array in the response
+      
+  //     const tripData = response.data?.data ?? [];
+        
+  //     const processedTrips = tripData.map((item) => {
+  //       const seats = item.seatNameBooking.map((seat) => ({
+  //         seatName: seat.seatName,
+  //         status: seat.status,
+  //       }));
+  //     // Map over the 'data' array and extract the required information
+  //     const getTripData = tripData.map((item) => ({
+  //       id: item.idTrip.toString(),
+  //       idRoute: item.idRoute.toString(),
+  //       // Adjust property names according to the response structure
+  //       name: item.routeDTO?.departurePoint + " - " + item.routeDTO?.destination,
+  //       availableSeat: item.availableSeat,seats
+
+  //       // Add more properties based on your requirements
+  //     }));
+
+  //     dispatch(setTripData(getTripData));
+  //     // setTripData(getTripData);
+  //     })
+  //   })
+      
+  //     .catch((error) => {
+  //       console.error("Error fetching trip information:", error);
+  //       dispatch(setTripData([]));
+  //      console.log("API_ERRRor",tripData)
+  //     });
+  // };
   const fetchTripInformation = () => {
     const timestamp = convertDateToTimestamp(selectedDate);
-
     const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
-
+  
     axios
       .get(url)
       .then((response) => {
         console.log("Trip information:", response.data);
-        // Handle the response data as needed
-        // const getTripData = response.data.map((item) => ({
-        //   id: item.idTrip.toString(),
-        //   idRoute: item.idTrip.toString(),
-        //   name: item.name, // Ensure the property name matches the actual key in the response
-        //   availableSeat: item.availableSeat,
-          
-
-        // }));
-        // setTripData(getTripData);
         
-      // Access the 'data' array in the response
-      const tripData = response.data?.data ?? [];
-        
-      const processedTrips = tripData.map((item) => {
-        const seats = item.seatNameBooking.map((seat) => ({
-          seatName: seat.seatName,
-          status: seat.status,
-        }));
-      // Map over the 'data' array and extract the required information
-      const getTripData = tripData.map((item) => ({
-        id: item.idTrip.toString(),
-        idRoute: item.idRoute.toString(),
-        // Adjust property names according to the response structure
-        name: item.routeDTO?.departurePoint + " - " + item.routeDTO?.destination,
-        availableSeat: item.availableSeat,seats
-
-        // Add more properties based on your requirements
-      }));
-
-      dispatch(setTripData(getTripData));
-      // setTripData(getTripData);
+        const tripData = response.data?.data ?? [];
+  
+        // Handle the case when the response data is empty
+        if (tripData.length === 0) {
+          dispatch(setTripData([]));
+        } else {
+          const processedTrips = tripData.map((item) => {
+            const seats = item.seatNameBooking.map((seat) => ({
+              seatName: seat.seatName,
+              status: seat.status,
+            }));
+  
+            return {
+              id: item.idTrip.toString(),
+              idRoute: item.idRoute.toString(),
+              name: item.routeDTO?.departurePoint + " - " + item.routeDTO?.destination,
+              availableSeat: item.availableSeat,
+              seats,
+            };
+          });
+  
+          dispatch(setTripData(processedTrips));
+        }
       })
-    })
-      
       .catch((error) => {
         console.error("Error fetching trip information:", error);
+        dispatch(setTripData([])); // Handle error case by setting trip data to an empty array
       });
   };
  console.log("API",tripData)
@@ -182,7 +222,11 @@ const Bg_Banner = () => {
         }));
         setProvinces(mappedData);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) =>{ console.error("Error fetching data:", error);
+      dispatch(setTripData([]));
+      console.log("API_ERRRor",tripData)
+    }
+      );
   }, []); // Ensure the dependencies are properly managed
 
   const [openDestination, setOpenDestination] = useState(false);

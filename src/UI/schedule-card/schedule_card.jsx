@@ -50,7 +50,7 @@ const  Schedule_card = ({trip})=>{
                   <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
                   <span>Giường</span>
                   <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
-                  <span className="text-orange">34 chỗ trống</span>
+                  <span className="text-orange">{trip.availableSeat}</span>
                   <span className="cursor-pointer text-blue-400 underline">
                     Chọn ghế
                   </span>

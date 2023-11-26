@@ -1,7 +1,9 @@
 import { FETCH_TRIP_DATA, SET_TRIP_DATA } from '../action/tripAction';
 
 const initialState = {
-  tripData: null,
+  tripData: [],
+  searchCompleted: false,
+
 };
 
 const tripReducer = (state = initialState, action) => {
@@ -10,6 +12,11 @@ const tripReducer = (state = initialState, action) => {
       return {
         ...state,
         tripData: action.payload,
+      };
+      case 'SET_SEARCH_COMPLETED':
+      return {
+        ...state,
+        searchCompleted: action.payload,
       };
     default:
       return state;

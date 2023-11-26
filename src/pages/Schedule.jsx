@@ -9,10 +9,13 @@ import { useSelector } from 'react-redux';
 
 const Schedule = () => {
   const tripData = useSelector((state) => state.tripReducer.tripData); // Assuming tripReducer is your reducer name
+  const searchCompleted = useSelector((state) => state.tripReducer.searchCompleted);
+
   console.log("hehe111",tripData)
   return (
     <>
       <section className="choosFrom_wrap">
+         
         <Container>
           <Row>
             <Col lg="12">
@@ -193,11 +196,21 @@ const Schedule = () => {
                 Ghế trống
               </div>
             </div>
-            {tripData.map((trip) => {
+            
+            {/* {tripData && tripData.map((trip) => {
               return <ScheduleCard key={trip.id} trip={trip} />;
 
-            })}
-
+            })} */}
+ {searchCompleted && tripData.length === 0 ? (
+        <p>Not found the trip at Schedule</p>
+      ) : (
+        <div>
+          {/* Your existing JSX to display the schedule */}
+          {tripData && tripData.map((trip) => {
+            return <ScheduleCard key={trip.id} trip={trip} />;
+          })}
+        </div>
+      )}
 
           </div>
         </div>
