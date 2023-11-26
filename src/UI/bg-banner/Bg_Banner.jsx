@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, } from "react-router-dom";
 import "./Bg_Banner.scss";
 import { Col, Container, Row } from "reactstrap";
 import "../../data/data.js";
@@ -20,8 +20,14 @@ import IconAboutUs from "../../assets/icon/people-svgrepo-com.svg";
 import IconCHplay from "../../assets/icon/CHPlay.svg";
 import IconAppStore from "../../assets/icon/AppStore.svg";
 import axios from "axios"; // Import Axios library
+import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTripData, setTripData } from "../../action/tripAction.js"; // Path to your actions
+
+
 
 const Bg_Banner = () => {
+
   const [diemDi, setDiemDi] = useState([
     {
       id: "",
@@ -47,7 +53,22 @@ const Bg_Banner = () => {
       title: "",
     },
   ]);
+
+
+
+  const dispatch = useDispatch();
+  const tripData = useSelector((state) => state.tripReducer.tripData);
+
+
+
+  const [selectedDate, setSelectedDate] = useState(null); // State to hold the selected date
+
+  // const convertDateToTimestamp = (selectedDate) => {
+  //   return selectedDate ? Math.floor(dayjs(selectedDate).unix()) : null;
+  // };
+
   console.log("hahaha2:", origin);
+  // console.log("API",tripData)
   const [loadingProvinces, setLoadingProvinces] = useState(true);
 
   const [openOrigin, setOpenOrigin] = useState(false);
@@ -64,18 +85,106 @@ const Bg_Banner = () => {
 
   const [provinceInfo, setProvinceInfo] = useState(null);
   const [provinces, setProvinces] = useState([]); // Store provinces data
+  console.log("hahaha321", provinces);
+  // useEffect(() => {
+  //   axios.get("http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city").then((response) => {
+  //     const _provincesConvert = response.data
+  //       ? response.data.map((item) => ({
+  //           id: item.code.toString(),
+  //           title: item.name,
+  //         }))
+  //       : [];
+  //     setProvinces(response.data);
+  //     setLoadingProvinces(false);
+  //   });
+  // }, []);
+  // fetch('http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city')
+  // .then(response => response.json())
+  // .then(data => {
+  //   // Mapping and converting "idProvince" to "id" and "name" to "title"
+  //   const mappedData = data.data.map(item => {
+  //     return {
+  //       id: item.idProvince.toString(),
+  //       title: item.name
+  //     };
+  //   });
+  //   setProvinces(mappedData)
+  //   console.log(provinces)
+  // })
+  // .catch(error => console.error('Error:', error));
+  // const convertDateToTimestamp = (date) => {
+  //   return date ? Math.floor(date / 1000) : null;
+  // };
+
+  // const [tripData, setTripData] = useState(null); // State to store API response
+
+
+  const convertDateToTimestamp = (date) => {
+    return date ? Math.floor(dayjs(date).unix()) : null;
+  };
+  const fetchTripInformation = () => {
+    const timestamp = convertDateToTimestamp(selectedDate);
+
+    const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        console.log("Trip information:", response.data);
+        // Handle the response data as needed
+        // const getTripData = response.data.map((item) => ({
+        //   id: item.idTrip.toString(),
+        //   idRoute: item.idTrip.toString(),
+        //   name: item.name, // Ensure the property name matches the actual key in the response
+        //   availableSeat: item.availableSeat,
+          
+
+        // }));
+        // setTripData(getTripData);
+        
+      // Access the 'data' array in the response
+      const tripData = response.data?.data ?? [];
+        
+      const processedTrips = tripData.map((item) => {
+        const seats = item.seatNameBooking.map((seat) => ({
+          seatName: seat.seatName,
+          status: seat.status,
+        }));
+      // Map over the 'data' array and extract the required information
+      const getTripData = tripData.map((item) => ({
+        id: item.idTrip.toString(),
+        idRoute: item.idRoute.toString(),
+        // Adjust property names according to the response structure
+        name: item.routeDTO?.departurePoint + " - " + item.routeDTO?.destination,
+        availableSeat: item.availableSeat,seats
+
+        // Add more properties based on your requirements
+      }));
+
+      dispatch(setTripData(getTripData));
+      // setTripData(getTripData);
+      })
+    })
+      
+      .catch((error) => {
+        console.error("Error fetching trip information:", error);
+      });
+  };
+ console.log("API",tripData)
+
   useEffect(() => {
-    axios.get("https://provinces.open-api.vn/api/p/").then((response) => {
-      const _provincesConvert = response.data
-        ? response.data.map((item) => ({
-            id: item.code.toString(),
-            title: item.name,
-          }))
-        : [];
-      setProvinces(response.data);
-      setLoadingProvinces(false);
-    });
-  }, []);
+    fetch("http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city")
+      .then((response) => response.json())
+      .then((data) => {
+        const mappedData = data.data.map((item) => ({
+          id: item.idProvince.toString(),
+          name: item.name, // Ensure the property name matches the actual key in the response
+        }));
+        setProvinces(mappedData);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []); // Ensure the dependencies are properly managed
+
   const [openDestination, setOpenDestination] = useState(false);
   const handleOpenDestination = () => setOpenDestination(true);
   const handleCloseDestination = () => {
@@ -108,6 +217,8 @@ const Bg_Banner = () => {
     // setOpenDestination(false);
   };
   console.log("hahaha:", diemDi);
+  console.log(provinces);
+
   const [isRoundTrip, setIsRoundTrip] = useState(false);
 
   const [moveSearchRecently, setMoveSearchRecently] = useState(false);
@@ -124,26 +235,38 @@ const Bg_Banner = () => {
     setIsRoundTrip(!isRoundTrip);
     setMoveSearchRecently(!isRoundTrip);
   };
-
+  console.log(diemDi);
   const [loading, setLoading] = useState(false);
   const [searchCompleted, setSearchCompleted] = useState(false); // Add this state variable
 
   // ... other code ...
 
+  // const handleSearch = () => {
+  //   // Show loading indicator
+  //   setLoading(true);
+
+  //   // Perform any necessary actions (e.g., making an API request)
+  //   // Simulate a delay using setTimeout
+  //   setTimeout(() => {
+  //     // Hide loading indicator
+  //     setLoading(false);
+  //     // Mark search as completed
+  //     setSearchCompleted(true);
+  //   }, 100); // Simulated 2-second delay (you can replace this with your actual API request)
+  // };
   const handleSearch = () => {
-    // Show loading indicator
     setLoading(true);
 
-    // Perform any necessary actions (e.g., making an API request)
-    // Simulate a delay using setTimeout
-    setTimeout(() => {
-      // Hide loading indicator
-      setLoading(false);
-      // Mark search as completed
-      setSearchCompleted(true);
-    }, 100); // Simulated 2-second delay (you can replace this with your actual API request)
-  };
+    const timestamp = convertDateToTimestamp(selectedDate);
 
+    // Perform API call to fetch trip information
+    fetchTripInformation();
+
+    setTimeout(() => {
+      setLoading(false);
+      setSearchCompleted(true);
+    }, 2000); // Simulated 2-second delay (replace with your actual API call)
+  };
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -154,6 +277,8 @@ const Bg_Banner = () => {
   const destinationFilter = provinces.filter((province) =>
     province.name.toLowerCase().includes(searchQueryDestination.toLowerCase())
   );
+  console.log(originFilter);
+
   return (
     <section>
       <Container className="body-bg">
@@ -313,8 +438,8 @@ const Bg_Banner = () => {
                                     <option value="">Chọn điểm đi</option>
                                     {originFilter.map((province) => (
                                       <option
-                                        key={province.code}
-                                        value={province.code}
+                                        key={province.id}
+                                        value={province.id}
                                       >
                                         {province.name}
                                       </option>
@@ -356,8 +481,8 @@ const Bg_Banner = () => {
                                     <option value="">Chọn điểm đến</option>
                                     {destinationFilter.map((province) => (
                                       <option
-                                        key={province.code}
-                                        value={province.code}
+                                        key={province.id}
+                                        value={province.id}
                                       >
                                         {province.name}
                                       </option>
@@ -395,12 +520,27 @@ const Bg_Banner = () => {
                             <div>
                               <span className="ml-3">Ngày đi :</span>
                               <div className="">
-                                <LocalizationProvider
+                                {/* <LocalizationProvider
                                   dateAdapter={AdapterDayjs}
                                 >
                                   <DemoContainer components={["DatePicker"]}>
-                                    <DatePicker />
+                                    <DatePicker
+                                    value={selectedDate}
+                                    onChange={(date) => setSelectedDate(date)}
+                                    renderInput={(props) => <TextField {...props} />}
+ />
                                   </DemoContainer>
+                                </LocalizationProvider> */}
+                                <LocalizationProvider
+                                  dateAdapter={AdapterDayjs}
+                                >
+                                  <DatePicker
+                                    value={selectedDate}
+                                    onChange={(date) => setSelectedDate(date)}
+                                    renderInput={(props) => (
+                                      <TextField {...props} />
+                                    )}
+                                  />
                                 </LocalizationProvider>
                               </div>
                             </div>

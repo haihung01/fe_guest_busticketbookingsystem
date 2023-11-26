@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom";
 
 const  Schedule_card = ({trip})=>{
-  
+ 
     return(
         <>
         <div className="no-scrollbar max-h-[84vh] overflow-y-auto bg-[#F7F7F7] sm:max-h-full sm:overflow-visible sm:bg-white sm:pt-6" />

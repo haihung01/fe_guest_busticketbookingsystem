@@ -21,11 +21,8 @@ const Routers = () => {
             <Route path='about-us' element={<AboutUs />} />
             <Route path='product-cart' element={<ProductCart />} />
             <Route path='schedule2' element={<Schedule2 />} />
-
-
-
-
         </Routes>
+
     )
 }
 

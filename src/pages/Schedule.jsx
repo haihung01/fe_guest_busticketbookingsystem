@@ -4,8 +4,12 @@ import { Col, Container, Row } from "reactstrap";
 import ScheduleCard from "../UI/schedule-card/schedule_card";
 import { dataSchedule } from "../data/dataSchedule";
 import IconPrice from '../assets/icon/price-tag-svgrepo-com.svg'
+import { useSelector } from 'react-redux';
+
 
 const Schedule = () => {
+  const tripData = useSelector((state) => state.tripReducer.tripData); // Assuming tripReducer is your reducer name
+  console.log("hehe111",tripData)
   return (
     <>
       <section className="choosFrom_wrap">
@@ -189,7 +193,7 @@ const Schedule = () => {
                 Ghế trống
               </div>
             </div>
-            {dataSchedule.map((trip) => {
+            {tripData.map((trip) => {
               return <ScheduleCard key={trip.id} trip={trip} />;
 
             })}
