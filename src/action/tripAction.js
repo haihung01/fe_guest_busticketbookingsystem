@@ -9,3 +9,9 @@ export const setTripData = (data) => ({
   type: SET_TRIP_DATA,
   payload: data,
 });
+export const setSearchCompleted = (status) => {
+    return {
+      type: 'SET_SEARCH_COMPLETED',
+      payload: status,
+    };
+  };

@@ -2,14 +2,24 @@ import React, { useState } from 'react'
 import { Col, Container, Row } from 'reactstrap'
 import Bg_Banner from '../bg-banner/Bg_Banner'
 import Seat from '../../assets/img/SeatAvaiable.png';
+import { useSelector } from 'react-redux';
 
 const ProductCart = () => {
+    // const location = useLocation();
+    // const { state } = location;
+    const tripData = useSelector((state) => state.tripReducer.tripData); // Assuming tripReducer is your reducer name
 
+    // const dataTrip = state?.dataTrip || {};
+    // console.log("data in Product",dataTrip)
+    // const dataTrip = location.state ? location.state.dataTrip : null;
+
+    // console.log('Data received in ProductCart:', dataTrip);
     const [isChecked, setIsChecked] = useState({
         sold: false,
         empty: false,
         selected: false,
     });
+    console.log("GET_Trip_select",tripData)
     return (
         <>
             <section className="home-banner" >
@@ -35,7 +45,13 @@ const ProductCart = () => {
 
                                                 <Col className='flex ml-9'>
                                                     <div className='w-[475px] '>
-                                                        <Table />
+                                                        <Table
+                                                        tripData={tripData}
+
+                                                        />
+
+
+                                                        
                                                     </div>
 
                                                     <div className=''>
@@ -177,81 +193,173 @@ const ProductCart = () => {
     )
 }
 
-function Table() {
-
-    const imageArray = Array(22).fill(Seat);
-
-    const upperDeckSeats = imageArray.slice(0, 11);
-    const lowerDeckSeats = imageArray.slice(11, 22);
-    const seatsPerRow = 2;
-
-
-    const [selectedCells, setSelectedCells] = useState([]);
-    const handleCellClick = (cellLabel) => {
-        if (selectedCells.includes(cellLabel)) {
-            setSelectedCells(selectedCells.filter((selectedCell) => selectedCell !== cellLabel));
-        } else {
-            if (selectedCells.length < 5) {
-                setSelectedCells([...selectedCells, cellLabel]);
-            }
-        }
-    };
+function Table({ tripData  }) {
+//     if (!tripData || !tripData[0]?.seats) {
+//         return <p>No seats available</p>;
+//       }
+    
+//       const availableSeats = tripData[0].seats
+    
+//     console.log("select_seat ",tripData)
 
 
-    return (
-        <table className="table-fixed">
-            <tbody className='flex gap-24'>
-                <div>
-                    <tr>
-                        <td className="text-center">
-                            <h2 className="text-xl">Tầng trên</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {Array(Math.ceil(15 / seatsPerRow)).fill().map((_, rowIndex) => (
-                                <div key={rowIndex} className="flex gap-10 mt-3">
-                                    {upperDeckSeats.slice(rowIndex * seatsPerRow, (rowIndex + 1) * seatsPerRow).map((image, index) => (
-                                        <div key={index}>
-                                            <img
-                                                src={image}
-                                                alt={`Seat ${index + 1}`}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            ))}
-                        </td>
-                    </tr>
-                </div>
+//   // Handle seat selection
+//   const handleSeatSelection = (seatName) => {
+//     // Implement your logic to handle seat selection
+//     console.log(`Seat ${seatName} selected`);
+//     // Update your state or dispatch an action for seat selection
+//   };
+if (!tripData || !tripData[0]?.seats) {
+    return <p>No seats available</p>;
+  }
 
-                <div>
-                    <tr>
-                        <td className="text-center">
-                            <h2 className="text-xl">Tầng dưới</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {Array(Math.ceil(15 / seatsPerRow)).fill().map((_, rowIndex) => (
-                                <div key={rowIndex} className="flex gap-10 mt-3">
-                                    {lowerDeckSeats.slice(rowIndex * seatsPerRow, (rowIndex + 1) * seatsPerRow).map((image, index) => (
-                                        <div key={index}>
-                                            <img
-                                                src={image}
-                                                alt={`Seat ${index + 16}`}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            ))}
-                        </td>
-                    </tr>
-                </div>
+  const seats = tripData[0].seats;
+  const [selectedSeats, setSelectedSeats] = useState([]);
 
-            </tbody>
-        </table>
-    );
+  const handleSeatSelection = seat => {
+    if (selectedSeats.length >= 5) {
+      alert('You can only select a maximum of 5 seats');
+      return;
+    }
+
+    if (seat.status === 'AVAILABLE') {
+      setSelectedSeats([...selectedSeats, seat]);
+    } else {
+      alert('This seat is not available');
+    }
+  };
+    return(
+    //     <div>
+    //   <h2>Available Seats</h2>
+    //   <ul>
+    //     {availableSeats.map(seat => (
+    //       <li
+    //       key={seat.seatName}
+    //       style={{
+    //         width: '50px',
+    //         height: '50px',
+    //         margin: '5px',
+    //         backgroundColor: seat.status === 'AVAILABLE' ? 'blue' : 'green',
+    //         color: 'white',
+    //         display: 'flex',
+    //         alignItems: 'center',
+    //         justifyContent: 'center',
+    //         borderRadius: '5px',
+    //       }}
+    //     >
+    //       {seat.seatName}
+    //       </li>
+    //     ))}
+    //   </ul>
+    // </div>
+    <div>
+    <h2>Select Seats (Max 5)</h2>
+    <ul style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', padding: 0 }}>
+      {seats.map(seat => (
+        <li
+          key={seat.seatName}
+          style={{
+            width: '50px',
+            height: '50px',
+            margin: '5px',
+            backgroundColor: seat.status === 'AVAILABLE' ? 'blue' : 'green',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '5px',
+            cursor: seat.status === 'AVAILABLE' ? 'pointer' : 'not-allowed',
+            opacity: seat.status === 'AVAILABLE' ? 1 : 0.5,
+          }}
+          onClick={() => handleSeatSelection(seat)}
+        >
+          {seat.seatName}
+        </li>
+      ))}
+    </ul>
+    <div>
+      <h3>Selected Seats</h3>
+      <ul>
+        {selectedSeats.map(selectedSeat => (
+          <li key={selectedSeat.seatName}>{selectedSeat.seatName}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+    )
 }
-
 export default ProductCart
+//     const imageArray = Array(22).fill(Seat);
+
+//     const upperDeckSeats = imageArray.slice(0, 11);
+//     const lowerDeckSeats = imageArray.slice(11, 22);
+//     const seatsPerRow = 2;
+
+
+//     const [selectedCells, setSelectedCells] = useState([]);
+//     const handleCellClick = (cellLabel) => {
+//         if (selectedCells.includes(cellLabel)) {
+//             setSelectedCells(selectedCells.filter((selectedCell) => selectedCell !== cellLabel));
+//         } else {
+//             if (selectedCells.length < 5) {
+//                 setSelectedCells([...selectedCells, cellLabel]);
+//             }
+//         }
+//     };
+
+
+//     return (
+//         <table className="table-fixed">
+//             <tbody className='flex gap-24'>
+//                 <div>
+//                     <tr>
+//                         <td className="text-center">
+//                             <h2 className="text-xl">Tầng trên</h2>
+//                         </td>
+//                     </tr>
+//                     <tr>
+//                         <td>
+//                             {Array(Math.ceil(15 / seatsPerRow)).fill().map((_, rowIndex) => (
+//                                 <div key={rowIndex} className="flex gap-10 mt-3">
+//                                     {upperDeckSeats.slice(rowIndex * seatsPerRow, (rowIndex + 1) * seatsPerRow).map((image, index) => (
+//                                         <div key={index}>
+//                                             <img
+//                                                 src={image}
+//                                                 alt={`Seat ${index + 1}`}
+//                                             />
+//                                         </div>
+//                                     ))}
+//                                 </div>
+//                             ))}
+//                         </td>
+//                     </tr>
+//                 </div>
+
+//                 <div>
+//                     <tr>
+//                         <td className="text-center">
+//                             <h2 className="text-xl">Tầng dưới</h2>
+//                         </td>
+//                     </tr>
+//                     <tr>
+//                         <td>
+//                             {Array(Math.ceil(15 / seatsPerRow)).fill().map((_, rowIndex) => (
+//                                 <div key={rowIndex} className="flex gap-10 mt-3">
+//                                     {lowerDeckSeats.slice(rowIndex * seatsPerRow, (rowIndex + 1) * seatsPerRow).map((image, index) => (
+//                                         <div key={index}>
+//                                             <img
+//                                                 src={image}
+//                                                 alt={`Seat ${index + 16}`}
+//                                             />
+//                                         </div>
+//                                     ))}
+//                                 </div>
+//                             ))}
+//                         </td>
+//                     </tr>
+//                 </div>
+
+//             </tbody>
+//         </table>
+//     );
+// }
