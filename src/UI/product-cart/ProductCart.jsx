@@ -19,7 +19,7 @@ const ProductCart = () => {
         empty: false,
         selected: false,
     });
-    console.log("GET_Trip_select",tripData)
+    console.log("GET_Trip_select", tripData)
     return (
         <>
             <section className="home-banner" >
@@ -46,12 +46,12 @@ const ProductCart = () => {
                                                 <Col className='flex ml-9'>
                                                     <div className='w-[475px] '>
                                                         <Table
-                                                        tripData={tripData}
+                                                            tripData={tripData}
 
                                                         />
 
 
-                                                        
+
                                                     </div>
 
                                                     <div className=''>
@@ -193,99 +193,99 @@ const ProductCart = () => {
     )
 }
 
-function Table({ tripData  }) {
-//     if (!tripData || !tripData[0]?.seats) {
-//         return <p>No seats available</p>;
-//       }
-    
-//       const availableSeats = tripData[0].seats
-    
-//     console.log("select_seat ",tripData)
+const Table = ({ tripData }) => {
+    //     if (!tripData || !tripData[0]?.seats) {
+    //         return <p>No seats available</p>;
+    //       }
+
+    //       const availableSeats = tripData[0].seats
+
+    //     console.log("select_seat ",tripData)
 
 
-//   // Handle seat selection
-//   const handleSeatSelection = (seatName) => {
-//     // Implement your logic to handle seat selection
-//     console.log(`Seat ${seatName} selected`);
-//     // Update your state or dispatch an action for seat selection
-//   };
-if (!tripData || !tripData[0]?.seats) {
-    return <p>No seats available</p>;
-  }
-
-  const seats = tripData[0].seats;
-  const [selectedSeats, setSelectedSeats] = useState([]);
-
-  const handleSeatSelection = seat => {
-    if (selectedSeats.length >= 5) {
-      alert('You can only select a maximum of 5 seats');
-      return;
+    //   // Handle seat selection
+    //   const handleSeatSelection = (seatName) => {
+    //     // Implement your logic to handle seat selection
+    //     console.log(`Seat ${seatName} selected`);
+    //     // Update your state or dispatch an action for seat selection
+    //   };
+    if (!tripData || !tripData[0]?.seats) {
+        return <p>No seats available</p>;
     }
 
-    if (seat.status === 'AVAILABLE') {
-      setSelectedSeats([...selectedSeats, seat]);
-    } else {
-      alert('This seat is not available');
-    }
-  };
-    return(
-    //     <div>
-    //   <h2>Available Seats</h2>
-    //   <ul>
-    //     {availableSeats.map(seat => (
-    //       <li
-    //       key={seat.seatName}
-    //       style={{
-    //         width: '50px',
-    //         height: '50px',
-    //         margin: '5px',
-    //         backgroundColor: seat.status === 'AVAILABLE' ? 'blue' : 'green',
-    //         color: 'white',
-    //         display: 'flex',
-    //         alignItems: 'center',
-    //         justifyContent: 'center',
-    //         borderRadius: '5px',
-    //       }}
-    //     >
-    //       {seat.seatName}
-    //       </li>
-    //     ))}
-    //   </ul>
-    // </div>
-    <div>
-    <h2>Select Seats (Max 5)</h2>
-    <ul style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', padding: 0 }}>
-      {seats.map(seat => (
-        <li
-          key={seat.seatName}
-          style={{
-            width: '50px',
-            height: '50px',
-            margin: '5px',
-            backgroundColor: seat.status === 'AVAILABLE' ? 'blue' : 'green',
-            color: 'white',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: '5px',
-            cursor: seat.status === 'AVAILABLE' ? 'pointer' : 'not-allowed',
-            opacity: seat.status === 'AVAILABLE' ? 1 : 0.5,
-          }}
-          onClick={() => handleSeatSelection(seat)}
-        >
-          {seat.seatName}
-        </li>
-      ))}
-    </ul>
-    <div>
-      <h3>Selected Seats</h3>
-      <ul>
-        {selectedSeats.map(selectedSeat => (
-          <li key={selectedSeat.seatName}>{selectedSeat.seatName}</li>
-        ))}
-      </ul>
-    </div>
-  </div>
+    const seats = tripData[0].seats;
+    const [selectedSeats, setSelectedSeats] = useState;
+
+    const handleSeatSelection = seat => {
+        if (selectedSeats.length >= 5) {
+            alert('You can only select a maximum of 5 seats');
+            return;
+        }
+
+        if (seat.status === 'AVAILABLE') {
+            setSelectedSeats([...selectedSeats, seat]);
+        } else {
+            alert('This seat is not available');
+        }
+    };
+    return (
+        //     <div>
+        //   <h2>Available Seats</h2>
+        //   <ul>
+        //     {availableSeats.map(seat => (
+        //       <li
+        //       key={seat.seatName}
+        //       style={{
+        //         width: '50px',
+        //         height: '50px',
+        //         margin: '5px',
+        //         backgroundColor: seat.status === 'AVAILABLE' ? 'blue' : 'green',
+        //         color: 'white',
+        //         display: 'flex',
+        //         alignItems: 'center',
+        //         justifyContent: 'center',
+        //         borderRadius: '5px',
+        //       }}
+        //     >
+        //       {seat.seatName}
+        //       </li>
+        //     ))}
+        //   </ul>
+        // </div>
+        <div>
+            <h2>Select Seats (Max 5)</h2>
+            <ul style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', padding: 0 }}>
+                {seats.map(seat => (
+                    <li
+                        key={seat.seatName}
+                        style={{
+                            width: '50px',
+                            height: '50px',
+                            margin: '5px',
+                            backgroundColor: seat.status === 'AVAILABLE' ? 'blue' : 'green',
+                            color: 'white',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: '5px',
+                            cursor: seat.status === 'AVAILABLE' ? 'pointer' : 'not-allowed',
+                            opacity: seat.status === 'AVAILABLE' ? 1 : 0.5,
+                        }}
+                        onClick={() => handleSeatSelection(seat)}
+                    >
+                        {seat.seatName}
+                    </li>
+                ))}
+            </ul>
+            <div>
+                <h3>Selected Seats</h3>
+                <ul>
+                    {selectedSeats.map(selectedSeat => (
+                        <li key={selectedSeat.seatName}>{selectedSeat.seatName}</li>
+                    ))}
+                </ul>
+            </div>
+        </div>
     )
 }
 export default ProductCart

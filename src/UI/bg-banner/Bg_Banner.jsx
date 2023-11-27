@@ -136,15 +136,15 @@ const Bg_Banner = () => {
   //       //   idRoute: item.idTrip.toString(),
   //       //   name: item.name, // Ensure the property name matches the actual key in the response
   //       //   availableSeat: item.availableSeat,
-          
+
 
   //       // }));
   //       // setTripData(getTripData);
-        
+
   //     // Access the 'data' array in the response
-      
+
   //     const tripData = response.data?.data ?? [];
-        
+
   //     const processedTrips = tripData.map((item) => {
   //       const seats = item.seatNameBooking.map((seat) => ({
   //         seatName: seat.seatName,
@@ -165,7 +165,7 @@ const Bg_Banner = () => {
   //     // setTripData(getTripData);
   //     })
   //   })
-      
+
   //     .catch((error) => {
   //       console.error("Error fetching trip information:", error);
   //       dispatch(setTripData([]));
@@ -175,14 +175,14 @@ const Bg_Banner = () => {
   const fetchTripInformation = () => {
     const timestamp = convertDateToTimestamp(selectedDate);
     const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
-  
+
     axios
       .get(url)
       .then((response) => {
         console.log("Trip information:", response.data);
-        
+
         const tripData = response.data?.data ?? [];
-  
+
         // Handle the case when the response data is empty
         if (tripData.length === 0) {
           dispatch(setTripData([]));
@@ -192,7 +192,7 @@ const Bg_Banner = () => {
               seatName: seat.seatName,
               status: seat.status,
             }));
-  
+
             return {
               id: item.idTrip.toString(),
               idRoute: item.idRoute.toString(),
@@ -201,7 +201,7 @@ const Bg_Banner = () => {
               seats,
             };
           });
-  
+
           dispatch(setTripData(processedTrips));
         }
       })
@@ -210,7 +210,7 @@ const Bg_Banner = () => {
         dispatch(setTripData([])); // Handle error case by setting trip data to an empty array
       });
   };
- console.log("API",tripData)
+  console.log("API", tripData)
 
   useEffect(() => {
     fetch("http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city")
@@ -222,10 +222,11 @@ const Bg_Banner = () => {
         }));
         setProvinces(mappedData);
       })
-      .catch((error) =>{ console.error("Error fetching data:", error);
-      dispatch(setTripData([]));
-      console.log("API_ERRRor",tripData)
-    }
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        dispatch(setTripData([]));
+        console.log("API_ERRRor", tripData)
+      }
       );
   }, []); // Ensure the dependencies are properly managed
 
@@ -466,6 +467,7 @@ const Bg_Banner = () => {
                                 <span className="ml-3">Điểm đi :</span>
                                 <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px] relative">
                                   <select
+                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
                                     value={diemDi}
                                     onChange={(e) => {
                                       const selectedId = e.target.value;
@@ -508,6 +510,7 @@ const Bg_Banner = () => {
                                 <span className="ml-3">Điểm đến :</span>
                                 <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px]">
                                   <select
+                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
                                     value={diemDen}
                                     onChange={(e) => {
                                       const selectedId = e.target.value;
@@ -520,7 +523,7 @@ const Bg_Banner = () => {
                                       });
                                       setDiemDen(e.target.value);
                                     }}
-                                    // onClick={handleOpenDestination}
+                                  // onClick={handleOpenDestination}
                                   >
                                     <option value="">Chọn điểm đến</option>
                                     {destinationFilter.map((province) => (
