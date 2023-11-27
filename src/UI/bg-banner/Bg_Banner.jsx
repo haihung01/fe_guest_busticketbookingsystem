@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link, } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "./Bg_Banner.scss";
 import { Col, Container, Row } from "reactstrap";
 import "../../data/data.js";
@@ -25,10 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchTripData, setTripData } from "../../action/tripAction.js"; // Path to your actions
 import TextField from "@mui/material/TextField";
 
-
-
 const Bg_Banner = () => {
-
   const [diemDi, setDiemDi] = useState([
     {
       id: "",
@@ -55,11 +52,8 @@ const Bg_Banner = () => {
     },
   ]);
 
-
-
   const dispatch = useDispatch();
   const tripData = useSelector((state) => state.tripReducer.tripData);
-
 
   const [selectedDate, setSelectedDate] = useState(null); // State to hold the selected date
 
@@ -118,7 +112,6 @@ const Bg_Banner = () => {
 
   // const [tripData, setTripData] = useState(null); // State to store API response
 
-
   const convertDateToTimestamp = (date) => {
     return date ? Math.floor(dayjs(date).unix()) : null;
   };
@@ -137,15 +130,14 @@ const Bg_Banner = () => {
   //       //   idRoute: item.idTrip.toString(),
   //       //   name: item.name, // Ensure the property name matches the actual key in the response
   //       //   availableSeat: item.availableSeat,
-          
 
   //       // }));
   //       // setTripData(getTripData);
-        
+
   //     // Access the 'data' array in the response
-      
+
   //     const tripData = response.data?.data ?? [];
-        
+
   //     const processedTrips = tripData.map((item) => {
   //       const seats = item.seatNameBooking.map((seat) => ({
   //         seatName: seat.seatName,
@@ -166,7 +158,7 @@ const Bg_Banner = () => {
   //     // setTripData(getTripData);
   //     })
   //   })
-      
+
   //     .catch((error) => {
   //       console.error("Error fetching trip information:", error);
   //       dispatch(setTripData([]));
@@ -176,14 +168,14 @@ const Bg_Banner = () => {
   const fetchTripInformation = () => {
     const timestamp = convertDateToTimestamp(selectedDate);
     const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
-  
+
     axios
       .get(url)
       .then((response) => {
         console.log("Trip information:", response.data);
-        
+
         const tripData = response.data?.data ?? [];
-  
+
         // Handle the case when the response data is empty
         if (tripData.length === 0) {
           dispatch(setTripData([]));
@@ -193,16 +185,35 @@ const Bg_Banner = () => {
               seatName: seat.seatName,
               status: seat.status,
             }));
-  
+            // const pickupStops = item.listtripStopDTO.filter(stop => stop.type === 'PICKUP');
+            // const dropoffStops = item.listtripStopDTO.filter(stop => stop.type === 'DROPOFF');
+
+            // const pickupDetails = pickupStops.map(pickup => ({
+            //   name: pickup.stationDTO.name,
+            //   address: pickup.stationDTO.address
+            // }));
+
+            // const dropoffDetails = dropoffStops.map(dropoff => ({
+            //   name: dropoff.stationDTO.name,
+            //   address: dropoff.stationDTO.address
+            // }));
+
             return {
               id: item.idTrip.toString(),
               idRoute: item.idRoute.toString(),
-              name: item.routeDTO?.departurePoint + " - " + item.routeDTO?.destination,
+              name:
+                item.routeDTO?.departurePoint +
+                " - " +
+                item.routeDTO?.destination,
               availableSeat: item.availableSeat,
               seats,
+              // pickupDetails,
+              // dropoffDetails,
+              listtripStopDTO: item.listtripStopDTO,
+              busDTO: item.busDTO,
             };
           });
-  
+
           dispatch(setTripData(processedTrips));
         }
       })
@@ -211,7 +222,7 @@ const Bg_Banner = () => {
         dispatch(setTripData([])); // Handle error case by setting trip data to an empty array
       });
   };
- console.log("API",tripData)
+  console.log("API", tripData);
 
   useEffect(() => {
     fetch("http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city")
@@ -223,11 +234,11 @@ const Bg_Banner = () => {
         }));
         setProvinces(mappedData);
       })
-      .catch((error) =>{ console.error("Error fetching data:", error);
-      dispatch(setTripData([]));
-      console.log("API_ERRRor",tripData)
-    }
-      );
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        dispatch(setTripData([]));
+        console.log("API_ERRRor", tripData);
+      });
   }, []); // Ensure the dependencies are properly managed
 
   const [openDestination, setOpenDestination] = useState(false);
@@ -510,7 +521,7 @@ const Bg_Banner = () => {
                                 <span className="ml-3">Điểm đến :</span>
                                 <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px]">
                                   <select
-                                  className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
+                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
                                     value={diemDen}
                                     onChange={(e) => {
                                       const selectedId = e.target.value;

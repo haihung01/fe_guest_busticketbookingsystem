@@ -146,7 +146,7 @@ const Schedule = () => {
           </div>
           <div className="flex w-full flex-col">
             <div className="hidden text-xl font-medium sm:block">
-              An Nhơn - TP. Hồ Chí Minh (2)
+              {tripData[0]?.name}
             </div>
             <div className="header-popover-custom sm:hidden">
               <div className="relative flex h-14 w-full items-center text-[17px] font-medium">

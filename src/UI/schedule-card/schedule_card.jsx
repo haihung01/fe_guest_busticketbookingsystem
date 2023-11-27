@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { setTripData } from '../../action/tripAction'; // Assuming you have an action creator
+import { useDispatch } from "react-redux";
+import { setTripData } from "../../action/tripAction"; // Assuming you have an action creator
 
 const Schedule_card = ({ trip }) => {
   const dispatch = useDispatch();
+  const dataTrip = [trip];
 
   const handleClick = () => {
     // Assuming 'dataTrip' contains your trip information
-    const dataTrip = [trip];
 
     // Pass 'dataTrip' to the ProductCart component via Link
     // history.push({
@@ -16,15 +16,27 @@ const Schedule_card = ({ trip }) => {
     //   state: { dataTrip } // Pass 'dataTrip' within the 'state' object
     // });
     dispatch(setTripData(dataTrip));
-
-    console.log("TRip", dataTrip);
   };
+  console.log("TRip123321", dataTrip);
+
   return (
     <>
       <div className="no-scrollbar max-h-[84vh] overflow-y-auto bg-[#F7F7F7] sm:max-h-full sm:overflow-visible sm:bg-white sm:pt-6" />
       <div className="mb-2 flex w-full flex-col border border-[#DDE2E8] bg-white p-3 pb-4 sm:mb-6 sm:rounded-xl sm:p-6">
         <div className="flex items-center justify-between gap-8">
-          <span>{trip.startTime}</span>
+          <span>
+            {" "}
+            {trip.listtripStopDTO.map((stop) => {
+              if (stop.type === "PICKUP") {
+                return (
+                  <div key={stop.idStation}>
+                    <p>{stop.timeComess}</p>
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </span>
           <div className="flex w-full items-center">
             <img src="./images/icons/pickup.svg" alt="pickup" />
             <span className="flex-1 border-b-2 border-dotted"></span>
@@ -36,35 +48,62 @@ const Schedule_card = ({ trip }) => {
             <span className="flex-1 border-b-2 border-dotted"></span>
             <img src="./images/icons/station.svg" alt="station" />
           </div>
-          <span>{trip.endTime}</span>
+          <span>
+            {trip.listtripStopDTO.map((stop) => {
+              if (stop.type === "PICKUP") {
+                return (
+                  <div key={stop.idStation}>
+                    <p>{stop.timeComess}</p>
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </span>
         </div>
         <div className="mt-3 flex justify-between text-[13px] font-normal">
           <div className="flex-1">
             <span className="text-[15px] font-medium">
-              Bến Xe An Nhơn, Bình Định
+              {trip.listtripStopDTO.map((stop) => {
+                if (stop.type === "PICKUP") {
+                  return (
+                    <div key={stop.idStation}>
+                      <p>{stop.stationDTO.name}</p>
+                      <p>Address: {stop.stationDTO.address}</p>
+                    </div>
+                  );
+                }
+                return null;
+              })}
             </span>
             <br />
             <span className="text-gray mt-2"></span>
           </div>
           <div className="flex-1 text-right">
-            <span className="text-[15px] font-medium">Bến Xe Miền Tây</span>
+            <span className="text-[15px] font-medium">
+              {trip.listtripStopDTO.map((stop) => {
+                if (stop.type === "DROPOFF") {
+                  return (
+                    <div key={stop.idStation}>
+                      <p> {stop.stationDTO.name}</p>
+                      <p>Address: {stop.stationDTO.address}</p>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </span>
             <br />
             <span className="text-gray mt-2"></span>
           </div>
         </div>
-        <div className="text-yellow mt-1 text-[13px] sm:w-1/2">
-          <span className="underline">Lưu ý</span>: Quý Khách đang chọn tuyến xe
-          có lộ trình đi Cao Tốc- Long Thành - Dầu Giây - Phan Thiết. L
-          <span className="ml-1 cursor-pointer lowercase">
-            <span className="text-orange">...Xem thêm</span>
-          </span>
-        </div>
+
         <div className="divide my-3 sm:my-4"></div>
         <div className="flex items-center justify-between">
           <div className="text-gray flex items-center gap-2 text-sm">
             <span className="text-orange">{trip.price}</span>
             <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
-            <span>Giường</span>
+            <span>{trip.busDTO?.type}</span>
             <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
             <span className="text-orange">{trip.availableSeat}</span>
 
@@ -92,16 +131,20 @@ const Schedule_card = ({ trip }) => {
               Chọn chuyến
             </button>
           </Link> */}
-        <Link
-  to={{
-    pathname: '/product-cart',
-    state: { trip } // Pass your state object here
-  }}
->
-  <button type="button" className="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block">
-    <span>Chọn chuyến</span>
-  </button>
-</Link>
+          <Link
+            to={{
+              pathname: "/product-cart",
+              state: { trip }, // Pass your state object here
+            }}
+          >
+            <button
+              type="button"
+              className="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block"
+              onClick={handleClick}
+            >
+              <span>Chọn chuyến</span>
+            </button>
+          </Link>
         </div>
       </div>
     </>

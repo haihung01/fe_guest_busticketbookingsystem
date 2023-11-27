@@ -20,7 +20,8 @@ const ProductCart = () => {
     empty: false,
     selected: false,
   });
-  console.log("GET_Trip_select", tripData);
+  console.log("GET_Trip_select", tripData[0]?.name);
+
   if (!tripData || !tripData[0]?.seats) {
     return <p>No seats available</p>;
   }
@@ -105,7 +106,7 @@ const ProductCart = () => {
                                   </li>
                                 ))}
                               </ul>
-                              <div>
+                              {/* <div>
                                 <h3>Selected Seats</h3>
                                 <ul>
                                   {selectedSeats.map((selectedSeat) => (
@@ -114,7 +115,7 @@ const ProductCart = () => {
                                     </li>
                                   ))}
                                 </ul>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
 
@@ -148,7 +149,7 @@ const ProductCart = () => {
                                 Tuyến xe
                               </td>
                               <td className="mr-6 font-normal">
-                                BX Mien Tay ⇒ Da Lat
+                                {tripData[0]?.name}
                               </td>
                             </tr>
                             <tr className="flex justify-between">
@@ -170,7 +171,11 @@ const ProductCart = () => {
                                 Số ghế
                               </td>
                               <td className="mr-6 text-green-800 font-normal">
-                                B06
+                                {selectedSeats.map((selectedSeat) => (
+                                  <li key={selectedSeat.seatName}>
+                                    {selectedSeat.seatName}
+                                  </li>
+                                ))}{" "}
                               </td>
                             </tr>
                             <tr className="flex justify-between">
