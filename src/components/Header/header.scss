@@ -17,6 +17,12 @@
 
     }
 
+    .nav_item a.active {
+        color: rgb(255, 136, 0);
+        text-decoration: underline;
+
+    }
+
 
     .nav-wrapper {
         display: flex;

@@ -5,17 +5,20 @@ import ScheduleCard from "../UI/schedule-card/schedule_card";
 import { dataSchedule } from "../data/dataSchedule";
 import IconPrice from '../assets/icon/price-tag-svgrepo-com.svg'
 import { useSelector } from 'react-redux';
+import IconCheapPrice from '../assets/img/dollar-coin-stack-svgrepo-com.svg'
+import IconClock from '../assets/img/clock-three-svgrepo-com.svg'
+import IconEmptySeat from '../assets/img/child-seat-for-the-car-svgrepo-com.svg'
 
 
 const Schedule = () => {
   const tripData = useSelector((state) => state.tripReducer.tripData); // Assuming tripReducer is your reducer name
   const searchCompleted = useSelector((state) => state.tripReducer.searchCompleted);
 
-  console.log("hehe111",tripData)
+  console.log("hehe111", tripData)
   return (
     <>
       <section className="choosFrom_wrap">
-         
+
         <Container>
           <Row>
             <Col lg="12">
@@ -170,7 +173,7 @@ const Schedule = () => {
             <div className="flex w-full gap-3 overflow-y-auto bg-[#F7F7F7] p-3 sm:mt-3 sm:bg-white sm:p-0">
               <div className="flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border px-4 py-1 text-sm icon-orange border-[#FCDACE] bg-[#FEF6F3] text-orange">
                 <img
-                  src="./images/icons/save_money.svg"
+                  src={IconCheapPrice}
                   alt="icon"
                   width="20"
                   height="20"
@@ -179,7 +182,7 @@ const Schedule = () => {
               </div>
               <div className="flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border px-4 py-1 text-sm icon-orange border-[#FCDACE] bg-[#FEF6F3] text-orange">
                 <img
-                  src="./images/icons/clock.svg"
+                  src={IconClock}
                   alt="icon"
                   width="20"
                   height="20"
@@ -188,7 +191,7 @@ const Schedule = () => {
               </div>
               <div className="flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md border px-4 py-1 text-sm border-[#DDE2E8] bg-white sm:bg-[#F9F9FA]">
                 <img
-                  src="./images/icons/seat.svg"
+                  src={IconEmptySeat}
                   alt="icon"
                   width="20"
                   height="20"
@@ -196,21 +199,21 @@ const Schedule = () => {
                 Ghế trống
               </div>
             </div>
-            
+
             {/* {tripData && tripData.map((trip) => {
               return <ScheduleCard key={trip.id} trip={trip} />;
 
             })} */}
- {searchCompleted && tripData.length === 0 ? (
-        <p>Not found the trip at Schedule</p>
-      ) : (
-        <div>
-          {/* Your existing JSX to display the schedule */}
-          {tripData && tripData.map((trip) => {
-            return <ScheduleCard key={trip.id} trip={trip} />;
-          })}
-        </div>
-      )}
+            {searchCompleted && tripData.length === 0 ? (
+              <p>Not found the trip at Schedule</p>
+            ) : (
+              <div>
+                {/* Your existing JSX to display the schedule */}
+                {tripData && tripData.map((trip) => {
+                  return <ScheduleCard key={trip.id} trip={trip} />;
+                })}
+              </div>
+            )}
 
           </div>
         </div>
