@@ -23,6 +23,7 @@ import axios from "axios"; // Import Axios library
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTripData, setTripData } from "../../action/tripAction.js"; // Path to your actions
+import TextField from "@mui/material/TextField";
 
 
 
@@ -466,6 +467,7 @@ const Bg_Banner = () => {
                                 <span className="ml-3">Điểm đi :</span>
                                 <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px] relative">
                                   <select
+                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
                                     value={diemDi}
                                     onChange={(e) => {
                                       const selectedId = e.target.value;
@@ -508,6 +510,7 @@ const Bg_Banner = () => {
                                 <span className="ml-3">Điểm đến :</span>
                                 <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px]">
                                   <select
+                                  className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
                                     value={diemDen}
                                     onChange={(e) => {
                                       const selectedId = e.target.value;
