@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setTripData } from '../../action/tripAction'; // Assuming you have an action creator
+import IconDot from '../../assets/img/dot-circle-svgrepo-com.svg'
+import IconLocation from '../../assets/img/location-pin-svgrepo-com.svg'
 
 const Schedule_card = ({ trip }) => {
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ const Schedule_card = ({ trip }) => {
         <div className="flex items-center justify-between gap-8">
           <span>{trip.startTime}</span>
           <div className="flex w-full items-center">
-            <img src="./images/icons/pickup.svg" alt="pickup" />
+            <img src={IconDot} className="h-5 w-5" alt="pickup" />
             <span className="flex-1 border-b-2 border-dotted"></span>
             <span className="text-center leading-4">
               14 giờ
@@ -34,7 +36,7 @@ const Schedule_card = ({ trip }) => {
               <span className="text-[13px]">(Asian/Ho Chi Minh)</span>
             </span>
             <span className="flex-1 border-b-2 border-dotted"></span>
-            <img src="./images/icons/station.svg" alt="station" />
+            <img src={IconLocation} className="h-5 w-5" alt="station" />
           </div>
           <span>{trip.endTime}</span>
         </div>
@@ -92,16 +94,16 @@ const Schedule_card = ({ trip }) => {
               Chọn chuyến
             </button>
           </Link> */}
-        <Link
-  to={{
-    pathname: '/product-cart',
-    state: { trip } // Pass your state object here
-  }}
->
-  <button type="button" className="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block">
-    <span>Chọn chuyến</span>
-  </button>
-</Link>
+          <Link
+            to={{
+              pathname: '/product-cart',
+              state: { trip } // Pass your state object here
+            }}
+          >
+            <button type="button" className="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block border border-orange-200 w-28 h-8 rounded-xl bg-orange-100">
+              <span className="font-medium text-orange-500">Chọn chuyến</span>
+            </button>
+          </Link>
         </div>
       </div>
     </>

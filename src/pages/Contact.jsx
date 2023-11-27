@@ -129,7 +129,7 @@ const Contact = () => {
                         <Col lg="12" className="">
                             <div>
                                 <div>
-                                    <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center mt-10">
+                                    <h1 className="text-orange-500 text-2xl font-medium mx-auto text-center mt-10">
                                         TRIP TIX BUS LINES - MANG LẠI KỶ NIỆM ĐÁNG NHỚ                              </h1>
                                 </div>
 
@@ -137,12 +137,12 @@ const Contact = () => {
                                     <div className='w-[1200px]  mx-auto justify-between flex'>
                                         <div>
                                             <h1 className="text-blue-900 text-3xl font-bold text-center p-14">
-                                                All tickets are 50% off now! <br />Don't miss such a deal!
+                                                Tất cả các vé hiện đang được giảm giá 50%! <br />Đừng bỏ lỡ một thỏa thuận như vậy!
                                             </h1>
                                             <h1 className="text-center">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                <br /> Sed eu feugiat amet, libero ipsum enim pharetra
-                                                hac.
+                                                Trải nghiệm những chuyến đi thú vị và đầy màu sắc.
+                                                <br />Khám phá những nơi bạn chưa từng đến.
+
                                             </h1>
                                         </div>
                                         <img

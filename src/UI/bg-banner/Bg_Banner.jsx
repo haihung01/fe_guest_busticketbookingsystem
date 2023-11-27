@@ -23,6 +23,7 @@ import axios from "axios"; // Import Axios library
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTripData, setTripData } from "../../action/tripAction.js"; // Path to your actions
+import TextField from "@mui/material/TextField";
 
 
 
@@ -332,7 +333,7 @@ const Bg_Banner = () => {
             <div className=" header-menu w-[876.2px] h-[79px] p-12 rounded-2xl mx-auto bg-slate-50 mt-10 shadow-2xl">
               <ul className="menu flex justify-center gap-[78px] mt-[-35px]">
                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                  <NavLink to="/">
+                  <NavLink to="/home">
                     <img
                       src={IconHome}
                       className="w-[39px] h-[39px]"
@@ -352,17 +353,17 @@ const Bg_Banner = () => {
                   </NavLink>
                 </motion.li>
                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                  <Link to="/news">
+                  <NavLink to="/news">
                     <img
                       src={IconNews}
                       className="w-[39px] h-[38px]"
                       alt="News Icon"
                     />
                     Tin tức
-                  </Link>
+                  </NavLink>
                 </motion.li>
                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                  <NavLink onClick={handleOpen}>
+                  <NavLink to='/' onClick={handleOpen}>
                     <img
                       src={IconBill}
                       className="w-[39px] h-[38px]"
@@ -467,7 +468,7 @@ const Bg_Banner = () => {
                                 <span className="ml-3">Điểm đi :</span>
                                 <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px] relative">
                                   <select
-                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
+                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative text-center text-lg"
                                     value={diemDi}
                                     onChange={(e) => {
                                       const selectedId = e.target.value;
@@ -510,7 +511,7 @@ const Bg_Banner = () => {
                                 <span className="ml-3">Điểm đến :</span>
                                 <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px]">
                                   <select
-                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
+                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative text-center text-lg"
                                     value={diemDen}
                                     onChange={(e) => {
                                       const selectedId = e.target.value;

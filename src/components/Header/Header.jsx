@@ -95,7 +95,7 @@ const Header = () => {
                                 <Col className="navigation">
                                     <ul className='menu flex justify-center gap-20 mt-[-42px] mx-auto'>
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
-                                            <NavLink to='/' style={{ transform: 'translateY(-30px)' }}>
+                                            <NavLink to='/home' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src={IconHome}
                                                     className='w-[39px] h-[39px]'
@@ -125,7 +125,7 @@ const Header = () => {
                                             </NavLink>
                                         </motion.li>
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
-                                            <NavLink onClick={handleOpen} style={{ transform: 'translateY(-30px)' }}>
+                                            <NavLink to='/' onClick={handleOpen} style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src={IconBill}
                                                     className='w-[39px] h-[38px]'
