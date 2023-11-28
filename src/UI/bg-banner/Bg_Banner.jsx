@@ -55,11 +55,7 @@ const Bg_Banner = () => {
   const dispatch = useDispatch();
   const tripData = useSelector((state) => state.tripReducer.tripData);
 
-  const [selectedDate, setSelectedDate] = useState(null); // State to hold the selected date
-
-  // const convertDateToTimestamp = (selectedDate) => {
-  //   return selectedDate ? Math.floor(dayjs(selectedDate).unix()) : null;
-  // };
+  const [selectedDate, setSelectedDate] = useState(null);
 
   console.log("hahaha2:", origin);
   // console.log("API",tripData)
@@ -80,94 +76,25 @@ const Bg_Banner = () => {
   const [provinceInfo, setProvinceInfo] = useState(null);
   const [provinces, setProvinces] = useState([]); // Store provinces data
   console.log("hahaha321", provinces);
-  // useEffect(() => {
-  //   axios.get("http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city").then((response) => {
-  //     const _provincesConvert = response.data
-  //       ? response.data.map((item) => ({
-  //           id: item.code.toString(),
-  //           title: item.name,
-  //         }))
-  //       : [];
-  //     setProvinces(response.data);
-  //     setLoadingProvinces(false);
-  //   });
-  // }, []);
-  // fetch('http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city')
-  // .then(response => response.json())
-  // .then(data => {
-  //   // Mapping and converting "idProvince" to "id" and "name" to "title"
-  //   const mappedData = data.data.map(item => {
-  //     return {
-  //       id: item.idProvince.toString(),
-  //       title: item.name
-  //     };
-  //   });
-  //   setProvinces(mappedData)
-  //   console.log(provinces)
-  // })
-  // .catch(error => console.error('Error:', error));
-  // const convertDateToTimestamp = (date) => {
-  //   return date ? Math.floor(date / 1000) : null;
-  // };
-
-  // const [tripData, setTripData] = useState(null); // State to store API response
 
   const convertDateToTimestamp = (date) => {
     return date ? Math.floor(dayjs(date).unix()) : null;
   };
-  // const fetchTripInformation = () => {
-  //   const timestamp = convertDateToTimestamp(selectedDate);
 
-  //   const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
-
-  //   axios
-  //     .get(url)
-  //     .then((response) => {
-  //       console.log("Trip information:", response.data);
-  //       // Handle the response data as needed
-  //       // const getTripData = response.data.map((item) => ({
-  //       //   id: item.idTrip.toString(),
-  //       //   idRoute: item.idTrip.toString(),
-  //       //   name: item.name, // Ensure the property name matches the actual key in the response
-  //       //   availableSeat: item.availableSeat,
-
-  //       // }));
-  //       // setTripData(getTripData);
-
-  //     // Access the 'data' array in the response
-
-  //     const tripData = response.data?.data ?? [];
-
-  //     const processedTrips = tripData.map((item) => {
-  //       const seats = item.seatNameBooking.map((seat) => ({
-  //         seatName: seat.seatName,
-  //         status: seat.status,
-  //       }));
-  //     // Map over the 'data' array and extract the required information
-  //     const getTripData = tripData.map((item) => ({
-  //       id: item.idTrip.toString(),
-  //       idRoute: item.idRoute.toString(),
-  //       // Adjust property names according to the response structure
-  //       name: item.routeDTO?.departurePoint + " - " + item.routeDTO?.destination,
-  //       availableSeat: item.availableSeat,seats
-
-  //       // Add more properties based on your requirements
-  //     }));
-
-  //     dispatch(setTripData(getTripData));
-  //     // setTripData(getTripData);
-  //     })
-  //   })
-
-  //     .catch((error) => {
-  //       console.error("Error fetching trip information:", error);
-  //       dispatch(setTripData([]));
-  //      console.log("API_ERRRor",tripData)
-  //     });
-  // };
   const fetchTripInformation = () => {
     const timestamp = convertDateToTimestamp(selectedDate);
-    const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
+    const initialTimestampSeconds = timestamp; // Given timestamp in seconds
+    const initialTimestampMilliseconds = initialTimestampSeconds * 1000; // Convert seconds to milliseconds
+
+    const addedTimestamp = dayjs(initialTimestampMilliseconds)
+      .add(7, "hour")
+      .valueOf();
+
+    console.log(addedTimestamp); // This will log the new timestamp
+
+    const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${
+      addedTimestamp / 1000
+    }`;
 
     axios
       .get(url)
@@ -185,20 +112,8 @@ const Bg_Banner = () => {
               seatName: seat.seatName,
               status: seat.status,
               idTicket: seat.idTicket,
-              idTrip: seat.idTrip
+              idTrip: seat.idTrip,
             }));
-            // const pickupStops = item.listtripStopDTO.filter(stop => stop.type === 'PICKUP');
-            // const dropoffStops = item.listtripStopDTO.filter(stop => stop.type === 'DROPOFF');
-
-            // const pickupDetails = pickupStops.map(pickup => ({
-            //   name: pickup.stationDTO.name,
-            //   address: pickup.stationDTO.address
-            // }));
-
-            // const dropoffDetails = dropoffStops.map(dropoff => ({
-            //   name: dropoff.stationDTO.name,
-            //   address: dropoff.stationDTO.address
-            // }));
 
             return {
               id: item.idTrip.toString(),
@@ -209,9 +124,8 @@ const Bg_Banner = () => {
                 " - " +
                 item.routeDTO?.destination,
               availableSeat: item.availableSeat,
-              seats, 
-              // pickupDetails,
-              // dropoffDetails,
+              seats,
+
               listtripStopDTO: item.listtripStopDTO,
               busDTO: item.busDTO,
             };
@@ -251,20 +165,6 @@ const Bg_Banner = () => {
     setDiemDen(tempDiemDen);
   };
 
-  //   const handleOriginSelect = (code) => {
-  //     console.log("Code1234:", code); // Check the value of code
-  //     const selectedProvince = provinces.find(
-  //       (province) => province.code === code
-  //     );
-  //     console.log("Selected Province:", selectedProvince); // Check the selected province
-  //     if (selectedProvince) {
-  //       setSelectedProvinceCodeFrom(code); // Set the selected province code first
-  //       setDiemDi(selectedProvince.name);
-  //     }
-  //     console.log("Selected Province Code:", selectedProvinceCodeFrom); // Check the value of selectedProvinceCodeFrom
-  //     // The rest of your code...
-  //   };
-
   const handleDestinationSelect = (code) => {
     const selectedProvince = provinces.find(
       (province) => province.code === code
@@ -298,25 +198,10 @@ const Bg_Banner = () => {
   const [loading, setLoading] = useState(false);
   const [searchCompleted, setSearchCompleted] = useState(false); // Add this state variable
 
-  // ... other code ...
-
-  // const handleSearch = () => {
-  //   // Show loading indicator
-  //   setLoading(true);
-
-  //   // Perform any necessary actions (e.g., making an API request)
-  //   // Simulate a delay using setTimeout
-  //   setTimeout(() => {
-  //     // Hide loading indicator
-  //     setLoading(false);
-  //     // Mark search as completed
-  //     setSearchCompleted(true);
-  //   }, 100); // Simulated 2-second delay (you can replace this with your actual API request)
-  // };
   const handleSearch = () => {
     setLoading(true);
 
-    const timestamp = convertDateToTimestamp(selectedDate);
+    // const timestamp = convertDateToTimestamp(selectedDate);
 
     // Perform API call to fetch trip information
     fetchTripInformation();
@@ -505,18 +390,7 @@ const Bg_Banner = () => {
                                       </option>
                                     ))}
                                   </select>
-                                  <div>
-                                    {/* <Modal
-                                                                            open={openOrigin}
-                                                                            onClose={handleCloseOrigin}
-                                                                            aria-labelledby="modal-modal-title"
-                                                                            aria-describedby="modal-modal-description"
-                                                                        >
-                                                                            <Box sx={origin} className='origin rounded-xl'>
-                                                                                <Origin tempDiemDi={tempDiemDi} setTempDiemDi={setTempDiemDi} />
-                                                                            </Box>
-                                                                        </Modal> */}
-                                  </div>
+                                  <div></div>
                                 </div>
                               </div>
 
@@ -537,7 +411,6 @@ const Bg_Banner = () => {
                                       });
                                       setDiemDen(e.target.value);
                                     }}
-                                    // onClick={handleOpenDestination}
                                   >
                                     <option value="">Chọn điểm đến</option>
                                     {destinationFilter.map((province) => (
@@ -549,18 +422,7 @@ const Bg_Banner = () => {
                                       </option>
                                     ))}
                                   </select>
-                                  <div>
-                                    {/* <Modal
-                                                                            open={openDestination}
-                                                                            onClose={handleCloseDestination}
-                                                                            aria-labelledby="modal-modal-title"
-                                                                            aria-describedby="modal-modal-description"
-                                                                        >
-                                                                            <Box sx={destination} className='rounded-xl'>
-                                                                                <Destination tempDiemDen={tempDiemDen} setTempDiemDen={setTempDiemDen} />
-                                                                            </Box>
-                                                                        </Modal> */}
-                                  </div>
+                                  <div></div>
                                 </div>
                               </div>
                             </div>
@@ -653,60 +515,6 @@ const Bg_Banner = () => {
     </section>
   );
 };
-
-// function Origin({ tempDiemDi, setTempDiemDi }) {
-//     return (
-//         <Container className='mt-[-15px]'>
-//             <Row >
-//                 <Col className=' ml-[-12px]'>
-//                     <h5 className='ml-2'>Điểm đi</h5>
-//                     <div className='w-[332px] h-[67px] border border-gray-300 flex mt-2  rounded-xl'>
-//                         <input
-//                             placeholder='Chọn điểm đi'
-//                             className='ml-2'
-//                             value={tempDiemDi}
-//                             onChange={(e) => setTempDiemDi(e.target.value)}
-//                         />
-//                     </div>
-//                 </Col>
-
-//                 <Col className='mt-7 ml-[-12px]'>
-//                     <h1 className='ml-2'>TỈNH/THÀNH PHỐ</h1>
-//                     <div className='w-[150px] h-[30px] rounded-lg border border-gray-300 mt-2 flex'>
-//                         <span className='mx-auto'>Tp.Hồ Chí Minh</span>
-//                     </div>
-//                 </Col>
-//             </Row>
-//         </Container>
-//     )
-// };
-
-// function Destination({ tempDiemDen, setTempDiemDen }) {
-//     return (
-//         <Container className='mt-[-15px]'>
-//             <Row >
-//                 <Col className=' ml-[-12px]'>
-//                     <h5 className='ml-2'>Điểm đến</h5>
-//                     <div className='w-[332px] h-[67px] border border-gray-300 flex mt-2  rounded-xl'>
-//                         <input
-//                             placeholder='Chọn điểm đến'
-//                             className='ml-2'
-//                             value={tempDiemDen}
-//                             onChange={(e) => setTempDiemDen(e.target.value)}
-//                         />
-//                     </div>
-//                 </Col>
-
-//                 <Col className='mt-7 ml-[-12px]'>
-//                     <h1 className='ml-2'>TỈNH/THÀNH PHỐ</h1>
-//                     <div className='w-[150px] h-[30px] rounded-lg border border-gray-300 mt-2 flex'>
-//                         <span className='mx-auto'>Tp.Hồ Chí Minh</span>
-//                     </div>
-//                 </Col>
-//             </Row>
-//         </Container>
-//     )
-// }
 
 const origin = {
   position: "absolute",

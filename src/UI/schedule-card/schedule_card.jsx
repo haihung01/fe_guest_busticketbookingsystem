@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getSeatFromTrip } from "../../action/tripAction"; // Assuming you have an action creator
+import moment from "moment";
 
 const Schedule_card = ({ trip }) => {
   const dispatch = useDispatch();
@@ -30,7 +31,8 @@ const Schedule_card = ({ trip }) => {
               if (stop.type === "PICKUP") {
                 return (
                   <div key={stop.idStation}>
-                    <p>{stop.timeComess}</p>
+                    {/* <p>{stop.timeComess}</p> */}
+                    <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
                   </div>
                 );
               }
@@ -50,10 +52,10 @@ const Schedule_card = ({ trip }) => {
           </div>
           <span>
             {trip.listtripStopDTO.map((stop) => {
-              if (stop.type === "PICKUP") {
+              if (stop.type === "DROPOFF") {
                 return (
                   <div key={stop.idStation}>
-                    <p>{stop.timeComess}</p>
+                    <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
                   </div>
                 );
               }
