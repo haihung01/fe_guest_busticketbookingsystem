@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setTripData } from "../../action/tripAction"; // Assuming you have an action creator
+import { getSeatFromTrip } from "../../action/tripAction"; // Assuming you have an action creator
 
 const Schedule_card = ({ trip }) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Schedule_card = ({ trip }) => {
     //   pathname: '/product-cart',
     //   state: { dataTrip } // Pass 'dataTrip' within the 'state' object
     // });
-    dispatch(setTripData(dataTrip));
+    dispatch(getSeatFromTrip(dataTrip));
   };
   console.log("TRip123321", dataTrip);
 

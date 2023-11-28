@@ -184,6 +184,8 @@ const Bg_Banner = () => {
             const seats = item.seatNameBooking.map((seat) => ({
               seatName: seat.seatName,
               status: seat.status,
+              idTicket: seat.idTicket,
+              idTrip: seat.idTrip
             }));
             // const pickupStops = item.listtripStopDTO.filter(stop => stop.type === 'PICKUP');
             // const dropoffStops = item.listtripStopDTO.filter(stop => stop.type === 'DROPOFF');
@@ -201,12 +203,13 @@ const Bg_Banner = () => {
             return {
               id: item.idTrip.toString(),
               idRoute: item.idRoute.toString(),
+              fare: item.fare,
               name:
                 item.routeDTO?.departurePoint +
                 " - " +
                 item.routeDTO?.destination,
               availableSeat: item.availableSeat,
-              seats,
+              seats, 
               // pickupDetails,
               // dropoffDetails,
               listtripStopDTO: item.listtripStopDTO,

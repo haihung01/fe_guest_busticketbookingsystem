@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Col, Container, Row } from "reactstrap";
 import Bg_Banner from "../bg-banner/Bg_Banner";
 import Seat from "../../assets/img/SeatAvaiable.png";
 import { useSelector } from "react-redux";
 
+
 const ProductCart = () => {
   // const location = useLocation();
   // const { state } = location;
-  const tripData = useSelector((state) => state.tripReducer.tripData); // Assuming tripReducer is your reducer name
+  const tripData = useSelector((state) => state.tripReducer.DetailSeat); // Assuming tripReducer is your reducer name
   const seats = tripData[0].seats;
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [totalFare, setTotalFare] = useState(0);
   // const dataTrip = state?.dataTrip || {};
   // console.log("data in Product",dataTrip)
   // const dataTrip = location.state ? location.state.dataTrip : null;
 
   // console.log('Data received in ProductCart:', dataTrip);
+
+
+
   const [isChecked, setIsChecked] = useState({
     sold: false,
     empty: false,
@@ -22,20 +27,71 @@ const ProductCart = () => {
   });
   console.log("GET_Trip_select", tripData[0]?.name);
 
+  
   if (!tripData || !tripData[0]?.seats) {
     return <p>No seats available</p>;
   }
 
+//   const handleSeatSelection = (seat) => {
+//     if (selectedSeats.length >= 5) {
+//       alert("You can only select a maximum of 5 seats");
+//       return;
+//     }
+
+//     if (seat.status === "AVAILABLE") {
+//       setSelectedSeats([...selectedSeats, seat]);
+//       const seatFare = tripData[0]?.fare || 0; // Assuming tripData has fare information
+//       setTotalFare((prevTotal) => prevTotal + seatFare);
+//     } else {
+//       alert("This seat is not available");
+//     }
+//   };
+// const handleSeatSelection = (seat) => {
+//     if (selectedSeats.length >= 5) {
+//       alert("You can only select a maximum of 5 seats");
+//       return;
+//     }
+  
+//     const isSeatSelected = selectedSeats.some(
+//       (selectedSeat) => selectedSeat.seatName === seat.seatName
+//     );
+  
+//     if (!isSeatSelected && seat.status === "AVAILABLE") {
+//       setSelectedSeats([...selectedSeats, seat]);
+//       const seatFare = tripData[0]?.fare || 0; // Assuming tripData has fare information
+//       setTotalFare((prevTotal) => prevTotal + seatFare);
+//     } else {
+//       // Remove the seat from selectedSeats
+//       const updatedSeats = selectedSeats.filter(
+//         (selectedSeat) => selectedSeat.seatName !== seat.seatName
+//       );
+//       setSelectedSeats(updatedSeats);
+//       const seatFare = tripData[0]?.fare || 0; // Assuming tripData has fare information
+//       setTotalFare((prevTotal) => prevTotal - seatFare);
+//     }
+//   };
   const handleSeatSelection = (seat) => {
-    if (selectedSeats.length >= 5) {
+    const isSeatSelected = selectedSeats.some(
+      (selectedSeat) => selectedSeat.seatName === seat.seatName
+    );
+  
+    if (!isSeatSelected && selectedSeats.length >= 5) {
       alert("You can only select a maximum of 5 seats");
       return;
     }
-
-    if (seat.status === "AVAILABLE") {
+  
+    if (!isSeatSelected && seat.status === "AVAILABLE") {
       setSelectedSeats([...selectedSeats, seat]);
+      const seatFare = tripData[0]?.fare || 0; // Assuming tripData has fare information
+      setTotalFare((prevTotal) => prevTotal + seatFare);
     } else {
-      alert("This seat is not available");
+      // Remove the seat from selectedSeats
+      const updatedSeats = selectedSeats.filter(
+        (selectedSeat) => selectedSeat.seatName !== seat.seatName
+      );
+      setSelectedSeats(updatedSeats);
+      const seatFare = tripData[0]?.fare || 0; // Assuming tripData has fare information
+      setTotalFare((prevTotal) => prevTotal - seatFare);
     }
   };
   return (
@@ -69,7 +125,7 @@ const ProductCart = () => {
 
                             <div>
                               <h2>Select Seats (Max 5)</h2>
-                              <ul
+                              {/* <ul
                                 style={{
                                   display: "flex",
                                   flexWrap: "wrap",
@@ -105,7 +161,45 @@ const ProductCart = () => {
                                     {seat.seatName}
                                   </li>
                                 ))}
-                              </ul>
+                              </ul> */}
+                              <ul
+  style={{
+    display: "flex",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: 0,
+  }}
+>
+  {seats.map((seat) => (
+    <li
+      key={seat.seatName}
+      style={{
+        width: "50px",
+        height: "50px",
+        margin: "5px",
+        backgroundColor:
+          seat.status === "AVAILABLE"
+            ? selectedSeats.some(
+                (selectedSeat) => selectedSeat.seatName === seat.seatName
+              )
+              ? "rgb(216, 180, 254)" // Change this to "bg-purple-300" in your actual code
+              : "rgb(147, 197, 253)"
+            : "rgb(55, 65, 81)",
+        color: "white",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "5px",
+        cursor:
+          seat.status === "AVAILABLE" ? "pointer" : "not-allowed",
+        opacity: seat.status === "AVAILABLE" ? 1 : 0.5,
+      }}
+      onClick={() => handleSeatSelection(seat)}
+    >
+      {seat.seatName}
+    </li>
+  ))}
+</ul>
                               {/* <div>
                                 <h3>Selected Seats</h3>
                                 <ul>
@@ -183,7 +277,7 @@ const ProductCart = () => {
                                 Tổng tiền lượt đi
                               </td>
                               <td className="mr-6 text-green-800 font-normal">
-                                280.000đ
+                                    {totalFare}
                               </td>
                             </tr>
                           </div>
@@ -199,7 +293,7 @@ const ProductCart = () => {
                                 Giá vé lượt đi
                               </td>
                               <td className="mr-6 font-normal text-orange-600">
-                                280.000đ
+                              {totalFare}
                               </td>
                             </tr>
                             <tr className="flex justify-between">
@@ -216,7 +310,7 @@ const ProductCart = () => {
                                 Tổng tiền
                               </td>
                               <td className="mr-6 font-normal text-orange-600">
-                                280.000đ
+                              {totalFare}
                               </td>
                             </tr>
                           </div>
