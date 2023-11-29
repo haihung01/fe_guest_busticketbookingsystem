@@ -3,8 +3,17 @@ import { Col, Container, Row } from "reactstrap";
 import Bg_Banner from "../bg-banner/Bg_Banner";
 import Seat from "../../assets/img/SeatAvaiable.png";
 import { useSelector } from "react-redux";
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import IconCHplay from '../../assets/icon/CHPlay.svg'
+import IconAppStore from '../../assets/icon/AppStore.svg'
 
 const ProductCart = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   // const location = useLocation();
   // const { state } = location;
   const tripData = useSelector((state) => state.tripReducer.tripData); // Assuming tripReducer is your reducer name
@@ -20,7 +29,8 @@ const ProductCart = () => {
     empty: false,
     selected: false,
   });
-  console.log("GET_Trip_select", tripData);
+  console.log("GET_Trip_select", tripData[0]?.name);
+
   if (!tripData || !tripData[0]?.seats) {
     return <p>No seats available</p>;
   }
@@ -67,7 +77,7 @@ const ProductCart = () => {
                                                         /> */}
 
                             <div>
-                              <h2>Select Seats (Max 5)</h2>
+                              <h2>Chọn tối đa 5 ghế</h2>
                               <ul
                                 style={{
                                   display: "flex",
@@ -76,7 +86,7 @@ const ProductCart = () => {
                                   padding: 0,
                                 }}
                               >
-                                {seats.map((seat) => (
+                                {seats.map((seat, index) => (
                                   <li
                                     key={seat.seatName}
                                     style={{
@@ -99,13 +109,41 @@ const ProductCart = () => {
                                       opacity:
                                         seat.status === "AVAILABLE" ? 1 : 0.5,
                                     }}
-                                    onClick={() => handleSeatSelection(seat)}
+                                    // onClick={() => handleSeatSelection(seat)}
+                                    onClick={handleOpen}
                                   >
+                                    <Modal
+                                      open={open}
+                                      onClose={handleClose}
+                                      aria-labelledby="modal-modal-title"
+                                      aria-describedby="modal-modal-description"
+                                    >
+                                      <Box sx={style}>
+                                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                                          DOWNLOAD THE FUTA APP
+                                        </Typography>
+                                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                          Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
+                                        </Typography>
+                                        <div className='flex mt-10 justify-between '>
+                                          <img
+                                            className='h-9'
+                                            src={IconCHplay}
+                                            alt='CHplay'
+                                          />
+                                          <img
+                                            className='h-9'
+                                            src={IconAppStore}
+                                            alt='AppStore'
+                                          />
+                                        </div>
+                                      </Box>
+                                    </Modal>
                                     {seat.seatName}
                                   </li>
                                 ))}
                               </ul>
-                              <div>
+                              {/* <div>
                                 <h3>Selected Seats</h3>
                                 <ul>
                                   {selectedSeats.map((selectedSeat) => (
@@ -114,7 +152,7 @@ const ProductCart = () => {
                                     </li>
                                   ))}
                                 </ul>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
 
@@ -148,7 +186,7 @@ const ProductCart = () => {
                                 Tuyến xe
                               </td>
                               <td className="mr-6 font-normal">
-                                BX Mien Tay ⇒ Da Lat
+                                {tripData[0]?.name}
                               </td>
                             </tr>
                             <tr className="flex justify-between">
@@ -170,7 +208,11 @@ const ProductCart = () => {
                                 Số ghế
                               </td>
                               <td className="mr-6 text-green-800 font-normal">
-                                B06
+                                {selectedSeats.map((selectedSeat) => (
+                                  <li key={selectedSeat.seatName}>
+                                    {selectedSeat.seatName}
+                                  </li>
+                                ))}{" "}
                               </td>
                             </tr>
                             <tr className="flex justify-between">
@@ -218,30 +260,6 @@ const ProductCart = () => {
                         </div>
                       </Col>
                     </Row>
-
-                    {/* <Row className='flex gap-5'>
-                                            <Col className='w-[700px] h-[210px] border border-gray-200 rounded-2xl shadow-xl mt-[-40px] '>
-                                                <h1 className='ml-7 text-xl font-normal mt-3 text-orange-500'>ĐIỀU KHOẢN & LƯU Ý</h1>
-                                                <div className='ml-7 mt-1'>
-                                                    <span className="mr-5 ">
-                                                        (*) Quý khách vui lòng có mặt tại bến xuất phát của xe trước ít nhất 30 phút giờ xe khởi hành, mang theo thông báo đã thanh toán vé thành công có chứa mã vé được gửi từ hệ thống FUTA BUS LINE. Vui lòng liên hệ Trung tâm tổng đài <span class="text-orange-500">1900 6067</span>  để được hỗ trợ.
-                                                    </span>
-                                                    <span className="flex mt-3 mr-5">
-                                                        (*) Nếu quý khách có nhu cầu trung chuyển, vui lòng liên hệ Tổng đài trung chuyển trước khi đặt vé. Chúng tôi không đón/trung chuyển tại những điểm xe trung chuyển không thể tới được.
-                                                    </span>
-
-                                                </div>
-                                            </Col>
-                                            <Col className='w-[345px] h-[100px] rounded-2xl mt-5  flex gap-10 justify-end ml-8'>
-                                                <button className='w-[112px] h-[32px] border border-gray-300 rounded-2xl flex justify-center text-center items-center text-orange-500'>
-                                                    Hủy
-                                                </button>
-                                                <button className='w-[112px] h-[32px] bg-orange-500 rounded-2xl flex justify-center text-center items-center text-gray-50'>
-                                                    Thanh toán
-                                                </button>
-                                            </Col>
-
-                                        </Row> */}
                   </Container>
                 </section>
               </div>
@@ -288,170 +306,18 @@ const ProductCart = () => {
   );
 };
 
-// function Table({ tripData  }) {
-// //     if (!tripData || !tripData[0]?.seats) {
-// //         return <p>No seats available</p>;
-// //       }
 
-// //       const availableSeats = tripData[0].seats
-
-// //     console.log("select_seat ",tripData)
-
-// //   // Handle seat selection
-// //   const handleSeatSelection = (seatName) => {
-// //     // Implement your logic to handle seat selection
-// //     console.log(`Seat ${seatName} selected`);
-// //     // Update your state or dispatch an action for seat selection
-// //   };
-// if (!tripData || !tripData[0]?.seats) {
-//     return <p>No seats available</p>;
-//   }
-
-//   const seats = tripData[0].seats;
-//   const [selectedSeats, setSelectedSeats] = useState([]);
-
-//   const handleSeatSelection = seat => {
-//     if (selectedSeats.length >= 5) {
-//       alert('You can only select a maximum of 5 seats');
-//       return;
-//     }
-
-//     if (seat.status === 'AVAILABLE') {
-//       setSelectedSeats([...selectedSeats, seat]);
-//     } else {
-//       alert('This seat is not available');
-//     }
-//   };
-//     return(
-//     //     <div>
-//     //   <h2>Available Seats</h2>
-//     //   <ul>
-//     //     {availableSeats.map(seat => (
-//     //       <li
-//     //       key={seat.seatName}
-//     //       style={{
-//     //         width: '50px',
-//     //         height: '50px',
-//     //         margin: '5px',
-//     //         backgroundColor: seat.status === 'AVAILABLE' ? 'blue' : 'green',
-//     //         color: 'white',
-//     //         display: 'flex',
-//     //         alignItems: 'center',
-//     //         justifyContent: 'center',
-//     //         borderRadius: '5px',
-//     //       }}
-//     //     >
-//     //       {seat.seatName}
-//     //       </li>
-//     //     ))}
-//     //   </ul>
-//     // </div>
-//     <div>
-//     <h2>Select Seats (Max 5)</h2>
-//     <ul style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', padding: 0 }}>
-//       {seats.map(seat => (
-//         <li
-//           key={seat.seatName}
-//           style={{
-//             width: '50px',
-//             height: '50px',
-//             margin: '5px',
-//             backgroundColor: seat.status === 'AVAILABLE' ? 'blue' : 'green',
-//             color: 'white',
-//             display: 'flex',
-//             alignItems: 'center',
-//             justifyContent: 'center',
-//             borderRadius: '5px',
-//             cursor: seat.status === 'AVAILABLE' ? 'pointer' : 'not-allowed',
-//             opacity: seat.status === 'AVAILABLE' ? 1 : 0.5,
-//           }}
-//           onClick={() => handleSeatSelection(seat)}
-//         >
-//           {seat.seatName}
-//         </li>
-//       ))}
-//     </ul>
-//     <div>
-//       <h3>Selected Seats</h3>
-//       <ul>
-//         {selectedSeats.map(selectedSeat => (
-//           <li key={selectedSeat.seatName}>{selectedSeat.seatName}</li>
-//         ))}
-//       </ul>
-//     </div>
-//   </div>
-//     )
-// }
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  // height: 200,
+  bgcolor: 'background.paper',
+  // border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  borderRadius: 3,
+};
 export default ProductCart;
-//     const imageArray = Array(22).fill(Seat);
-
-//     const upperDeckSeats = imageArray.slice(0, 11);
-//     const lowerDeckSeats = imageArray.slice(11, 22);
-//     const seatsPerRow = 2;
-
-//     const [selectedCells, setSelectedCells] = useState([]);
-//     const handleCellClick = (cellLabel) => {
-//         if (selectedCells.includes(cellLabel)) {
-//             setSelectedCells(selectedCells.filter((selectedCell) => selectedCell !== cellLabel));
-//         } else {
-//             if (selectedCells.length < 5) {
-//                 setSelectedCells([...selectedCells, cellLabel]);
-//             }
-//         }
-//     };
-
-//     return (
-//         <table className="table-fixed">
-//             <tbody className='flex gap-24'>
-//                 <div>
-//                     <tr>
-//                         <td className="text-center">
-//                             <h2 className="text-xl">Tầng trên</h2>
-//                         </td>
-//                     </tr>
-//                     <tr>
-//                         <td>
-//                             {Array(Math.ceil(15 / seatsPerRow)).fill().map((_, rowIndex) => (
-//                                 <div key={rowIndex} className="flex gap-10 mt-3">
-//                                     {upperDeckSeats.slice(rowIndex * seatsPerRow, (rowIndex + 1) * seatsPerRow).map((image, index) => (
-//                                         <div key={index}>
-//                                             <img
-//                                                 src={image}
-//                                                 alt={`Seat ${index + 1}`}
-//                                             />
-//                                         </div>
-//                                     ))}
-//                                 </div>
-//                             ))}
-//                         </td>
-//                     </tr>
-//                 </div>
-
-//                 <div>
-//                     <tr>
-//                         <td className="text-center">
-//                             <h2 className="text-xl">Tầng dưới</h2>
-//                         </td>
-//                     </tr>
-//                     <tr>
-//                         <td>
-//                             {Array(Math.ceil(15 / seatsPerRow)).fill().map((_, rowIndex) => (
-//                                 <div key={rowIndex} className="flex gap-10 mt-3">
-//                                     {lowerDeckSeats.slice(rowIndex * seatsPerRow, (rowIndex + 1) * seatsPerRow).map((image, index) => (
-//                                         <div key={index}>
-//                                             <img
-//                                                 src={image}
-//                                                 alt={`Seat ${index + 16}`}
-//                                             />
-//                                         </div>
-//                                     ))}
-//                                 </div>
-//                             ))}
-//                         </td>
-//                     </tr>
-//                 </div>
-
-//             </tbody>
-//         </table>
-//     );
-// }

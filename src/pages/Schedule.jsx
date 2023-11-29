@@ -131,25 +131,11 @@ const Schedule = () => {
                 </div>
               </div>
               <div className="divide"></div>
-              <div className="p-4">
-                <span>Hàng ghế</span>
-                <div class="mt-4 flex flex-wrap gap-2">
-                  <div className="cursor-pointer rounded-md border bg-white py-1 px-3 text-[14px] font-normal border-[#DDE2E8]">
-                    Hàng đầu
-                  </div>
-                  <div className="cursor-pointer rounded-md border bg-white py-1 px-3 text-[14px] font-normal border-[#DDE2E8]">
-                    Hàng giữa
-                  </div>
-                  <div className="cursor-pointer rounded-md border bg-white py-1 px-3 text-[14px] font-normal border-[#DDE2E8]">
-                    Hàng cuối
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <div className="flex w-full flex-col">
             <div className="hidden text-xl font-medium sm:block">
-              An Nhơn - TP. Hồ Chí Minh (2)
+              {tripData[0]?.name}
             </div>
             <div className="header-popover-custom sm:hidden">
               <div className="relative flex h-14 w-full items-center text-[17px] font-medium">
