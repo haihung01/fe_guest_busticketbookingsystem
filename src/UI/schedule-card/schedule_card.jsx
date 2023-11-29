@@ -5,6 +5,8 @@ import { setTripData } from '../../action/tripAction'; // Assuming you have an a
 import IconDot from '../../assets/img/dot-circle-svgrepo-com.svg'
 import IconLocation from '../../assets/img/location-pin-svgrepo-com.svg'
 
+import { getSeatFromTrip } from "../../action/tripAction"; // Assuming you have an action creator
+import moment from "moment";
 
 const Schedule_card = ({ trip }) => {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const Schedule_card = ({ trip }) => {
     //   pathname: '/product-cart',
     //   state: { dataTrip } // Pass 'dataTrip' within the 'state' object
     // });
-    dispatch(setTripData(dataTrip));
+    dispatch(getSeatFromTrip(dataTrip));
   };
   console.log("TRip123321", dataTrip);
 
@@ -33,7 +35,8 @@ const Schedule_card = ({ trip }) => {
               if (stop.type === "PICKUP") {
                 return (
                   <div key={stop.idStation}>
-                    <p>{stop.timeComess}</p>
+                    {/* <p>{stop.timeComess}</p> */}
+                    <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
                   </div>
                 );
               }
@@ -53,10 +56,10 @@ const Schedule_card = ({ trip }) => {
           </div>
           <span>
             {trip.listtripStopDTO.map((stop) => {
-              if (stop.type === "PICKUP") {
+              if (stop.type === "DROPOFF") {
                 return (
                   <div key={stop.idStation}>
-                    <p>{stop.timeComess}</p>
+                    <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
                   </div>
                 );
               }
@@ -140,7 +143,7 @@ const Schedule_card = ({ trip }) => {
               state: { trip }, // Pass your state object here
             }}
           >
-            <button type="button" className="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block border border-orange-200 w-28 h-8 rounded-xl bg-orange-100">
+            <button type="button" onClick={handleClick} className="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block border border-orange-200 w-28 h-8 rounded-xl bg-orange-100">
               <span className="font-medium text-orange-500">Chọn chuyến</span>
             </button>
           </Link>

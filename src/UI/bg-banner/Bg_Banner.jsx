@@ -55,11 +55,7 @@ const Bg_Banner = () => {
   const dispatch = useDispatch();
   const tripData = useSelector((state) => state.tripReducer.tripData);
 
-  const [selectedDate, setSelectedDate] = useState(null); // State to hold the selected date
-
-  // const convertDateToTimestamp = (selectedDate) => {
-  //   return selectedDate ? Math.floor(dayjs(selectedDate).unix()) : null;
-  // };
+  const [selectedDate, setSelectedDate] = useState(null);
 
   console.log("hahaha2:", origin);
   // console.log("API",tripData)
@@ -81,14 +77,23 @@ const Bg_Banner = () => {
   const [provinces, setProvinces] = useState([]); // Store provinces data
   console.log("hahaha321", provinces);
 
-
   const convertDateToTimestamp = (date) => {
     return date ? Math.floor(dayjs(date).unix()) : null;
   };
 
   const fetchTripInformation = () => {
     const timestamp = convertDateToTimestamp(selectedDate);
-    const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
+    const initialTimestampSeconds = timestamp; // Given timestamp in seconds
+    const initialTimestampMilliseconds = initialTimestampSeconds * 1000; // Convert seconds to milliseconds
+
+    const addedTimestamp = dayjs(initialTimestampMilliseconds)
+      .add(7, "hour")
+      .valueOf();
+
+    console.log(addedTimestamp); // This will log the new timestamp
+
+    const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${addedTimestamp / 1000
+      }`;
 
     axios
       .get(url)
@@ -105,19 +110,21 @@ const Bg_Banner = () => {
             const seats = item.seatNameBooking.map((seat) => ({
               seatName: seat.seatName,
               status: seat.status,
+              idTicket: seat.idTicket,
+              idTrip: seat.idTrip,
             }));
 
             return {
               id: item.idTrip.toString(),
               idRoute: item.idRoute.toString(),
+              fare: item.fare,
               name:
                 item.routeDTO?.departurePoint +
                 " - " +
                 item.routeDTO?.destination,
               availableSeat: item.availableSeat,
               seats,
-              // pickupDetails,
-              // dropoffDetails,
+
               listtripStopDTO: item.listtripStopDTO,
               busDTO: item.busDTO,
             };
@@ -155,20 +162,6 @@ const Bg_Banner = () => {
     setDiemDen(tempDiemDen);
   };
 
-  //   const handleOriginSelect = (code) => {
-  //     console.log("Code1234:", code); // Check the value of code
-  //     const selectedProvince = provinces.find(
-  //       (province) => province.code === code
-  //     );
-  //     console.log("Selected Province:", selectedProvince); // Check the selected province
-  //     if (selectedProvince) {
-  //       setSelectedProvinceCodeFrom(code); // Set the selected province code first
-  //       setDiemDi(selectedProvince.name);
-  //     }
-  //     console.log("Selected Province Code:", selectedProvinceCodeFrom); // Check the value of selectedProvinceCodeFrom
-  //     // The rest of your code...
-  //   };
-
   const handleDestinationSelect = (code) => {
     const selectedProvince = provinces.find(
       (province) => province.code === code
@@ -202,25 +195,10 @@ const Bg_Banner = () => {
   const [loading, setLoading] = useState(false);
   const [searchCompleted, setSearchCompleted] = useState(false); // Add this state variable
 
-  // ... other code ...
-
-  // const handleSearch = () => {
-  //   // Show loading indicator
-  //   setLoading(true);
-
-  //   // Perform any necessary actions (e.g., making an API request)
-  //   // Simulate a delay using setTimeout
-  //   setTimeout(() => {
-  //     // Hide loading indicator
-  //     setLoading(false);
-  //     // Mark search as completed
-  //     setSearchCompleted(true);
-  //   }, 100); // Simulated 2-second delay (you can replace this with your actual API request)
-  // };
   const handleSearch = () => {
     setLoading(true);
 
-    const timestamp = convertDateToTimestamp(selectedDate);
+    // const timestamp = convertDateToTimestamp(selectedDate);
 
     // Perform API call to fetch trip information
     fetchTripInformation();
@@ -409,18 +387,7 @@ const Bg_Banner = () => {
                                       </option>
                                     ))}
                                   </select>
-                                  <div>
-                                    {/* <Modal
-                                                                            open={openOrigin}
-                                                                            onClose={handleCloseOrigin}
-                                                                            aria-labelledby="modal-modal-title"
-                                                                            aria-describedby="modal-modal-description"
-                                                                        >
-                                                                            <Box sx={origin} className='origin rounded-xl'>
-                                                                                <Origin tempDiemDi={tempDiemDi} setTempDiemDi={setTempDiemDi} />
-                                                                            </Box>
-                                                                        </Modal> */}
-                                  </div>
+                                  <div></div>
                                 </div>
                               </div>
 
@@ -452,8 +419,7 @@ const Bg_Banner = () => {
                                       </option>
                                     ))}
                                   </select>
-                                  <div>
-                                  </div>
+                                  <div></div>
                                 </div>
                               </div>
                             </div>
@@ -535,60 +501,6 @@ const Bg_Banner = () => {
     </section>
   );
 };
-
-// function Origin({ tempDiemDi, setTempDiemDi }) {
-//     return (
-//         <Container className='mt-[-15px]'>
-//             <Row >
-//                 <Col className=' ml-[-12px]'>
-//                     <h5 className='ml-2'>Điểm đi</h5>
-//                     <div className='w-[332px] h-[67px] border border-gray-300 flex mt-2  rounded-xl'>
-//                         <input
-//                             placeholder='Chọn điểm đi'
-//                             className='ml-2'
-//                             value={tempDiemDi}
-//                             onChange={(e) => setTempDiemDi(e.target.value)}
-//                         />
-//                     </div>
-//                 </Col>
-
-//                 <Col className='mt-7 ml-[-12px]'>
-//                     <h1 className='ml-2'>TỈNH/THÀNH PHỐ</h1>
-//                     <div className='w-[150px] h-[30px] rounded-lg border border-gray-300 mt-2 flex'>
-//                         <span className='mx-auto'>Tp.Hồ Chí Minh</span>
-//                     </div>
-//                 </Col>
-//             </Row>
-//         </Container>
-//     )
-// };
-
-// function Destination({ tempDiemDen, setTempDiemDen }) {
-//     return (
-//         <Container className='mt-[-15px]'>
-//             <Row >
-//                 <Col className=' ml-[-12px]'>
-//                     <h5 className='ml-2'>Điểm đến</h5>
-//                     <div className='w-[332px] h-[67px] border border-gray-300 flex mt-2  rounded-xl'>
-//                         <input
-//                             placeholder='Chọn điểm đến'
-//                             className='ml-2'
-//                             value={tempDiemDen}
-//                             onChange={(e) => setTempDiemDen(e.target.value)}
-//                         />
-//                     </div>
-//                 </Col>
-
-//                 <Col className='mt-7 ml-[-12px]'>
-//                     <h1 className='ml-2'>TỈNH/THÀNH PHỐ</h1>
-//                     <div className='w-[150px] h-[30px] rounded-lg border border-gray-300 mt-2 flex'>
-//                         <span className='mx-auto'>Tp.Hồ Chí Minh</span>
-//                     </div>
-//                 </Col>
-//             </Row>
-//         </Container>
-//     )
-// }
 
 const origin = {
   position: "absolute",
