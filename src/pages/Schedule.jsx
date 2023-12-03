@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import ScheduleCard from "../UI/schedule-card/schedule_card";
@@ -10,6 +10,62 @@ import { useSelector } from 'react-redux';
 const Schedule = () => {
   const tripData = useSelector((state) => state.tripReducer.tripData); // Assuming tripReducer is your reducer name
   const searchCompleted = useSelector((state) => state.tripReducer.searchCompleted);
+
+
+
+  // const [selectedTimeRanges, setSelectedTimeRanges] = useState([]);
+
+  // const formatTimeFromTimestamp = (timestamp) => {
+  //   const date = new Date(timestamp * 1000);
+  //   const hours = date.getHours().toString().padStart(2, '0');
+  //   const minutes = date.getMinutes().toString().padStart(2, '0');
+  //   return `${hours}:${minutes}`;
+  // };
+
+  // const isTripInSelectedRanges = (time) => {
+  //   const formattedTime = formatTimeFromTimestamp(time);
+  //   const hourMinute = parseInt(formattedTime.replace(':', ''));
+
+  //   return selectedTimeRanges.some((range) => {
+  //     if (range === '1' && (hourMinute >= 0 && hourMinute < 600)) {
+  //       return true;
+  //     }
+  //     if (range === '2' && (hourMinute >= 600 && hourMinute < 1200)) {
+  //       return true;
+  //     }
+  //     if (range === '3' && ((hourMinute >= 1800 && hourMinute <= 2359) || (hourMinute >= 0 && hourMinute < 600))) {
+  //       return true;
+  //     }
+  //     if (range === '4' && (hourMinute >= 1800 && hourMinute <= 2359)) {
+  //       return true;
+  //     }
+  //     return false;
+  //   });
+  // };
+
+  // const handleCheckboxChange = (e) => {
+  //   const value = e.target.value;
+  //   const isChecked = e.target.checked;
+
+  //   if (isChecked) {
+  //     setSelectedTimeRanges([...selectedTimeRanges, value]);
+  //   } else {
+  //     const updatedRanges = selectedTimeRanges.filter((range) => range !== value);
+  //     setSelectedTimeRanges(updatedRanges);
+  //   }
+  // };
+
+  // const filteredTrips = tripData.filter((trip) => {
+  //   const pickupStops = trip.listtripStopDTO.filter(
+  //     (stop) =>
+  //       stop.type === 'PICKUP' &&
+  //       isTripInSelectedRanges(stop.timeComess)
+  //   );
+
+  //   return pickupStops.length > 0;
+  // });
+
+
 
   console.log("hehe111",tripData)
   return (

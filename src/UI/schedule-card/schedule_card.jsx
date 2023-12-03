@@ -29,10 +29,12 @@ const Schedule_card = ({ trip }) => {
             {" "}
             {trip.listtripStopDTO.map((stop) => {
               if (stop.type === "PICKUP") {
+                const formattedTime = moment(stop.timeComess * 1000)
+                  .subtract(7, "hours")
+                  .format("hh:mm A");
                 return (
                   <div key={stop.idStation}>
-                    {/* <p>{stop.timeComess}</p> */}
-                    <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
+                    <p>{formattedTime} </p>
                   </div>
                 );
               }
@@ -53,9 +55,12 @@ const Schedule_card = ({ trip }) => {
           <span>
             {trip.listtripStopDTO.map((stop) => {
               if (stop.type === "DROPOFF") {
+                const formattedTime = moment(stop.timeComess * 1000)
+                  .subtract(7, "hours")
+                  .format("hh:mm A");
                 return (
                   <div key={stop.idStation}>
-                    <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
+                    <p>{formattedTime} </p>
                   </div>
                 );
               }
