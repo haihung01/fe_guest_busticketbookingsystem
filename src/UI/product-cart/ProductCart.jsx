@@ -446,12 +446,13 @@ const ProductCart = () => {
                                 <div className="flex">
                                   {tripData[0]?.listtripStopDTO.map((stop) => {
                                     if (stop.type === "PICKUP") {
+                                    
                                       return (
                                         <div key={stop.idStation}>
                                           <span>
                                             {moment(
                                               stop.timeComess * 1000
-                                            ).format(" hh:mm A")}
+                                            ).subtract(7, "hours").format(" hh:mm A")}
                                           </span>
                                         </div>
                                       );
@@ -466,7 +467,8 @@ const ProductCart = () => {
                                           <span>
                                             {moment(
                                               stop.timeComess * 1000
-                                            ).format(" hh:mm A")}
+                                            ).subtract(7, "hours").format(" hh:mm A")}
+                                            
                                           </span>
                                         </div>
                                       );
