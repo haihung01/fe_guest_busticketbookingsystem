@@ -11,7 +11,7 @@
 }
 
 .card-image-NewPost {
-    width: 300px;
+    width: 620px;
     height: 190px;
     border-radius: 12px;
     background: var(--White, #FFF);
@@ -22,6 +22,9 @@
 .card-title-NewPost {
     font-size: 20px;
     margin: 8px 0;
+    // margin: 8px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-detail-NewPost {
