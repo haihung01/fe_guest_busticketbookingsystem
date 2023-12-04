@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, } from "react-router-dom";
 import "./Bg_Banner.scss";
 import { Col, Container, Row } from "reactstrap";
 import "../../data/data.js";
@@ -25,7 +25,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchTripData, setTripData } from "../../action/tripAction.js"; // Path to your actions
 import TextField from "@mui/material/TextField";
 
+
+
 const Bg_Banner = () => {
+
   const [diemDi, setDiemDi] = useState([
     {
       id: "",
@@ -52,10 +55,17 @@ const Bg_Banner = () => {
     },
   ]);
 
+
+
   const dispatch = useDispatch();
   const tripData = useSelector((state) => state.tripReducer.tripData);
 
-  const [selectedDate, setSelectedDate] = useState(null);
+
+  const [selectedDate, setSelectedDate] = useState(null); // State to hold the selected date
+
+  // const convertDateToTimestamp = (selectedDate) => {
+  //   return selectedDate ? Math.floor(dayjs(selectedDate).unix()) : null;
+  // };
 
   console.log("hahaha2:", origin);
   // console.log("API",tripData)
@@ -76,25 +86,96 @@ const Bg_Banner = () => {
   const [provinceInfo, setProvinceInfo] = useState(null);
   const [provinces, setProvinces] = useState([]); // Store provinces data
   console.log("hahaha321", provinces);
+  // useEffect(() => {
+  //   axios.get("http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city").then((response) => {
+  //     const _provincesConvert = response.data
+  //       ? response.data.map((item) => ({
+  //           id: item.code.toString(),
+  //           title: item.name,
+  //         }))
+  //       : [];
+  //     setProvinces(response.data);
+  //     setLoadingProvinces(false);
+  //   });
+  // }, []);
+  // fetch('http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city')
+  // .then(response => response.json())
+  // .then(data => {
+  //   // Mapping and converting "idProvince" to "id" and "name" to "title"
+  //   const mappedData = data.data.map(item => {
+  //     return {
+  //       id: item.idProvince.toString(),
+  //       title: item.name
+  //     };
+  //   });
+  //   setProvinces(mappedData)
+  //   console.log(provinces)
+  // })
+  // .catch(error => console.error('Error:', error));
+  // const convertDateToTimestamp = (date) => {
+  //   return date ? Math.floor(date / 1000) : null;
+  // };
+
+  // const [tripData, setTripData] = useState(null); // State to store API response
+
 
   const convertDateToTimestamp = (date) => {
     return date ? Math.floor(dayjs(date).unix()) : null;
   };
+  // const fetchTripInformation = () => {
+  //   const timestamp = convertDateToTimestamp(selectedDate);
 
+  //   const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
+
+  //   axios
+  //     .get(url)
+  //     .then((response) => {
+  //       console.log("Trip information:", response.data);
+  //       // Handle the response data as needed
+  //       // const getTripData = response.data.map((item) => ({
+  //       //   id: item.idTrip.toString(),
+  //       //   idRoute: item.idTrip.toString(),
+  //       //   name: item.name, // Ensure the property name matches the actual key in the response
+  //       //   availableSeat: item.availableSeat,
+
+
+  //       // }));
+  //       // setTripData(getTripData);
+
+  //     // Access the 'data' array in the response
+
+  //     const tripData = response.data?.data ?? [];
+
+  //     const processedTrips = tripData.map((item) => {
+  //       const seats = item.seatNameBooking.map((seat) => ({
+  //         seatName: seat.seatName,
+  //         status: seat.status,
+  //       }));
+  //     // Map over the 'data' array and extract the required information
+  //     const getTripData = tripData.map((item) => ({
+  //       id: item.idTrip.toString(),
+  //       idRoute: item.idRoute.toString(),
+  //       // Adjust property names according to the response structure
+  //       name: item.routeDTO?.departurePoint + " - " + item.routeDTO?.destination,
+  //       availableSeat: item.availableSeat,seats
+
+  //       // Add more properties based on your requirements
+  //     }));
+
+  //     dispatch(setTripData(getTripData));
+  //     // setTripData(getTripData);
+  //     })
+  //   })
+
+  //     .catch((error) => {
+  //       console.error("Error fetching trip information:", error);
+  //       dispatch(setTripData([]));
+  //      console.log("API_ERRRor",tripData)
+  //     });
+  // };
   const fetchTripInformation = () => {
     const timestamp = convertDateToTimestamp(selectedDate);
-    const initialTimestampSeconds = timestamp; // Given timestamp in seconds
-    const initialTimestampMilliseconds = initialTimestampSeconds * 1000; // Convert seconds to milliseconds
-
-    const addedTimestamp = dayjs(initialTimestampMilliseconds)
-      .add(7, "hour")
-      .valueOf();
-
-    console.log(addedTimestamp); // This will log the new timestamp
-
-    const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${
-      addedTimestamp / 1000
-    }`;
+    const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${timestamp}`;
 
     axios
       .get(url)
@@ -111,23 +192,14 @@ const Bg_Banner = () => {
             const seats = item.seatNameBooking.map((seat) => ({
               seatName: seat.seatName,
               status: seat.status,
-              idTicket: seat.idTicket,
-              idTrip: seat.idTrip,
             }));
 
             return {
               id: item.idTrip.toString(),
               idRoute: item.idRoute.toString(),
-              fare: item.fare,
-              name:
-                item.routeDTO?.departurePoint +
-                " - " +
-                item.routeDTO?.destination,
+              name: item.routeDTO?.departurePoint + " - " + item.routeDTO?.destination,
               availableSeat: item.availableSeat,
               seats,
-
-              listtripStopDTO: item.listtripStopDTO,
-              busDTO: item.busDTO,
             };
           });
 
@@ -139,7 +211,7 @@ const Bg_Banner = () => {
         dispatch(setTripData([])); // Handle error case by setting trip data to an empty array
       });
   };
-  console.log("API", tripData);
+  console.log("API", tripData)
 
   useEffect(() => {
     fetch("http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city")
@@ -154,8 +226,9 @@ const Bg_Banner = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
         dispatch(setTripData([]));
-        console.log("API_ERRRor", tripData);
-      });
+        console.log("API_ERRRor", tripData)
+      }
+      );
   }, []); // Ensure the dependencies are properly managed
 
   const [openDestination, setOpenDestination] = useState(false);
@@ -164,6 +237,20 @@ const Bg_Banner = () => {
     setOpenDestination(false);
     setDiemDen(tempDiemDen);
   };
+
+  //   const handleOriginSelect = (code) => {
+  //     console.log("Code1234:", code); // Check the value of code
+  //     const selectedProvince = provinces.find(
+  //       (province) => province.code === code
+  //     );
+  //     console.log("Selected Province:", selectedProvince); // Check the selected province
+  //     if (selectedProvince) {
+  //       setSelectedProvinceCodeFrom(code); // Set the selected province code first
+  //       setDiemDi(selectedProvince.name);
+  //     }
+  //     console.log("Selected Province Code:", selectedProvinceCodeFrom); // Check the value of selectedProvinceCodeFrom
+  //     // The rest of your code...
+  //   };
 
   const handleDestinationSelect = (code) => {
     const selectedProvince = provinces.find(
@@ -198,10 +285,25 @@ const Bg_Banner = () => {
   const [loading, setLoading] = useState(false);
   const [searchCompleted, setSearchCompleted] = useState(false); // Add this state variable
 
+  // ... other code ...
+
+  // const handleSearch = () => {
+  //   // Show loading indicator
+  //   setLoading(true);
+
+  //   // Perform any necessary actions (e.g., making an API request)
+  //   // Simulate a delay using setTimeout
+  //   setTimeout(() => {
+  //     // Hide loading indicator
+  //     setLoading(false);
+  //     // Mark search as completed
+  //     setSearchCompleted(true);
+  //   }, 100); // Simulated 2-second delay (you can replace this with your actual API request)
+  // };
   const handleSearch = () => {
     setLoading(true);
 
-    // const timestamp = convertDateToTimestamp(selectedDate);
+    const timestamp = convertDateToTimestamp(selectedDate);
 
     // Perform API call to fetch trip information
     fetchTripInformation();
@@ -231,7 +333,7 @@ const Bg_Banner = () => {
             <div className=" header-menu w-[876.2px] h-[79px] p-12 rounded-2xl mx-auto bg-slate-50 mt-10 shadow-2xl">
               <ul className="menu flex justify-center gap-[78px] mt-[-35px]">
                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                  <NavLink to="/">
+                  <NavLink to="/home">
                     <img
                       src={IconHome}
                       className="w-[39px] h-[39px]"
@@ -251,17 +353,17 @@ const Bg_Banner = () => {
                   </NavLink>
                 </motion.li>
                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                  <Link to="/news">
+                  <NavLink to="/news">
                     <img
                       src={IconNews}
                       className="w-[39px] h-[38px]"
                       alt="News Icon"
                     />
                     Tin tức
-                  </Link>
+                  </NavLink>
                 </motion.li>
                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                  <NavLink onClick={handleOpen}>
+                  <NavLink to='/' onClick={handleOpen}>
                     <img
                       src={IconBill}
                       className="w-[39px] h-[38px]"
@@ -364,9 +466,9 @@ const Bg_Banner = () => {
                             <div className="flex gap-5">
                               <div className="">
                                 <span className="ml-3">Điểm đi :</span>
-                                <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px] relative">
+                                <div className="border border-gray-300 flex rounded-lg w-[252px] h-[57px] relative">
                                   <select
-                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
+                                    className="border border-gray-300 rounded-lg w-[252px] h-[57px] relative text-center text-lg"
                                     value={diemDi}
                                     onChange={(e) => {
                                       const selectedId = e.target.value;
@@ -390,15 +492,16 @@ const Bg_Banner = () => {
                                       </option>
                                     ))}
                                   </select>
-                                  <div></div>
+                                  <div>
+                                  </div>
                                 </div>
                               </div>
 
                               <div className="relative">
                                 <span className="ml-3">Điểm đến :</span>
-                                <div className="border border-gray-300 flex rounded-lg w-[252px] h-[67px]">
+                                <div className="border border-gray-300 flex rounded-lg w-[252px] h-[57px]">
                                   <select
-                                    className="border border-gray-300 rounded-lg w-[252px] h-[67px] relative"
+                                    className="border border-gray-300 rounded-lg w-[252px] h-[57px] relative text-center text-lg"
                                     value={diemDen}
                                     onChange={(e) => {
                                       const selectedId = e.target.value;
@@ -411,6 +514,7 @@ const Bg_Banner = () => {
                                       });
                                       setDiemDen(e.target.value);
                                     }}
+                                  // onClick={handleOpenDestination}
                                   >
                                     <option value="">Chọn điểm đến</option>
                                     {destinationFilter.map((province) => (
@@ -422,7 +526,18 @@ const Bg_Banner = () => {
                                       </option>
                                     ))}
                                   </select>
-                                  <div></div>
+                                  <div>
+                                    {/* <Modal
+                                                                            open={openDestination}
+                                                                            onClose={handleCloseDestination}
+                                                                            aria-labelledby="modal-modal-title"
+                                                                            aria-describedby="modal-modal-description"
+                                                                        >
+                                                                            <Box sx={destination} className='rounded-xl'>
+                                                                                <Destination tempDiemDen={tempDiemDen} setTempDiemDen={setTempDiemDen} />
+                                                                            </Box>
+                                                                        </Modal> */}
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -515,6 +630,7 @@ const Bg_Banner = () => {
     </section>
   );
 };
+
 
 const origin = {
   position: "absolute",

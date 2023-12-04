@@ -1,41 +1,47 @@
-    .header {
-        width: 1200px;
-        height: 87px;
-        line-height: 87px;
-        margin: 0 auto;
+.header {
+    width: 1200px;
+    height: 87px;
+    line-height: 87px;
+    margin: 0 auto;
 
-        &.sticky {
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
-            box-shadow: 0 3px 5px rgba(245, 3, 3, 0.3);
-            z-index: 1000;
-        }
-
+    &.sticky {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        box-shadow: 0 3px 5px rgba(245, 3, 3, 0.3);
+        z-index: 1000;
     }
 
+}
 
-    .nav-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+.nav_item a.active {
+    color: rgb(255, 136, 0);
+    text-decoration: underline;
 
-    .button-login {
-        width: 155px;
-        height: 43px;
-        border-radius: 16px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        box-shadow: inset;
-        border: 2px solid rgb(177, 177, 177);
-    }
+}
 
-    .btn {
-        display: flex;
-        justify-content: center;
-    }
+
+.nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-login {
+    width: 155px;
+    height: 43px;
+    border-radius: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    box-shadow: inset;
+    border: 2px solid rgb(177, 177, 177);
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+}

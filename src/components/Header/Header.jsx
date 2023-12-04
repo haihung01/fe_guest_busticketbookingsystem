@@ -15,7 +15,7 @@ import IconContact from '../../assets/icon/contact-headset-communication-svgrepo
 import IconAboutUs from '../../assets/icon/people-svgrepo-com.svg'
 import IconCHplay from '../../assets/icon/CHPlay.svg'
 import IconAppStore from '../../assets/icon/AppStore.svg'
-import Logo from '../../assets/img/360_F_491242470_WdSpwKRMYiHqTvRBRpsH72cM4g1VWL22.jpg'
+import Logo from '../../assets/img/386821698_158043907397075_3857281237486244557_n.png'
 
 const Header = () => {
     const headerRef = useRef(null);
@@ -53,7 +53,9 @@ const Header = () => {
                         <div className='nav-wrapper'>
                             <div className='logo'>
                                 <Link to='/home'>
-                                    <img src={Logo} style={{ width: 108, height: 81 }} alt='Logo' />
+                                    <img src={Logo}
+                                        className='h-[85px] w-[85px] rounded-full'
+                                        alt='Logo' />
                                 </Link>
                             </div>
                             <div className='button'>
@@ -93,7 +95,7 @@ const Header = () => {
                                 <Col className="navigation">
                                     <ul className='menu flex justify-center gap-20 mt-[-42px] mx-auto'>
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
-                                            <NavLink to='/' style={{ transform: 'translateY(-30px)' }}>
+                                            <NavLink to='/home' style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src={IconHome}
                                                     className='w-[39px] h-[39px]'
@@ -123,7 +125,7 @@ const Header = () => {
                                             </NavLink>
                                         </motion.li>
                                         <motion.li whileTap={{ scale: 1.1 }} className='nav_item'>
-                                            <NavLink onClick={handleOpen} style={{ transform: 'translateY(-30px)' }}>
+                                            <NavLink to='/' onClick={handleOpen} style={{ transform: 'translateY(-30px)' }}>
                                                 <img
                                                     src={IconBill}
                                                     className='w-[39px] h-[38px]'
