@@ -10,13 +10,136 @@ const ProductCart = () => {
   // const { state } = location;
   const tripData = useSelector((state) => state.tripReducer.DetailSeat); // Assuming tripReducer is your reducer name
   const seats = tripData[0].seats;
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const [totalFare, setTotalFare] = useState(0);
+  console.log("123331213", tripData);
   // const dataTrip = state?.dataTrip || {};
   // console.log("data in Product",dataTrip)
   // const dataTrip = location.state ? location.state.dataTrip : null;
 
   // console.log('Data received in ProductCart:', dataTrip);
+
+  const seatsPerRow = 2;
+
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [totalFare, setTotalFare] = useState(0);
+
+  // const handleSeatSelection = (seat) => {
+  //   const isSeatSelected = selectedSeats.some(
+  //     (selectedSeat) => selectedSeat.seatName === seat.seatName
+  //   );
+
+  //   if (!isSeatSelected && selectedSeats.length >= 5) {
+  //     alert("You can only select a maximum of 5 seats");
+  //     return;
+  //   }
+
+  //   if (!isSeatSelected && seat.status === "AVAILABLE") {
+  //     setSelectedSeats([...selectedSeats, seat]);
+  //     const seatFare = tripData[0]?.fare || 0; // Assuming tripData has fare information
+  //     setTotalFare((prevTotal) => prevTotal + seatFare);
+  //   } else {
+  //     const updatedSeats = selectedSeats.filter(
+  //       (selectedSeat) => selectedSeat.seatName !== seat.seatName
+  //     );
+  //     setSelectedSeats(updatedSeats);
+  //     const seatFare = tripData[0]?.fare || 0; // Assuming tripData has fare information
+  //     setTotalFare((prevTotal) => prevTotal - seatFare);
+  //   }
+  // };
+
+  const renderSeats = (seats) => {
+    const rows = Math.ceil(seats.length / seatsPerRow);
+
+    const seatRows = [];
+    for (let i = 0; i < rows; i++) {
+      const start = i * seatsPerRow;
+      const end = Math.min(start + seatsPerRow, seats.length);
+      const rowSeats = seats.slice(start, end);
+
+      const rowElements = rowSeats.map((seat) => (
+        <div
+          key={seat.seatName}
+          onClick={() => handleSeatSelection(seat)}
+          style={{
+            width: "50px",
+            height: "50px",
+            margin: "5px",
+            backgroundColor:
+              seat.status === "AVAILABLE"
+                ? selectedSeats.some(
+                    (selectedSeat) => selectedSeat.seatName === seat.seatName
+                  )
+                  ? "rgb(216, 180, 254)"
+                  : "rgb(147, 197, 253)"
+                : "rgb(55, 65, 81)",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "5px",
+            cursor: seat.status === "AVAILABLE" ? "pointer" : "not-allowed",
+            opacity: seat.status === "AVAILABLE" ? 1 : 0.5,
+          }}
+        >
+          {seat.seatName}
+        </div>
+      ));
+
+      seatRows.push(
+        <div key={`row_${i}`} className="flex gap-10 mt-3">
+          {rowElements}
+        </div>
+      );
+    }
+
+    return seatRows;
+  };
+  const renderSeatsNomal = (seats) => {
+    const rows = Math.ceil(seats.length / seatsPerRow);
+
+    const seatRows = [];
+    for (let i = 0; i < rows; i++) {
+      const start = i * seatsPerRow;
+      const end = Math.min(start + seatsPerRow, seats.length);
+      const rowSeats = seats.slice(start, end);
+
+      const rowElements = rowSeats.map((seat) => (
+        <div
+          key={seat.seatName}
+          onClick={() => handleSeatSelection(seat)}
+          style={{
+            width: "50px",
+            height: "50px",
+            margin: "5px",
+            backgroundColor:
+              seat.status === "AVAILABLE"
+                ? selectedSeats.some(
+                    (selectedSeat) => selectedSeat.seatName === seat.seatName
+                  )
+                  ? "rgb(216, 180, 254)"
+                  : "rgb(147, 197, 253)"
+                : "rgb(55, 65, 81)",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "5px",
+            cursor: seat.status === "AVAILABLE" ? "pointer" : "not-allowed",
+            opacity: seat.status === "AVAILABLE" ? 1 : 0.5,
+          }}
+        >
+          {seat.seatName}
+        </div>
+      ));
+
+      seatRows.push(
+        <div key={`row_${i}`} className="flex gap-10 mt-3">
+          {rowElements}
+        </div>
+      );
+    }
+
+    return seatRows;
+  };
 
   const [isChecked, setIsChecked] = useState({
     sold: false,
@@ -92,17 +215,59 @@ const ProductCart = () => {
       setTotalFare((prevTotal) => prevTotal - seatFare);
     }
   };
+
+  const renderSeatsByType = () => {
+    const busType = tripData[0].busDTO.type;
+
+    if (busType === "GIUONG" || busType === "LIMOUSINE") {
+      // Handle seat rendering for GIUONG or LIMOUSIN type
+      const upperDeckSeats = tripData[0].seats.slice(0, 11);
+      const lowerDeckSeats = tripData[0].seats.slice(11, 22);
+      return (
+        // Your custom seat rendering logic for GIUONG or LIMOUSIN type
+        // Replace this with your specific rendering code
+        <div className="flex gap-20 mt-3 items-center ml-9">
+          <div>
+            <h2>Tầng dưới</h2>
+            {renderSeats(upperDeckSeats)}
+          </div>
+
+          <div>
+            <h2>Tầng trên</h2>
+            {renderSeats(lowerDeckSeats)}
+          </div>
+        </div>
+      );
+    } else if (busType === "GHE") {
+      // Handle seat rendering for GHE type
+      const nomalSeats = tripData[0].seats.slice(0, 30);
+
+      // Use the existing rendering logic
+
+      return (
+        <>
+          <div>
+            <h2>Tầng thường</h2>
+            {renderSeatsNomal(nomalSeats)}
+          </div>
+        </>
+      );
+    } else {
+      // Default rendering if the bus type doesn't match any condition
+      return <p>Invalid bus type</p>;
+    }
+  };
   return (
     <>
       <section className="home-banner">
         <Container>
           <Row>
             <Col className=" mt-20">
-              <div className="w-[1200px] h-[700px] p-12  rounded-2xl mx-auto bg-slate-50 border border-gray-200">
+              <div className="w-[1200px]  p-12  rounded-2xl mx-auto bg-slate-50 border border-gray-200 ">
                 <section>
                   <Container>
                     <Row className="flex justify-between">
-                      <Col className="w-[700px] h-[336px] border border-gray-200 rounded-2xl shadow-xl">
+                      <Col className="w-[700px] h-[556px] border border-gray-200 rounded-2xl shadow-xl overflow-auto">
                         <Col className="">
                           <div className="flex gap-20 mt-3 items-center ml-9">
                             <h1 className="text-2xl font-normal">Chọn ghế</h1>
@@ -160,7 +325,21 @@ const ProductCart = () => {
                                   </li>
                                 ))}
                               </ul> */}
-                              <ul
+
+                              {/* <div className="flex gap-20 mt-3 items-center ml-9">
+                                <div>
+                                  <h2>Tầng dưới</h2>
+                                  {renderSeats(upperDeckSeats)}
+                                </div>
+
+                                <div>
+                                  <h2>Tầng trên</h2>
+                                  {renderSeats(lowerDeckSeats)}
+                                </div>
+                              </div> */}
+                              {renderSeatsByType()}
+
+                              {/* <ul
                                 style={{
                                   display: "flex",
                                   flexWrap: "wrap",
@@ -202,7 +381,7 @@ const ProductCart = () => {
                                     {seat.seatName}
                                   </li>
                                 ))}
-                              </ul>
+                              </ul> */}
                               {/* <div>
                                 <h3>Selected Seats</h3>
                                 <ul>
@@ -263,17 +442,18 @@ const ProductCart = () => {
                   );
                 }
                 return null;
-              })} */}
-                                <p>
+              })} */}{" "}
+                                <div className="flex">
                                   {tripData[0]?.listtripStopDTO.map((stop) => {
                                     if (stop.type === "PICKUP") {
+                                    
                                       return (
                                         <div key={stop.idStation}>
-                                          <p>
+                                          <span>
                                             {moment(
                                               stop.timeComess * 1000
-                                            ).format(" hh:mm A")}
-                                          </p>
+                                            ).subtract(7, "hours").format(" hh:mm A")}
+                                          </span>
                                         </div>
                                       );
                                     }
@@ -284,24 +464,27 @@ const ProductCart = () => {
                                     if (stop.type === "DROPOFF") {
                                       return (
                                         <div key={stop.idStation}>
-                                          <p>
+                                          <span>
                                             {moment(
                                               stop.timeComess * 1000
-                                            ).format(" hh:mm A")}
-                                          </p>
+                                            ).subtract(7, "hours").format(" hh:mm A")}
+                                            
+                                          </span>
                                         </div>
                                       );
                                     }
                                     return null;
                                   })}
-                                </p>
+                                </div>
                               </td>
                             </tr>
                             <tr className="flex justify-between">
                               <td className="text-gray-400 font-normal">
                                 Số lượng ghế
                               </td>
-                              <td className="mr-6 font-normal">1 Ghế</td>
+                              <td className="mr-6 font-normal">
+                                {selectedSeats.length}
+                              </td>
                             </tr>
                             <tr className="flex justify-between">
                               <td className="text-gray-400 font-normal">
@@ -309,9 +492,9 @@ const ProductCart = () => {
                               </td>
                               <td className="mr-6 text-green-800 font-normal">
                                 {selectedSeats.map((selectedSeat) => (
-                                  <li key={selectedSeat.seatName}>
-                                    {selectedSeat.seatName}
-                                  </li>
+                                  <span key={selectedSeat.seatName}>
+                                    {selectedSeat.seatName + "  "}
+                                  </span>
                                 ))}{" "}
                               </td>
                             </tr>
