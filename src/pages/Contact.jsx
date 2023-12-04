@@ -103,7 +103,7 @@ const Contact = () => {
                                                     </Col>
 
                                                     <Col>
-                                                        <div className="w-[216px] h-[44px] rounded-3xl flex bg-[#E3E3E3] mt-20 justify-center  relative ">
+                                                        <div className="w-[216px] h-[44px] rounded-3xl flex bg-orange-500 mt-20 justify-center  relative text-gray-50">
                                                             <button
                                                                 className="font-sans w-[216px] h-[44px]">
                                                                 Gửi nội dung

@@ -57,7 +57,7 @@
 }
 
 .round-checkbox input[type="checkbox"]:checked+label:before {
-    background: linear-gradient(to bottom, #051322, #15457c);
+    background: linear-gradient(to bottom, rgb(245, 127, 0), rgb(255, 251, 1));
     border-color: #15457c;
 }
 
