@@ -263,6 +263,7 @@ const Schedule = () => {
         <div>
           {/* Your existing JSX to display the schedule */}
           {tripData && tripData.map((trip) => {
+            
             return <ScheduleCard key={trip.id} trip={trip} />;
           })}
         </div>
