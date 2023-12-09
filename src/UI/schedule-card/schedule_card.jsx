@@ -36,7 +36,7 @@ const Schedule_card = ({ trip }) => {
                 return (
                   <div key={stop.idStation}>
                     {/* <p>{stop.timeComess}</p> */}
-                    <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
+                    <p>{moment(stop.timeComess * 1000).subtract(7, "hours").format(" hh:mm A")}</p>
                   </div>
                 );
               }
@@ -59,7 +59,7 @@ const Schedule_card = ({ trip }) => {
               if (stop.type === "DROPOFF") {
                 return (
                   <div key={stop.idStation}>
-                    <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
+                    <p>{moment(stop.timeComess * 1000).subtract(7, "hours").format(" hh:mm A")}</p>
                   </div>
                 );
               }
