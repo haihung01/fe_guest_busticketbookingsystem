@@ -42,7 +42,7 @@ const Schedule_card = ({ trip }) => {
                   return (
                     <div key={stop.idStation}>
                       {/* <p>{stop.timeComess}</p> */}
-                      <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
+                      <p>{moment(stop.timeComess * 1000).subtract(7, "hours").format(" hh:mm A")}</p>
                     </div>
                   );
                 }
@@ -65,7 +65,7 @@ const Schedule_card = ({ trip }) => {
                 if (stop.type === "DROPOFF") {
                   return (
                     <div key={stop.idStation}>
-                      <p>{moment(stop.timeComess * 1000).format(" hh:mm A")}</p>
+                      <p>{moment(stop.timeComess * 1000).subtract(7, "hours").format(" hh:mm A")}</p>
                     </div>
                   );
                 }
@@ -90,6 +90,39 @@ const Schedule_card = ({ trip }) => {
               </span>
               <br />
               <span className="text-gray mt-2"></span>
+            </div>
+            <div className="flex-1 text-right">
+              <span className="text-[15px] font-medium">
+                {trip.listtripStopDTO.map((stop) => {
+                  if (stop.type === "DROPOFF") {
+                    return (
+                      <div key={stop.idStation}>
+                        <p> {stop.stationDTO.name}</p>
+                        <p className="text-gray-500 font-normal text-sm">Đ/c: {stop.stationDTO.address}</p>
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
+              </span>
+              <br />
+              <span className="text-gray mt-2"></span>
+            </div>
+          </div>
+
+          <div className="divide my-3 sm:my-4"></div>
+          <div className="flex items-center justify-between">
+            <div className="text-gray flex items-center gap-2 text-sm">
+              <span className="text-orange">{trip.price}</span>
+              <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
+              <span className="text-orange-400 text-base">Loại xe</span>
+              <span >: {trip.busDTO?.type}</span><br></br>
+              <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
+
+              <span className=" text-orange-400 text-base">
+                Số ghế trống
+              </span>
+              <span className="text-orange">: {trip.availableSeat}</span>
             </div>
             <div className="flex-1 text-right">
               <span className="text-[15px] font-medium">

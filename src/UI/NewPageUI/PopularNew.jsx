@@ -17,7 +17,7 @@ const PopularNew = () => {
 
   const cardRows = splitDataIntoRows(news, 2);
   useEffect(() => {
-    fetch("http://btbs.ap-southeast-1.elasticbeanstalk.com/news")
+    fetch("https://triptix2.azurewebsites.net/news")
       .then((response) => response.json())
       .then((data) => {
         const mappedData = data.data.map((item) => ({
