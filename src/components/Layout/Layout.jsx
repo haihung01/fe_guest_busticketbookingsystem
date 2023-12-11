@@ -2,12 +2,16 @@ import React from 'react'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Routers from '../../routers/Routers'
+import 'react-loading-skeleton/dist/skeleton.css'
 
-const Layout = () => {
+
+const Layout = ({ Component, pageProps }) => {
     return <>
         <Header />
         <div>
-            <Routers />
+            <Routers>
+                <Component {...pageProps} />
+            </Routers>
         </div>
         <div className='mt-10'>
             <Footer />
