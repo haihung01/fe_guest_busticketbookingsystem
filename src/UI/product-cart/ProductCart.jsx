@@ -10,9 +10,9 @@ import Modal from '@mui/material/Modal';
 import IconCHplay from '../../assets/icon/CHPlay.svg'
 import IconAppStore from '../../assets/icon/AppStore.svg'
 import Skeleton from "react-loading-skeleton";
-
-
-
+import configSystemApi from "../../utils/configAPI";
+import { getConfigFromTrip } from "../../action/tripAction";
+import { useDispatch} from "react-redux";
 const ProductCart = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -21,13 +21,74 @@ const ProductCart = () => {
     }, 3000)
   }, [])
 
+  const dispatch = useDispatch();
+  const configData = useSelector((state) => state.tripReducer.DetailConfig);
+
+  
+  // const idToFind = 15; // ID you want to find
+  // let foundItem;
+
+  // for (let i = 0; i < dataServiceSystem.length; i++) {
+  //   if (dataServiceSystem[i].idConfigSystem === idToFind) {
+  //     foundItem = dataServiceSystem[i];
+  //     break; // Stop loop when item is found
+  //   }
+  // }
+
+  const [dataServiceSystem, setDataServiceSystem] = useState([]);
+  const [config1,setConfig1] = useState();
+  const config = dataServiceSystem.data
+  // const configMaxSeat = configData.find(item => item.idConfigSystem === idToFind);
+  // const maxSeat = configMaxSeat.value
+  // setConfig1(maxSeat)
+  console.log("config1",dataServiceSystem);
+  const fetchListService = async () => {
+    try {
+      setLoading(true);
+      const response = await configSystemApi.getAll();
+      console.log("dataTBL", response);
+      setDataServiceSystem(response.data);
+      console.log('metmoighe',response.data);
+      const idToFind = 16;
+      const configMaxSeat = response.data.find(item => item.idConfigSystem === idToFind);
+      const maxSeat = configMaxSeat.value
+      setConfig1(configMaxSeat)
+
+      dispatch(getConfigFromTrip(dataServiceSystem.data));
+
+    } catch (error) {
+      console.log("err", error);
+      setDataServiceSystem([]);
+
+      if (error.response) {
+        console.error(error.response.data.message);
+
+      } else {
+        console.error("Load Data failed !", error);
+
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchListService();
+  }, []);
+  
+  
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const tripData = useSelector((state) => state.tripReducer.DetailSeat);
+  
   const seats = tripData[0].seats;
   console.log("123331213", tripData);
+  const trip = tripData[0]
+
+  const timeComessFirst = trip.listtripStopDTO[0].timeComess;
+  const timeComessLast = trip.listtripStopDTO[trip.listtripStopDTO.length - 1].timeComess;
 
   const seatsPerRow = 2;
 
@@ -146,7 +207,7 @@ const ProductCart = () => {
     );
 
     if (!isSeatSelected && selectedSeats.length >= 5) {
-      alert("You can only select a maximum of 5 seats");
+      alert("You can only select a maximum 5 of seats");
       return;
     }
 
@@ -280,37 +341,20 @@ const ProductCart = () => {
                                 </td>
                                 <td className="mr-6 text-green-800 font-normal">
                                   <div className="flex">
-                                    {tripData[0]?.listtripStopDTO.map((stop) => {
-                                      if (stop.type === "PICKUP") {
+                                    
 
-                                        return (
-                                          <div key={stop.idStation}>
-                                            <span>
-                                              {moment(
-                                                stop.timeComess * 1000
-                                              ).subtract(7, "hours").format(" hh:mm A")}
-                                            </span>
-                                          </div>
-                                        );
-                                      }
-                                      return null;
-                                    })}
+                                         
+                                          
+                                          <div>{moment(
+                                            timeComessFirst * 1000
+                                          ).subtract(7, "hours").format(" hh:mm A")} </div>    
+
+                                        
+                                    
                                     <span>-</span>
-                                    {tripData[0]?.listtripStopDTO.map((stop) => {
-                                      if (stop.type === "DROPOFF") {
-                                        return (
-                                          <div key={stop.idStation}>
-                                            <span>
-                                              {moment(
-                                                stop.timeComess * 1000
-                                              ).subtract(7, "hours").format(" hh:mm A")}
-
-                                            </span>
-                                          </div>
-                                        );
-                                      }
-                                      return null;
-                                    })}
+                                    <div>{moment(
+                                            timeComessLast * 1000
+                                          ).subtract(7, "hours").format(" hh:mm A")} </div>   
                                   </div>
                                 </td>
                               </tr>
@@ -373,7 +417,7 @@ const ProductCart = () => {
                               <hr className="mr-6 mt-3" />
                               <tr className="flex justify-between mt-3">
                                 <td className="text-gray-400 font-normal">
-                                  Tổng tiền
+                                  Tổng tiền dự kiến
                                 </td>
                                 <td className="mr-6 font-normal text-orange-600">
                                   {totalFare}

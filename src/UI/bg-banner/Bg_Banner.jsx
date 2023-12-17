@@ -172,7 +172,7 @@ const Bg_Banner = () => {
     }
     // setOpenDestination(false);
   };
-  console.log("hahaha:", diemDi);
+  console.log("hahaha:", tripData);
   console.log(provinces);
 
   const [isRoundTrip, setIsRoundTrip] = useState(false);

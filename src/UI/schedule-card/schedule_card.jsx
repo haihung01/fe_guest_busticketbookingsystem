@@ -17,7 +17,6 @@ const Schedule_card = ({ trip }) => {
 
     dispatch(getSeatFromTrip(dataTrip));
   };
-  console.log("TRip123321", dataTrip);
 
   const [loading, setLoading] = useState(true);
 
@@ -26,6 +25,13 @@ const Schedule_card = ({ trip }) => {
       setLoading(false);
     }, 3000)
   }, [])
+  const firstTimeComess = trip.listtripStopDTO[0].timeComess;
+  const lastTimeComess = trip.listtripStopDTO[trip.listtripStopDTO.length - 1].timeComess;
+  console.log("TRip123321", dataTrip);
+
+  const firstAddress = trip.listtripStopDTO[0].stationDTO.name;
+  const lastAddress = trip.listtripStopDTO[trip.listtripStopDTO.length - 1].stationDTO.name;
+
 
   return (
     <>
@@ -36,18 +42,20 @@ const Schedule_card = ({ trip }) => {
         <div className="mb-2 flex w-full flex-col border border-[#DDE2E8] bg-white p-3 pb-4 sm:mb-6 sm:rounded-xl sm:p-6">
           <div className="flex items-center justify-between gap-8">
             <span>
-              {" "}
+              {/* {" "}
               {trip.listtripStopDTO.map((stop) => {
                 if (stop.type === "PICKUP") {
                   return (
                     <div key={stop.idStation}>
-                      {/* <p>{stop.timeComess}</p> */}
                       <p>{moment(stop.timeComess * 1000).subtract(7, "hours").format(" hh:mm A")}</p>
                     </div>
                   );
                 }
                 return null;
-              })}
+              })} */}
+             
+              <p>{moment(firstTimeComess* 1000).subtract(7, "hours").format(" hh:mm A")}</p>
+
             </span>
             <div className="flex w-full items-center">
               <img src={IconDot} className="h-5 w-5" alt="pickup" />
@@ -61,7 +69,7 @@ const Schedule_card = ({ trip }) => {
               <img src={IconLocation} className="h-5 w-5" alt="station" />
             </div>
             <span>
-              {trip.listtripStopDTO.map((stop) => {
+              {/* {trip.listtripStopDTO.map((stop) => {
                 if (stop.type === "DROPOFF") {
                   return (
                     <div key={stop.idStation}>
@@ -70,48 +78,62 @@ const Schedule_card = ({ trip }) => {
                   );
                 }
                 return null;
-              })}
+              })} */}
+              <p>{moment(lastTimeComess* 1000).subtract(7, "hours").format(" hh:mm A")}</p>
+
+
+
             </span>
           </div>
           <div className="mt-3 flex justify-between text-[13px] font-normal">
             <div className="flex-1">
               <span className="text-[15px] font-medium">
-                {trip.listtripStopDTO.map((stop) => {
+                {/* {trip.listtripStopDTO.map((stop) => {
                   if (stop.type === "PICKUP") {
                     return (
                       <div key={stop.idStation}>
                         <p>{stop.stationDTO.name}</p>
-                        <p className="text-gray-500 font-normal text-sm">Đ/c: {stop.stationDTO.address}</p>
+                        <p className="text-gray-500 font-normal text-sm">Đ/c: {firstAddress}</p>
                       </div>
                     );
                   }
                   return null;
-                })}
+                })} */}
+
+                      <div>
+                        <p>{firstAddress}</p>
+                        <p className="text-gray-500 font-normal text-sm">Đ/c: {trip.listtripStopDTO[0].stationDTO.address}</p>
+                      </div>
+
               </span>
               <br />
               <span className="text-gray mt-2"></span>
             </div>
             <div className="flex-1 text-right">
               <span className="text-[15px] font-medium">
-                {trip.listtripStopDTO.map((stop) => {
+                {/* {trip.listtripStopDTO.map((stop) => {
                   if (stop.type === "DROPOFF") {
                     return (
                       <div key={stop.idStation}>
-                        <p> {stop.stationDTO.name}</p>
+                        <p> {lastAddress}</p>
                         <p className="text-gray-500 font-normal text-sm">Đ/c: {stop.stationDTO.address}</p>
                       </div>
                     );
                   }
                   return null;
-                })}
+                })} */}
+                <div>
+                        <p>{lastAddress}</p>
+                        <p className="text-gray-500 font-normal text-sm">Đ/c: {trip.listtripStopDTO[trip.listtripStopDTO.length - 1].stationDTO.address}</p>
+                      </div>
               </span>
               <br />
               <span className="text-gray mt-2"></span>
             </div>
           </div>
 
-          <div className="divide my-3 sm:my-4"></div>
-          <div className="flex items-center justify-between">
+          {/* <div className="divide my-3 sm:my-4"></div> */}
+          {/* <div className="flex items-center justify-between">
             <div className="text-gray flex items-center gap-2 text-sm">
               <span className="text-orange">{trip.price}</span>
               <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
@@ -123,8 +145,8 @@ const Schedule_card = ({ trip }) => {
                 Số ghế trống
               </span>
               <span className="text-orange">: {trip.availableSeat}</span>
-            </div>
-            <div className="flex-1 text-right">
+            </div> */}
+            {/* <div className="flex-1 text-right">
               <span className="text-[15px] font-medium">
                 {trip.listtripStopDTO.map((stop) => {
                   if (stop.type === "DROPOFF") {
@@ -140,8 +162,8 @@ const Schedule_card = ({ trip }) => {
               </span>
               <br />
               <span className="text-gray mt-2"></span>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
 
           <div className="divide my-3 sm:my-4"></div>
           <div className="flex items-center justify-between">
