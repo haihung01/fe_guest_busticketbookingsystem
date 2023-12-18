@@ -278,7 +278,7 @@ const Bg_Banner = () => {
                                                 variant="h6"
                                                 component="h2"
                                             >
-                                                DOWNLOAD THE FUTA APP
+                                                DOWNLOAD THE TRIPTIX APP
                                             </Typography>
                                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                                 Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
@@ -322,7 +322,7 @@ const Bg_Banner = () => {
                         <div className="header-choose w-[1200px] h-[321px] p-12 rounded-2xl mx-auto bg-slate-50 mt-[-40px] shadow-2xl ">
                             <section>
                                 <Container>
-                                    <Row>
+                                    <Row className="mt-10">
                                         <Col className="flex align-items-center gap-16  round-checkbox mt-3 ">
                                             <div>
                                                 <input
@@ -484,14 +484,6 @@ const Bg_Banner = () => {
                                                             </div>
                                                         </div>
                                                     </Col>
-                                                </div>
-                                            </div>
-                                            <div className="flex mt-2">
-                                                <div>
-                                                    <span className="ml-2 ">Tìm kiếm gần đây </span>
-                                                    <div className="border border-gray-300 bg-pink-50 flex rounded-lg w-[252px] h-[67px] ">
-                                                        {" "}
-                                                    </div>
                                                 </div>
                                             </div>
                                         </Col>

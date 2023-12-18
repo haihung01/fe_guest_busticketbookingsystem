@@ -12,7 +12,7 @@ import IconAppStore from '../../assets/icon/AppStore.svg'
 import Skeleton from "react-loading-skeleton";
 import configSystemApi from "../../utils/configAPI";
 import { getConfigFromTrip } from "../../action/tripAction";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 const ProductCart = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -24,7 +24,7 @@ const ProductCart = () => {
   const dispatch = useDispatch();
   const configData = useSelector((state) => state.tripReducer.DetailConfig);
 
-  
+
   // const idToFind = 15; // ID you want to find
   // let foundItem;
 
@@ -36,19 +36,19 @@ const ProductCart = () => {
   // }
 
   const [dataServiceSystem, setDataServiceSystem] = useState([]);
-  const [config1,setConfig1] = useState();
+  const [config1, setConfig1] = useState();
   const config = dataServiceSystem.data
   // const configMaxSeat = configData.find(item => item.idConfigSystem === idToFind);
   // const maxSeat = configMaxSeat.value
   // setConfig1(maxSeat)
-  console.log("config1",dataServiceSystem);
+  console.log("config1", dataServiceSystem);
   const fetchListService = async () => {
     try {
       setLoading(true);
       const response = await configSystemApi.getAll();
       console.log("dataTBL", response);
       setDataServiceSystem(response.data);
-      console.log('metmoighe',response.data);
+      console.log('metmoighe', response.data);
       const idToFind = 16;
       const configMaxSeat = response.data.find(item => item.idConfigSystem === idToFind);
       const maxSeat = configMaxSeat.value
@@ -75,14 +75,14 @@ const ProductCart = () => {
   useEffect(() => {
     fetchListService();
   }, []);
-  
-  
+
+
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const tripData = useSelector((state) => state.tripReducer.DetailSeat);
-  
+
   const seats = tripData[0].seats;
   console.log("123331213", tripData);
   const trip = tripData[0]
@@ -341,20 +341,20 @@ const ProductCart = () => {
                                 </td>
                                 <td className="mr-6 text-green-800 font-normal">
                                   <div className="flex">
-                                    
 
-                                         
-                                          
-                                          <div>{moment(
-                                            timeComessFirst * 1000
-                                          ).subtract(7, "hours").format(" hh:mm A")} </div>    
 
-                                        
-                                    
+
+
+                                    <div>{moment(
+                                      timeComessFirst * 1000
+                                    ).subtract(7, "hours").format(" hh:mm A")} </div>
+
+
+
                                     <span>-</span>
                                     <div>{moment(
-                                            timeComessLast * 1000
-                                          ).subtract(7, "hours").format(" hh:mm A")} </div>   
+                                      timeComessLast * 1000
+                                    ).subtract(7, "hours").format(" hh:mm A")} </div>
                                   </div>
                                 </td>
                               </tr>
@@ -443,7 +443,7 @@ const ProductCart = () => {
                           >
                             <Box sx={style}>
                               <Typography id="modal-modal-title" variant="h6" component="h2">
-                                DOWNLOAD THE FUTA APP
+                                DOWNLOAD THE TRIPTIX APP
                               </Typography>
                               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
