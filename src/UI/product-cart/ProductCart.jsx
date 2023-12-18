@@ -41,7 +41,6 @@ const ProductCart = () => {
   // const configMaxSeat = configData.find(item => item.idConfigSystem === idToFind);
   // const maxSeat = configMaxSeat.value
   // setConfig1(maxSeat)
-  console.log("config1",dataServiceSystem);
   const fetchListService = async () => {
     try {
       setLoading(true);
@@ -49,10 +48,7 @@ const ProductCart = () => {
       console.log("dataTBL", response);
       setDataServiceSystem(response.data);
       console.log('metmoighe',response.data);
-      const idToFind = 16;
-      const configMaxSeat = response.data.find(item => item.idConfigSystem === idToFind);
-      const maxSeat = configMaxSeat.value
-      setConfig1(configMaxSeat)
+      
 
       dispatch(getConfigFromTrip(dataServiceSystem.data));
 
@@ -72,11 +68,22 @@ const ProductCart = () => {
     }
   };
 
-  useEffect(() => {
-    fetchListService();
-  }, []);
-  
-  
+  const getmaxseat = (dataServiceSystem)=>{
+    const idToFind = 16;
+    const configMaxSeat = dataServiceSystem.data.find(item => item.idConfigSystem === idToFind);
+    const maxSeat = configMaxSeat.value
+    return maxSeat
+
+  }
+  // const abc = getmaxseat(dataServiceSystem)
+      console.log('metmoighe2',dataServiceSystem.data);
+
+
+      console.log("config1",config1);
+
+      useEffect(() => {
+        fetchListService();
+      }, [1000]);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
