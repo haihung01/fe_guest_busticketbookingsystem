@@ -92,7 +92,7 @@ const Bg_Banner = () => {
 
     console.log(addedTimestamp); // This will log the new timestamp
 
-    const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${
+    const url = `https://triptix3.azurewebsites.net/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${
       addedTimestamp / 1000
     }`;
 
@@ -141,7 +141,7 @@ const Bg_Banner = () => {
   };
 
   useEffect(() => {
-    fetch("http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city")
+    fetch("https://triptix3.azurewebsites.net/province-city")
       .then((response) => response.json())
       .then((data) => {
         const mappedData = data.data.map((item) => ({
