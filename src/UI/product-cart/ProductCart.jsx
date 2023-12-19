@@ -41,7 +41,6 @@ const ProductCart = () => {
   // const configMaxSeat = configData.find(item => item.idConfigSystem === idToFind);
   // const maxSeat = configMaxSeat.value
   // setConfig1(maxSeat)
-  console.log("config1", dataServiceSystem);
   const fetchListService = async () => {
     try {
       setLoading(true);
@@ -49,10 +48,7 @@ const ProductCart = () => {
       console.log("dataTBL", response);
       setDataServiceSystem(response.data);
       console.log('metmoighe', response.data);
-      const idToFind = 16;
-      const configMaxSeat = response.data.find(item => item.idConfigSystem === idToFind);
-      const maxSeat = configMaxSeat.value
-      setConfig1(configMaxSeat)
+
 
       dispatch(getConfigFromTrip(dataServiceSystem.data));
 
@@ -72,11 +68,22 @@ const ProductCart = () => {
     }
   };
 
+  const getmaxseat = (dataServiceSystem) => {
+    const idToFind = 16;
+    const configMaxSeat = dataServiceSystem.data.find(item => item.idConfigSystem === idToFind);
+    const maxSeat = configMaxSeat.value
+    return maxSeat
+
+  }
+  // const abc = getmaxseat(dataServiceSystem)
+  console.log('metmoighe2', dataServiceSystem.data);
+
+
+  console.log("config1", config1);
+
   useEffect(() => {
     fetchListService();
-  }, []);
-
-
+  }, [1000]);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -443,7 +450,7 @@ const ProductCart = () => {
                           >
                             <Box sx={style}>
                               <Typography id="modal-modal-title" variant="h6" component="h2">
-                                DOWNLOAD THE TRIPTIX APP
+                                DOWNLOAD THE FUTA APP
                               </Typography>
                               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
@@ -492,13 +499,12 @@ const ProductCart = () => {
                     <div className="w-[1200px]  mx-auto justify-between flex">
                       <div>
                         <h1 className="text-blue-900 text-3xl font-bold text-center p-14">
-                          All tickets are 50% off now! <br />
-                          Don't miss such a deal!
+                          Thời gian vàng, săn sale ngay! <br />
+                          Giảm tới 50% giá vé!
                         </h1>
                         <h1 className="text-center">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                          <br /> Sed eu feugiat amet, libero ipsum enim pharetra
-                          hac.
+                          Tải ứng dụng ngay để sử dụng sản phẩm.
+                          <br /> Đừng bỏ qua cơ hội săn vé rẽ trong ngày.
                         </h1>
                       </div>
                       <img

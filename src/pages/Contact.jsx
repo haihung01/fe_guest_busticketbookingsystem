@@ -154,13 +154,12 @@ const Contact = () => {
                                         <div className="w-[1200px]  mx-auto justify-between flex">
                                             <div>
                                                 <h1 className="text-blue-900 text-3xl font-bold text-center p-14">
-                                                    All tickets are 50% off now! <br />
-                                                    Don't miss such a deal!
+                                                    Thời gian vàng, săn sale ngay!! <br />
+                                                    Giảm tới 50% giá vé!
                                                 </h1>
                                                 <h1 className="text-center">
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    <br /> Sed eu feugiat amet, libero ipsum enim pharetra
-                                                    hac.
+                                                    Tải ứng dụng ngay để sử dụng sản phẩm.
+                                                    <br /> Đừng bỏ qua cơ hội săn vé rẽ trong ngày.
                                                 </h1>
                                             </div>
                                             <img

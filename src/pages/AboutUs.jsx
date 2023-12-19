@@ -60,8 +60,8 @@ const AboutUs = () => {
                     ) : (
                         <Col className='w-[1000px] mx-auto'>
                             <div className='flex ml-4 gap-2 font-medium text-4xl'>
-                                <h1>Our</h1>
-                                <h1 className='text-orange-500'>Misson</h1>
+                                <h1>Nhiệm vụ</h1>
+                                <h1 className='text-orange-500'>của chúng tôi</h1>
                             </div>
 
                             <div className=' mt-1 w-[1000px] h-[300px] mx-auto'>
@@ -95,8 +95,8 @@ const AboutUs = () => {
                     ) : (
                         <Col className='w-[1000px] mx-auto mt-14'>
                             <div className='flex ml-4 gap-2 font-medium text-4xl'>
-                                <h1>Our</h1>
-                                <h1 className='text-orange-500'>Commitment</h1>
+                                <h1>Sự cam kết</h1>
+                                <h1 className='text-orange-500'>của chúng tôi</h1>
                             </div>
 
                             <div className=' mt-1 w-[1000px] h-[300px] mx-auto'>
@@ -126,23 +126,6 @@ const AboutUs = () => {
                     )}
 
                 </Row>
-
-                <Row className='h-[550px]'>
-                    <Col>
-                        <div className='flex text-center justify-center font-medium text-4xl'>
-                            <h1 className='text-orange-500 mt-10'>Our Success Team</h1>
-                        </div>
-
-                        <div className='flex gap-16 justify-center mt-12 '>
-                            <img src='https://public.nftstatic.com/static/nft/res/8edfc7e2444f43e681d653e3e7ea037b.png' className='w-[250px] h-[350px] rounded-lg ' />
-                            <img src='https://public.nftstatic.com/static/nft/res/8edfc7e2444f43e681d653e3e7ea037b.png' className='w-[250px] h-[350px] rounded-lg ' />
-                            <img src='https://public.nftstatic.com/static/nft/res/8edfc7e2444f43e681d653e3e7ea037b.png' className='w-[250px] h-[350px] rounded-lg ' />
-                            <img src='https://public.nftstatic.com/static/nft/res/8edfc7e2444f43e681d653e3e7ea037b.png' className='w-[250px] h-[350px] rounded-lg ' />
-
-                        </div>
-                    </Col>
-                </Row>
-
                 <Row>
                     <Col lg="12" className=" h-[550px]">
                         {loading ? (
@@ -159,13 +142,12 @@ const AboutUs = () => {
                                     <div className="w-[1200px]  mx-auto justify-between flex">
                                         <div>
                                             <h1 className="text-blue-900 text-3xl font-bold text-center p-14">
-                                                All tickets are 50% off now! <br />
-                                                Don't miss such a deal!
+                                                Thời gian vàng, săn sale ngay! <br />
+                                                Giảm tới 50% giá vé!
                                             </h1>
                                             <h1 className="text-center">
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                <br /> Sed eu feugiat amet, libero ipsum enim pharetra
-                                                hac.
+                                                Tải ứng dụng ngay để sử dụng sản phẩm.
+                                                <br /> Đừng bỏ qua cơ hội săn vé rẽ trong ngày.
                                             </h1>
                                         </div>
                                         <img

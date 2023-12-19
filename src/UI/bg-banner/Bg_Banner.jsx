@@ -172,7 +172,7 @@ const Bg_Banner = () => {
         }
         // setOpenDestination(false);
     };
-    console.log("hahaha:", tripData);
+    console.log("hahaha:321", diemDen);
     console.log(provinces);
 
     const [isRoundTrip, setIsRoundTrip] = useState(false);
@@ -258,7 +258,7 @@ const Bg_Banner = () => {
                                     </NavLink>
                                 </motion.li>
                                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                                    <NavLink to='/' onClick={handleOpen}>
+                                    <NavLink to="/" onClick={handleOpen}>
                                         <img
                                             src={IconBill}
                                             className="w-[39px] h-[38px]"
@@ -278,7 +278,7 @@ const Bg_Banner = () => {
                                                 variant="h6"
                                                 component="h2"
                                             >
-                                                DOWNLOAD THE TRIPTIX APP
+                                                DOWNLOAD THE FUTA APP
                                             </Typography>
                                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                                 Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
@@ -362,50 +362,13 @@ const Bg_Banner = () => {
                                                             <div className="">
                                                                 <span className="ml-3">Điểm đi :</span>
                                                                 <div>
-                                                                    <select
-                                                                        className="border border-gray-300 rounded-lg w-[252px] h-[57px] relative text-center text-lg"
-                                                                        value={diemDi}
-                                                                        onChange={(e) => {
-                                                                            const selectedId = e.target.value;
-                                                                            const selectedTitle =
-                                                                                e.target.options[e.target.selectedIndex]
-                                                                                    .text;
-                                                                            setOrigin({
-                                                                                id: selectedId,
-                                                                                title: selectedTitle,
-                                                                            });
-                                                                            setDiemDi(e.target.value);
-                                                                        }}
-                                                                    >
-                                                                        <option value="">Chọn điểm đi</option>
-                                                                        {originFilter.map((province) => (
-                                                                            <option
-                                                                                key={province.id}
-                                                                                value={province.id}
-                                                                            >
-                                                                                {province.name}
-                                                                            </option>
-                                                                        ))}
-                                                                    </select>
-                                                                    <div></div>
-                                                                    {/* <Grid
-                                                                        value={diemDi}
-                                                                    >
+                                                                    <Grid>
                                                                         <Autocomplete
                                                                             className="border border-gray-300 flex rounded-lg w-[252px] h-[57px]"
                                                                             options={provinces}
-                                                                            // getOptionLabel={(option) => option.name}
-                                                                            value={diemDi}
-                                                                            onChange={(e) => {
-                                                                                const selectedId = e.target.value;
-                                                                                const selectedTitle =
-                                                                                    e.target.options[e.target.selectedIndex]
-                                                                                        .text;
-                                                                                setOrigin({
-                                                                                    id: selectedId,
-                                                                                    title: selectedTitle,
-                                                                                });
-                                                                                setDiemDi(e.target.value);
+                                                                            getOptionLabel={(option) => option.name}
+                                                                            onChange={(event, newValue) => {
+                                                                                setDiemDi(newValue ? newValue.id : "");
                                                                             }}
                                                                             renderInput={(params) => (
                                                                                 <TextField
@@ -414,7 +377,7 @@ const Bg_Banner = () => {
                                                                                 />
                                                                             )}
                                                                         />
-                                                                    </Grid> */}
+                                                                    </Grid>
                                                                 </div>
                                                             </div>
 
@@ -492,7 +455,6 @@ const Bg_Banner = () => {
                             </section>
                         </div>
                     </Col>
-
 
                     <Col className="flex justify-center mt-9">
                         <div className="button-search  w-[216px] h-[44px] rounded-3xl flex bg-[#ef5222] mt-[-55px] justify-center shadow-2xl relative ">
