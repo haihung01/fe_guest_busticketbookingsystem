@@ -59,7 +59,7 @@ const Header = () => {
                                 </Link>
                             </div>
                             <div className='button'>
-                                <button className='btn button-login' onClick={handleOpen}>Tải xuống</button>
+                                <button className='btn button-login bg-[#ef5222] shadow-2xl  text-white text-lg' onClick={handleOpen}>Tải xuống</button>
                                 <Modal
                                     open={open}
                                     onClose={handleClose}
