@@ -456,7 +456,7 @@ const ProductCart = () => {
                           >
                             <Box sx={style}>
                               <Typography id="modal-modal-title" variant="h6" component="h2">
-                                DOWNLOAD THE FUTA APP
+                                DOWNLOAD THE TRIPTIX APP
                               </Typography>
                               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
