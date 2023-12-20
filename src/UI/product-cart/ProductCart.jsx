@@ -3,7 +3,7 @@ import { Col, Container, Row } from "reactstrap";
 import Bg_Banner from "../bg-banner/Bg_Banner";
 import Seat from "../../assets/img/SeatAvaiable.png";
 import { useSelector } from "react-redux";
-import moment from "moment";
+import moment, { max } from "moment";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -36,12 +36,14 @@ const ProductCart = () => {
   // }
 
   const [dataServiceSystem, setDataServiceSystem] = useState([]);
-  const [config1, setConfig1] = useState();
+  const [config1, setConfig1] = useState(null);
   const config = dataServiceSystem.data
   // const configMaxSeat = configData.find(item => item.idConfigSystem === idToFind);
   // const maxSeat = configMaxSeat.value
   // setConfig1(maxSeat)
-  const fetchListService = async () => {
+
+
+  const fetchData = async () => {
     try {
       setLoading(true);
       const response = await configSystemApi.getAll();
@@ -49,8 +51,19 @@ const ProductCart = () => {
       setDataServiceSystem(response.data);
       console.log('metmoighe', response.data);
 
-
-      dispatch(getConfigFromTrip(dataServiceSystem.data));
+      if (Array.isArray(response.data.data) && response.data.data.length > 0) {
+        const idToFind = 16;
+        const configMaxSeat = response.data.data.find(item => item.idConfigSystem === idToFind);
+        if (configMaxSeat) {
+          const maxSeat = configMaxSeat.value;
+          setConfig1(maxSeat);
+          // Thực hiện các công việc khác với dữ liệu mới
+        } else {
+          console.error("Config not found for ID: ", idToFind);
+        }
+      } else {
+        console.error("No data received from API");
+      }
 
     } catch (error) {
       console.log("err", error);
@@ -58,23 +71,16 @@ const ProductCart = () => {
 
       if (error.response) {
         console.error(error.response.data.message);
-
       } else {
         console.error("Load Data failed !", error);
-
       }
+
     } finally {
       setLoading(false);
     }
   };
 
-  const getmaxseat = (dataServiceSystem) => {
-    const idToFind = 16;
-    const configMaxSeat = dataServiceSystem.data.find(item => item.idConfigSystem === idToFind);
-    const maxSeat = configMaxSeat.value
-    return maxSeat
 
-  }
   // const abc = getmaxseat(dataServiceSystem)
   console.log('metmoighe2', dataServiceSystem.data);
 
@@ -82,7 +88,7 @@ const ProductCart = () => {
   console.log("config1", config1);
 
   useEffect(() => {
-    fetchListService();
+    fetchData();
   }, [1000]);
 
   const [open, setOpen] = useState(false);
@@ -213,8 +219,8 @@ const ProductCart = () => {
       (selectedSeat) => selectedSeat.seatName === seat.seatName
     );
 
-    if (!isSeatSelected && selectedSeats.length >= 5) {
-      alert("You can only select a maximum 5 of seats");
+    if (!isSeatSelected && selectedSeats.length >= config1) {
+      alert("You can only select a maximum " + config1 + " of seats");
       return;
     }
 
@@ -298,7 +304,7 @@ const ProductCart = () => {
                           <Col className="flex ml-9">
                             <div className="w-[475px] ">
                               <div>
-                                <h2>Select Seats (Max 5)</h2>
+                                <h2>Select Seats Max {config1}</h2>
                                 {renderSeatsByType()}
                               </div>
                             </div>
