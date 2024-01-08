@@ -621,7 +621,51 @@ const ProductCart2 = () => {
                                                 </Col>
                                             </div>
                                         </Row>
-
+                                        <Row className="w-[700px] h-[100px] border border-gray-200 rounded-2xl shadow-xl overflow-auto mt-2 flex gap-52">
+                                            <Col className="mt-5">
+                                                <div className="ml-6">
+                                                    <span className="text-lg font-medium">Tổng số tiền thanh toán</span>
+                                                    <h1>Tổng : 200.000VNĐ</h1>
+                                                </div>
+                                            </Col>
+                                            <Col>
+                                                <div className='rounded-2xl mt-9 flex gap-7'>
+                                                    <button onClick={handleOpen} className='w-[112px] h-[32px] border border-gray-300 rounded-2xl flex justify-center text-center items-center text-orange-500'>
+                                                        Hủy
+                                                    </button>
+                                                    <button onClick={handleOpen} className='w-[112px] h-[32px] bg-orange-500 rounded-2xl flex justify-center text-center items-center text-gray-50'>
+                                                        Thanh toán
+                                                    </button>
+                                                    <Modal
+                                                        open={open}
+                                                        onClose={handleClose}
+                                                        aria-labelledby="modal-modal-title"
+                                                        aria-describedby="modal-modal-description"
+                                                    >
+                                                        <Box sx={style}>
+                                                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                                                DOWNLOAD THE TRIPTIX APP
+                                                            </Typography>
+                                                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                                                Tải app để có thẻ trải nghiệm dịch vụ một cách tốt nhất.
+                                                            </Typography>
+                                                            <div className='flex mt-10 justify-between '>
+                                                                <img
+                                                                    className='h-9'
+                                                                    src={IconCHplay}
+                                                                    alt='CHplay'
+                                                                />
+                                                                <img
+                                                                    className='h-9'
+                                                                    src={IconAppStore}
+                                                                    alt='AppStore'
+                                                                />
+                                                            </div>
+                                                        </Box>
+                                                    </Modal>
+                                                </div>
+                                            </Col>
+                                        </Row>
                                     </Container>
                                 </section>
                             </div>

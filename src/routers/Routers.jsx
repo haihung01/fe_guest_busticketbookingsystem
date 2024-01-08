@@ -9,6 +9,7 @@ import Bill from '../pages/Bill'
 import ProductCart from '../UI/product-cart/ProductCart'
 import Schedule2 from '../pages/Schedule2'
 import ProductCart2 from '../UI/product-cart/ProductCart2'
+import Payment from '../UI/product-cart/payment/Payment'
 
 const Routers = () => {
     return (
@@ -23,6 +24,8 @@ const Routers = () => {
             <Route path='product-cart' element={<ProductCart />} />
             <Route path='schedule2' element={<Schedule2 />} />
             <Route path='product-cart2' element={<ProductCart2 />} />
+            <Route path='payment' element={<Payment />} />
+
 
         </Routes>
 
