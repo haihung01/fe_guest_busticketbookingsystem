@@ -8,6 +8,7 @@ import AboutUs from '../pages/AboutUs'
 import Bill from '../pages/Bill'
 import ProductCart from '../UI/product-cart/ProductCart'
 import Schedule2 from '../pages/Schedule2'
+import ProductCart2 from '../UI/product-cart/ProductCart2'
 
 const Routers = () => {
     return (
@@ -21,6 +22,8 @@ const Routers = () => {
             <Route path='about-us' element={<AboutUs />} />
             <Route path='product-cart' element={<ProductCart />} />
             <Route path='schedule2' element={<Schedule2 />} />
+            <Route path='product-cart2' element={<ProductCart2 />} />
+
         </Routes>
 
     )

@@ -14,6 +14,24 @@ import configSystemApi from "../../utils/configAPI";
 import { getConfigFromTrip } from "../../action/tripAction";
 import { useDispatch } from "react-redux";
 const ProductCart = () => {
+
+  const defaultSeats = []; // replace with your default seats array
+  const defaultTotalFare = 0;
+
+  // Initialize the state with default values
+  const [selectedSeats, setSelectedSeats] = useState(defaultSeats);
+  const [totalFare, setTotalFare] = useState(defaultTotalFare);
+
+  // ... (rest of your existing component)
+
+  useEffect(() => {
+    fetchData();
+  }, [/* dependencies for useEffect */]);
+
+
+
+  //===========================================
+
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -105,8 +123,8 @@ const ProductCart = () => {
 
   const seatsPerRow = 2;
 
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const [totalFare, setTotalFare] = useState(0);
+  // const [selectedSeats, setSelectedSeats] = useState([]);
+  // const [totalFare, setTotalFare] = useState(0);
 
   const renderSeats = (seats) => {
     const rows = Math.ceil(seats.length / seatsPerRow);
@@ -291,7 +309,7 @@ const ProductCart = () => {
                 <section>
                   <Container>
                     <Row className="flex justify-between">
-                      <Col className="w-[700px] h-[556px] border border-gray-200 rounded-2xl shadow-xl overflow-auto">
+                      {/* <Col className="w-[700px] h-[556px] border border-gray-200 rounded-2xl shadow-xl overflow-auto">
                         {loading ? (
                           <Skeleton className="w-[700px] h-full rounded-2xl " />
                         ) : (<div>
@@ -327,11 +345,11 @@ const ProductCart = () => {
                             </div>
                           </Col></div>)}
 
-                      </Col>
+                      </Col> */}
 
 
 
-                      <Col>
+                      {/* <Col>
                         {loading ? (
                           <Skeleton className="w-[345px] h-[206px] " />
                         ) : (
@@ -445,7 +463,7 @@ const ProductCart = () => {
                           <button onClick={handleOpen} className='w-[112px] h-[32px] border border-gray-300 rounded-2xl flex justify-center text-center items-center text-orange-500'>
                             Hủy
                           </button>
-                          <button onClick={handleOpen} className='w-[112px] h-[32px] bg-orange-500 rounded-2xl flex justify-center text-center items-center text-gray-50'>
+                          <button onClick={handlegit addOpen} className='w-[112px] h-[32px] bg-orange-500 rounded-2xl flex justify-center text-center items-center text-gray-50'>
                             Thanh toán
                           </button>
                           <Modal
@@ -476,7 +494,7 @@ const ProductCart = () => {
                             </Box>
                           </Modal>
                         </div>
-                      </Col>
+                      </Col> */}
 
                     </Row>
                   </Container>
