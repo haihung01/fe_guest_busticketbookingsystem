@@ -42,17 +42,17 @@ const CardList = () => {
 
     const visibleImages = showMore ? slide_img : slide_img.slice(0, 3);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [title, setTitle] = useState("")
     const [title2, setTitle2] = useState("")
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-            setTitle("KHUYẾN MÃI NỔI BẬT")
-            setTitle2("TUYẾN PHỔ BIẾN")
-        }, 3000)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //         setTitle("KHUYẾN MÃI NỔI BẬT")
+    //         setTitle2("TUYẾN PHỔ BIẾN")
+    //     }, 3000)
+    // }, [])
 
 
 

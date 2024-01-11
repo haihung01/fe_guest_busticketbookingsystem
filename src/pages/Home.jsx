@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Col, Container, Row } from 'reactstrap'
-import Bg_Banner from '../UI/bg-banner/Bg_Banner'
+import BgBanner from '../UI/bg-banner/Bg_Banner'
 import Banner from '../UI/Banner'
 import CardList from '../UI/AdvertisementList'
 import Skeleton from "react-loading-skeleton";
 
 const Home = () => {
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 3000)
+    // }, [])
 
     return (
         <>
@@ -90,6 +90,7 @@ const Home = () => {
                                                 </h1>
                                             </div>
                                             <img
+                                            alt="img"
                                                 src="https://free.vector6.com/wp-content/uploads/2020/04/072-Vector-Viet-Nam-poeqrc006.jpg"
                                                 className="w-[600px] h-[470px]"
                                             />

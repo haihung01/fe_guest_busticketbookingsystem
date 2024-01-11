@@ -4,12 +4,12 @@ import { Col, Container, Row } from 'reactstrap'
 import Skeleton from 'react-loading-skeleton'
 
 const AboutUs = () => {
-    const [loading, setLoading] = useState(true)
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 3000)
-    })
+    const [loading, setLoading] = useState(false)
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false)
+    //     }, 3000)
+    // })
     return (
         <section className="home-banner " >
             <Container className="w-[1200px] h-full mx-auto  mt-20">

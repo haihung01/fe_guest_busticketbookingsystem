@@ -1,7 +1,8 @@
-import { FETCH_TRIP_DATA, SET_TRIP_DATA ,SET_SEARCH_COMPLETED ,GET_SEAT_DATA,GET_CONFIG_DATA} from '../action/tripAction';
+import { FETCH_TRIP_DATA, SET_TRIP_DATA ,SET_SEARCH_COMPLETED ,GET_SEAT_DATA,GET_CONFIG_DATA, SET_TRIP_DETAIL} from '../action/tripAction';
 
 const initialState = {
   tripData: [],
+  tripDetail:{},
   searchCompleted: false,
   DetailSeat: []  
 };
@@ -12,6 +13,11 @@ const tripReducer = (state = initialState, action) => {
       return {
         ...state,
         tripData: action.payload,
+      };
+      case SET_TRIP_DETAIL:
+      return {
+        ...state,
+        tripDetail: action.payload,
       };
       case SET_SEARCH_COMPLETED:
       return {

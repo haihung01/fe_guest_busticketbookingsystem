@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "reactstrap";
-import Bg_Banner from "../bg-banner/Bg_Banner";
+import BgBanner from "../bg-banner/Bg_Banner";
 import Seat from "../../assets/img/SeatAvaiable.png";
 import { useSelector } from "react-redux";
 import moment, { max } from "moment";

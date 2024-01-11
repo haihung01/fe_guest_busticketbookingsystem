@@ -11,12 +11,12 @@ import Skeleton from "react-loading-skeleton";
 
 
 const Schedule2 = ({ routes, route, time, disance }) => {
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000)
-    }, [])
+    const [loading, setLoading] = useState(false);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 3000)
+    // }, [])
 
     const [age, setAge] = useState('');
 
