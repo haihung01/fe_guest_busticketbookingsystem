@@ -16,12 +16,21 @@ const Payment = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [age, setAge] = useState('');
 
     const handlePayment = async () => {
         try {
-        const responsePayment = await axiosClient.post('/payment/booking-guest-url', paymentInfo) 
-        console.log("res payment: ",responsePayment?.data);
+         const submitForm = {
+            nameGuest: paymentInfo.nameGuest,
+            phoneGuest: paymentInfo.phoneGuest,
+            emailGuest: paymentInfo.emailGuest,
+            idTrip: paymentInfo.idTrip,
+            idOnStation: paymentInfo.idonStation,
+            idoffStation: paymentInfo.idoffStation,
+            seatName: paymentInfo.seatName,
+            amountMoneyToRecharge: paymentInfo.amountMoneyToRecharge
+          }
+        const responsePayment = await axiosClient.post('/payment/booking-guest-url', submitForm) 
+      
         if (responsePayment) {
             const url = responsePayment?.data?.data;
             const a = document.createElement('a')
