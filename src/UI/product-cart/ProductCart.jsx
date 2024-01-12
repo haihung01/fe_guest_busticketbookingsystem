@@ -1,45 +1,70 @@
-import React, { useState, useEffect } from "react";
-import { Col, Container, Row } from "reactstrap";
-import BgBanner from "../bg-banner/Bg_Banner";
-import Seat from "../../assets/img/SeatAvaiable.png";
-import { useSelector } from "react-redux";
-import moment, { max } from "moment";
+import { Button, Chip, Grid, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import IconCHplay from "../../assets/icon/CHPlay.svg";
-import IconAppStore from "../../assets/icon/AppStore.svg";
+import Typography from "@mui/material/Typography";
+import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
+import { useDispatch, useSelector } from "react-redux";
+import { Col, Container, Row } from "reactstrap";
+import IconAppStore from "../../assets/icon/AppStore.svg";
+import IconCHplay from "../../assets/icon/CHPlay.svg";
 import configSystemApi from "../../utils/configAPI";
-import { getConfigFromTrip } from "../../action/tripAction";
-import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { setPaymentInfo } from "../../action/tripAction";
 const ProductCart = () => {
   const defaultSeats = [];
   const defaultTotalFare = 0;
   const [selectedSeats, setSelectedSeats] = useState(defaultSeats);
   const [totalFare, setTotalFare] = useState(defaultTotalFare);
-  const tripDataStore = useSelector((state) => state.tripReducer.tripData);
-  console.log("tripDataStore", tripDataStore);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState();
+  const [isFill, setIsFill] = useState({
+    isSelectSeat: false,
+    isFillName: false,
+    isFillPhone: false,
+    isFillEmail: false,
+  });
   useEffect(() => {
     fetchData();
   }, []);
-
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
   const [loading, setLoading] = useState(false);
+  const tripData = useSelector((state) => state.tripReducer.tripDetail);
+  console.log("Trip detail in reducer", tripData);
+  const tripPickupSelected = useSelector((state) => state.tripReducer.pickupSelected);
+  const tripDropoffSelected = useSelector((state) => state.tripReducer.dropoffSelected);
   const dispatch = useDispatch();
-  const configData = useSelector((state) => state.tripReducer.DetailConfig);
-  const location = useLocation();
-
-  const [dataServiceSystem, setDataServiceSystem] = useState([]);
+  const navigate = useNavigate()
+  // const [dataServiceSystem, setDataServiceSystem] = useState([]);
   const [config1, setConfig1] = useState(null);
-
+  const handlePayment=()=>{
+    const dataPayment = {
+      nameGuest: name,
+      phoneGuest: phone?.toString(),
+      emailGuest: email,
+      idTrip: tripData?.id || 0,
+      idOnStation: tripData?.idStationPickUp,
+      idOffStation: tripData?.idStationDropOff,
+      stationOn: tripData?.stationOn,
+      stationOff: tripData?.stationOff,
+      seatName: selectedSeats,
+      amountMoneyToRecharge: totalFare
+    }
+    dispatch(setPaymentInfo(dataPayment));
+    navigate("/payment")
+  }
   const fetchData = async () => {
     try {
       setLoading(true);
       const response = await configSystemApi.getAll();
-      console.log("dataTBL", response);
-      setDataServiceSystem(response.data);
+      // setDataServiceSystem(response.data);
       if (
         Array.isArray(response?.data?.data) &&
         response?.data?.data?.length > 0
@@ -60,7 +85,7 @@ const ProductCart = () => {
       }
     } catch (error) {
       console.log("err", error);
-      setDataServiceSystem([]);
+      // setDataServiceSystem([]);
       if (error.response) {
         console.error(error.response.data.message);
       } else {
@@ -74,31 +99,18 @@ const ProductCart = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const tripData = useSelector((state) => state.tripReducer.tripDetail);
-  console.log("123331213", tripData);
   const trip = tripData;
-  
-  let timeComessFirst = "00:00", timeComessLast = "00:00"
-  if(trip?.listTripStopDTO){
+
+  let timeComessFirst = "00:00",
+    timeComessLast = "00:00";
+  if (trip?.listTripStopDTO) {
     timeComessFirst = trip?.listTripStopDTO[0]?.timeCome;
     timeComessLast =
       trip?.listTripStopDTO[trip?.listTripStopDTO?.length - 1]?.timeCome;
   }
-  
-
   const seatsPerRow = 2;
 
-  // const [selectedSeats, setSelectedSeats] = useState([]);
-  // const [totalFare, setTotalFare] = useState(0);
-
   const renderSeats = (seats) => {
-    // const rows = Math.ceil(seats.length / seatsPerRow);
-    // const seatRows = [];
-    // for (let i = 0; i < rows; i++) {
-    //   const start = i * seatsPerRow;
-    //   const end = Math.min(start + seatsPerRow, seats.length);
-    //   const rowSeats = seats.slice(start, end);
-    //    console.log("seat render", rowSeats);
     return (
       <Grid container>
         {seats.map((seat) => (
@@ -112,7 +124,7 @@ const ProductCart = () => {
                 margin: "5px",
                 backgroundColor:
                   // seat.status === "AVAILABLE"
-                  tripData?.seats?.find((t) => t !== seat)
+                  tripData?.listSeatBooked?.findIndex((t) => t === seat) === -1
                     ? selectedSeats.some(
                         (selectedSeat) => selectedSeat === seat
                       )
@@ -124,10 +136,14 @@ const ProductCart = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: "5px",
-                cursor: tripData?.seats?.find((t) => t !== seat)
-                  ? "pointer"
-                  : "not-allowed",
-                opacity: tripData?.seats?.find((t) => t !== seat) ? 1 : 0.5,
+                cursor:
+                  tripData?.listSeatBooked?.findIndex((t) => t === seat) === -1
+                    ? "pointer"
+                    : "not-allowed",
+                opacity:
+                  tripData?.listSeatBooked?.findIndex((t) => t === seat) === -1
+                    ? 1
+                    : 0.5,
               }}
             >
               {seat}
@@ -193,10 +209,8 @@ const ProductCart = () => {
             height: "50px",
             margin: "5px",
             backgroundColor:
-              seat.status === "AVAILABLE"
-                ? selectedSeats.some(
-                    (selectedSeat) => selectedSeat === seat
-                  )
+              tripData?.listSeatBooked?.findIndex((t) => t === seat) === -1
+                ? selectedSeats.some((selectedSeat) => selectedSeat === seat)
                   ? "rgb(216, 180, 254)"
                   : "rgb(147, 197, 253)"
                 : "rgb(55, 65, 81)",
@@ -205,8 +219,14 @@ const ProductCart = () => {
             alignItems: "center",
             justifyContent: "center",
             borderRadius: "5px",
-            cursor: seat.status === "AVAILABLE" ? "pointer" : "not-allowed",
-            opacity: seat.status === "AVAILABLE" ? 1 : 0.5,
+            cursor:
+              tripData?.listSeatBooked?.findIndex((t) => t === seat) === -1
+                ? "pointer"
+                : "not-allowed",
+            opacity:
+              tripData?.listSeatBooked?.findIndex((t) => t === seat) === -1
+                ? 1
+                : 0.5,
           }}
         >
           {seat}
@@ -228,13 +248,14 @@ const ProductCart = () => {
     empty: false,
     selected: false,
   });
-  console.log("GET_Trip_select", tripData?.name);
-  console.log("GET_Trip_select22", tripData?.listtripStopDTO);
 
   if (!tripData || !tripData?.seats) {
     return <p>No seats available</p>;
   }
   const handleSeatSelection = (seat) => {
+    if (tripData?.listSeatBooked?.findIndex((t) => t === seat) !== -1) {
+      return;
+    }
     const isSeatSelected = selectedSeats.some(
       (selectedSeat) => selectedSeat === seat
     );
@@ -245,30 +266,45 @@ const ProductCart = () => {
     }
 
     if (!isSeatSelected) {
-      const newArr = [...selectedSeats, seat]
+      const newArr = [...selectedSeats, seat];
       setSelectedSeats(newArr);
-      const numberOfSeats = newArr.length
-      const seatFare = tripData?.ticketInformation?.defaultPrice * numberOfSeats || 0;
+      const numberOfSeats = newArr.length;
+      const seatFare =
+        tripData?.defaultPrice * numberOfSeats || 0;
       setTotalFare(seatFare);
+      setIsFill({
+        ...isFill,
+        isSelectSeat: true,
+      });
     } else {
       // Remove the seat from selectedSeats
       const updatedSeats = selectedSeats.filter(
         (selectedSeat) => selectedSeat !== seat
       );
-      setSelectedSeats(updatedSeats);    
-      const numberOfSeats = updatedSeats.length
-      const seatFare = tripData?.ticketInformation?.defaultPrice * numberOfSeats || 0;
+      setSelectedSeats(updatedSeats);
+      const numberOfSeats = updatedSeats.length;
+      const seatFare =
+        tripData?.defaultPrice * numberOfSeats || 0;
       setTotalFare(seatFare);
+      if(numberOfSeats === 0){
+        setIsFill({
+          ...isFill,
+          isSelectSeat: false,
+        });
+      }else{
+        setIsFill({
+          ...isFill,
+          isSelectSeat: true,
+        });
+      }
     }
   };
 
   const renderSeatsByType = () => {
     const busType = tripData.busDTO.type;
-
     if (busType === "GIUONG" || busType === "LIMOUSINE") {
       // Handle seat rendering for GIUONG or LIMOUSIN type
       const upperDeckSeats = [
-        "A0",
         "A1",
         "A2",
         "A3",
@@ -279,9 +315,9 @@ const ProductCart = () => {
         "A8",
         "A9",
         "A10",
-      ];
-      const lowerDeckSeats = [
         "A11",
+      ];
+      const lowerDeckSeats = [   
         "A12",
         "A13",
         "A14",
@@ -292,8 +328,8 @@ const ProductCart = () => {
         "A19",
         "A20",
         "A21",
+        "A22",
       ];
-      console.log("check 2 tầng: ", upperDeckSeats, lowerDeckSeats);
       return (
         // Your custom seat rendering logic for GIUONG or LIMOUSIN type
         // Replace this with your specific rendering code
@@ -432,9 +468,12 @@ const ProductCart = () => {
                                 </td>
                                 <td className="mr-6 text-green-800 font-normal">
                                   {selectedSeats.map((selectedSeat) => (
-                                    <span key={selectedSeat}>
-                                      {selectedSeat + " - "}
-                                    </span>
+                                    <Chip
+                                      key={selectedSeat}
+                                      label={selectedSeat}
+                                      color="info"
+                                      sx={{ mr: 1, mb: 1 }}
+                                    />
                                   ))}{" "}
                                 </td>
                               </tr>
@@ -539,41 +578,122 @@ const ProductCart = () => {
                       </Col>
                     </Row>
 
-                    <Row className="w-[700px] h-[350px] border border-gray-200 rounded-2xl shadow-xl overflow-auto mt-4     ">
+                    <Row className="w-[700px] h-[350px] border border-gray-200 rounded-2xl shadow-xl overflow-auto mt-4">
                       <div className="flex">
                         <Col>
                           <h1 className="ml-6 mt-3 text-lg font-medium">
                             Thông tin khách hàng
                           </h1>
-                          <div className="ml-6 flex-col mt-3">
+                          <div className="ml-6 flex-col mt-3 ">
                             <Col className="d-flex ">
-                              <span>Họ và tên :</span>
-                              <div className="w-[266px] h-[36px] border border-gray-300 rounded-lg mt-1 relative">
-                                <input
-                                  placeholder="Nhập họ và tên"
-                                  className=" h-[32px] w-[263px] placeholder-center placeholder-[5px] text-left rounded-lg"
-                                />
-                              </div>
+                              <TextField
+                                sx={{ minWidth: 240, mb: 1 }}
+                                id="outlined-controlled"
+                                label="Họ và tên"
+                                size="small"
+                                helperText={
+                                  name && name?.length > 1
+                                    ? ""
+                                    : "Họ và Tên không hợp lệ"
+                                }
+                                error={name && name?.length > 1 ? false : true}
+                                value={name}
+                                onChange={(event) => {
+                                  if (!event.target.value) {
+                                    setIsFill({
+                                      ...isFill,
+                                      isFillName: false,
+                                    });
+                                    setName(event.target.value);
+                                    return;
+                                  }
+                                  setName(event.target.value);
+                                  if(event.target.value.length > 1){
+                                    setIsFill({ ...isFill, isFillName: true });
+                                  }else{
+                                    setIsFill({
+                                      ...isFill,
+                                      isFillName: false,
+                                    });
+                                  }                               
+                                }}
+                              />
                             </Col>
 
                             <Col className="mt-5">
-                              <span>Điện thoại :</span>
-                              <div className="w-[266px] h-[36px] border border-gray-300 rounded-lg mt-1">
-                                <input
-                                  placeholder="Nhập số điện thoại"
-                                  className=" h-[32px] w-[263px] placeholder-center placeholder-[5px] text-left rounded-lg"
-                                />
-                              </div>
+                              <TextField
+                                sx={{ minWidth: 240, mb: 1 }}
+                                id="outlined-controlled"
+                                label="Số điện thoại"
+                                size="small"
+                                value={phone}
+                                helperText={
+                                  phone && phone?.length === 10
+                                    ? ""
+                                    : "Số điện thoại không hợp lệ"
+                                }
+                                error={
+                                  phone && phone?.length === 10 ? false : true
+                                }
+                                type="number"
+                                onChange={(event) => {
+                                  if (!event.target.value) {
+                                    setIsFill({
+                                      ...isFill,
+                                      isFillPhone: false,
+                                    });
+                                    setPhone(event.target.value);
+                                    return;
+                                  }
+                                  setPhone(event.target.value);
+                                  if(event.target.value?.length === 10){
+                                    setIsFill({ ...isFill, isFillPhone: true });
+                                  }else{
+                                    setIsFill({
+                                      ...isFill,
+                                      isFillPhone: false,
+                                    });
+                                  }
+                                  
+                                }}
+                              />
                             </Col>
 
                             <Col className="mt-5">
-                              <span>Email :</span>
-                              <div className="w-[266px] h-[36px] border border-gray-300 rounded-lg mt-1">
-                                <input
-                                  placeholder="Nhập email"
-                                  className=" h-[32px] w-[263px] placeholder-center placeholder-[5px] text-left rounded-lg"
-                                />
-                              </div>
+                              <TextField
+                                sx={{ minWidth: 240 }}
+                                id="outlined-controlled"
+                                label="Email"
+                                size="small"
+                                value={email}
+                                helperText={
+                                  email && validateEmail(email)
+                                    ? ""
+                                    : "Email không hợp lệ"
+                                }
+                                error={
+                                  email && validateEmail(email) ? false : true
+                                }
+                                onChange={(event) => {
+                                  if (!event.target.value) {
+                                    setIsFill({
+                                      ...isFill,
+                                      isFillEmail: false,
+                                    });
+                                    setEmail(event.target.value);
+                                    return;
+                                  }
+                                  setEmail(event.target.value);
+                                  if(validateEmail(event.target.value)) {
+                                    setIsFill({ ...isFill, isFillEmail: true });
+                                  }else{
+                                    setIsFill({
+                                      ...isFill,
+                                      isFillEmail: false,
+                                    });
+                                  }
+                                }}
+                              />
                             </Col>
                           </div>
                         </Col>
@@ -582,7 +702,7 @@ const ProductCart = () => {
                           <h1 className="text-center justify-center mt-3 text-xl text-orange-500">
                             ĐIỀU KHOẢN & LƯU Ý
                           </h1>
-                          <div className="ml-6 flex-col mt-3">
+                          <div className="ml-6 flex-col mr-3">
                             <br />
                             <span>
                               (*) Quý khách vui lòng có mặt tại bến xuất phát
@@ -607,75 +727,6 @@ const ProductCart = () => {
                         </label>
                       </Col>
                     </Row>
-
-                    {/* <Row className="w-[700px] h-[170px] border border-gray-200 rounded-2xl shadow-xl overflow-auto mt-2">
-                      <h1 className="ml-6 mt-3 text-lg font-medium">
-                        Thông tin đón trả
-                      </h1>
-                      <div className="gap-44 mt-4 flex justify-center items-center mx-auto">
-                        <Col>
-                          <span>ĐIỂM ĐÓN</span>
-                          <div className="w-60">
-                            <FormControl fullWidth>
-                              <InputLabel id="demo-simple-select-label">
-                                Điểm đón
-                              </InputLabel>
-                              <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={10}
-                                label="Address"
-                                // onChange={handleChange}
-                              >
-                                <MenuItem value={10}>Hồ Chí Minh</MenuItem>
-                                <MenuItem value={20}>Bình Dương</MenuItem>
-                                <MenuItem value={30}>Hà Nội</MenuItem>
-                                <MenuItem value={10}>Hồ Chí Minh</MenuItem>
-                                <MenuItem value={20}>Bình Dương</MenuItem>
-                                <MenuItem value={30}>Hà Nội</MenuItem>
-                                <MenuItem value={10}>Hồ Chí Minh</MenuItem>
-                                <MenuItem value={20}>Bình Dương</MenuItem>
-                                <MenuItem value={30}>Hà Nội</MenuItem>
-                                <MenuItem value={10}>Hồ Chí Minh</MenuItem>
-                                <MenuItem value={20}>Bình Dương</MenuItem>
-                                <MenuItem value={30}>Hà Nội</MenuItem>
-                              </Select>
-                            </FormControl>
-                          </div>
-                        </Col>
-
-                        <Col>
-                          <span>ĐIỂM TRẢ</span>
-                          <div className="w-60">
-                            <FormControl fullWidth>
-                              <InputLabel id="demo-simple-select-label">
-                                Điểm trả
-                              </InputLabel>
-                              <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={10}
-                                label="Address"
-                                // onChange={handleChange}
-                              >
-                                <MenuItem value={10}>Hồ Chí Minh</MenuItem>
-                                <MenuItem value={20}>Bình Dương</MenuItem>
-                                <MenuItem value={30}>Hà Nội</MenuItem>
-                                <MenuItem value={10}>Hồ Chí Minh</MenuItem>
-                                <MenuItem value={20}>Bình Dương</MenuItem>
-                                <MenuItem value={30}>Hà Nội</MenuItem>
-                                <MenuItem value={10}>Hồ Chí Minh</MenuItem>
-                                <MenuItem value={20}>Bình Dương</MenuItem>
-                                <MenuItem value={30}>Hà Nội</MenuItem>
-                                <MenuItem value={10}>Hồ Chí Minh</MenuItem>
-                                <MenuItem value={20}>Bình Dương</MenuItem>
-                                <MenuItem value={30}>Hà Nội</MenuItem>
-                              </Select>
-                            </FormControl>
-                          </div>
-                        </Col>
-                      </div>
-                    </Row> */}
                     <Row className="w-[700px] h-[100px] border border-gray-200 rounded-2xl shadow-xl overflow-auto mt-2 flex gap-52">
                       <Col className="mt-5">
                         <div className="ml-6">
@@ -692,13 +743,25 @@ const ProductCart = () => {
                             className="w-[112px] h-[32px] border border-gray-300 rounded-2xl flex justify-center text-center items-center text-orange-500"
                           >
                             Hủy
-                          </button>
-                          <button
-                            onClick={handleOpen}
-                            className="w-[112px] h-[32px] bg-orange-500 rounded-2xl flex justify-center text-center items-center text-gray-50"
+                          </button>                        
+                          <Button
+                            disabled={(isFill.isFillEmail === true && isFill.isFillPhone === true && isFill.isFillEmail === true && isFill.isSelectSeat === true) ? false : true}
+                            onClick={handlePayment}
+                            size="small"
+                            sx={{
+                              color: "#fff",
+                              pl: 1,
+                              pr: 1,
+                              bgcolor: "#F97316",
+                              borderRadius: "16px",
+                              "&:hover": {
+                                color: "#fff",
+                                bgcolor: "#fb8c00",
+                              },
+                            }}
                           >
                             Thanh toán
-                          </button>
+                          </Button>
                           <Modal
                             open={open}
                             onClose={handleClose}
