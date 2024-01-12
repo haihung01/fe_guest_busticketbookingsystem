@@ -36,10 +36,10 @@ const Payment = () => {
                                     <Container>
                                         <Row className="flex justify-between">
                                             <Col>
-                                                <span className="ml-6 text-lg font-medium">Chọn phương thức thanh toán</span>
+                                                <span className="ml-6 text-xl font-medium">Chọn phương thức thanh toán</span>
                                                 <div className="flex mt-5 gap-4 ml-6">
                                                     <img
-                                                        className="border border-gray-400 h-12 w-12 rounded-lg"
+                                                        className="border border-gray-500 h-12 w-12 rounded-xl border-2"
                                                         src="https://downloadlogomienphi.com/sites/default/files/logos/download-logo-vector-vnpayqr-noqr-mien-phi.jpg" />
                                                     <h1 className="my-auto text-lg font-medium">VNPay</h1>
                                                 </div>

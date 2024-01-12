@@ -56,9 +56,6 @@ const ProductCart = () => {
   const [dataServiceSystem, setDataServiceSystem] = useState([]);
   const [config1, setConfig1] = useState(null);
   const config = dataServiceSystem.data
-  // const configMaxSeat = configData.find(item => item.idConfigSystem === idToFind);
-  // const maxSeat = configMaxSeat.value
-  // setConfig1(maxSeat)
 
 
   const fetchData = async () => {
@@ -122,10 +119,6 @@ const ProductCart = () => {
   const timeComessLast = trip.listtripStopDTO[trip.listtripStopDTO.length - 1].timeComess;
 
   const seatsPerRow = 2;
-
-  // const [selectedSeats, setSelectedSeats] = useState([]);
-  // const [totalFare, setTotalFare] = useState(0);
-
   const renderSeats = (seats) => {
     const rows = Math.ceil(seats.length / seatsPerRow);
 
