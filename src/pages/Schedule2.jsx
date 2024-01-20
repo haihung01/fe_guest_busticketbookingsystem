@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useState } from 'react';
 import Skeleton from "react-loading-skeleton";
+import BackDrop from '../components/loading/Loading';
 
 
 const Schedule2 = ({ routes, route, time, disance }) => {
@@ -15,7 +16,7 @@ const Schedule2 = ({ routes, route, time, disance }) => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 3000)
+        }, 1000)
     }, [])
 
     const [age, setAge] = useState('');
@@ -26,7 +27,8 @@ const Schedule2 = ({ routes, route, time, disance }) => {
     return (
         <>
             <section className="home-banner" >
-                <Container>
+                <div>
+                    <BackDrop open={loading} />
                     <Row className='w-[1200px] mx-auto'>
                         {loading ? (
                             <Skeleton className='h-[700px] w-[1200px]' />
@@ -96,11 +98,11 @@ const Schedule2 = ({ routes, route, time, disance }) => {
 
 
                     </Row>
-                </Container>
+                </div>
             </section >
 
             <section className='mt-16'>
-                <Container >
+                <div >
                     <Row>
                         <Col lg="12" className=" h-[550px]">
                             {loading ? (
@@ -136,7 +138,7 @@ const Schedule2 = ({ routes, route, time, disance }) => {
 
                         </Col>
                     </Row>
-                </Container>
+                </div>
             </section>
 
         </>

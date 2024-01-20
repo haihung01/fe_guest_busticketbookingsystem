@@ -2,17 +2,20 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { Col, Container, Row } from 'reactstrap'
 import Skeleton from 'react-loading-skeleton'
+import BackDrop from '../components/loading/Loading'
 
 const AboutUs = () => {
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         setTimeout(() => {
-            setLoading(false)
-        }, 3000)
-    })
+            setLoading(false);
+        }, 1000)
+    }, [])
+
     return (
         <section className="home-banner " >
-            <Container className="w-[1200px] h-full mx-auto  mt-20">
+            <div className="w-[1200px] h-full mx-auto  mt-20">
+                <BackDrop open={loading} />
                 <Row className='h-[780px]' >
                     {loading ? (
                         <Skeleton />
@@ -161,10 +164,9 @@ const AboutUs = () => {
 
                     </Col>
                 </Row>
-            </Container>
+            </div>
         </section>
     )
 }
 
 export default AboutUs
-

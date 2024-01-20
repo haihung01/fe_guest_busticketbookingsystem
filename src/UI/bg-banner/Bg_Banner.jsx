@@ -24,6 +24,7 @@ import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTripData, setTripData } from "../../action/tripAction.js"; // Path to your actions
 import TextField from "@mui/material/TextField";
+import BackDrop from "../../components/loading/Loading.jsx";
 
 const Bg_Banner = () => {
     const [diemDi, setDiemDi] = useState([
@@ -57,7 +58,7 @@ const Bg_Banner = () => {
 
     const [selectedDate, setSelectedDate] = useState(null);
 
-    console.log("hahaha2:", origin);
+    // console.log("hahaha2:", origin);
     // console.log("API",tripData)
     const [loadingProvinces, setLoadingProvinces] = useState(true);
 
@@ -75,7 +76,7 @@ const Bg_Banner = () => {
 
     const [provinceInfo, setProvinceInfo] = useState(null);
     const [provinces, setProvinces] = useState([]); // Store provinces data
-    console.log("hahaha321", provinces);
+    // console.log("hahaha321", provinces);
 
     const convertDateToTimestamp = (date) => {
         return date ? Math.floor(dayjs(date).unix()) : null;
@@ -90,9 +91,9 @@ const Bg_Banner = () => {
             .add(7, "hour")
             .valueOf();
 
-        console.log(addedTimestamp); // This will log the new timestamp
+        // console.log(addedTimestamp); // This will log the new timestamp
 
-        const url = `http://btbs.ap-southeast-1.elasticbeanstalk.com/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${addedTimestamp / 1000
+        const url = `https://triptix2.azurewebsites.net/trips/search?codeDeparturePoint=${diemDi}&codeDestination=${diemDen}&startTime=${addedTimestamp / 1000
             }`;
 
         axios
@@ -106,30 +107,30 @@ const Bg_Banner = () => {
                 if (tripData.length === 0) {
                     dispatch(setTripData([]));
                 } else {
-                    const processedTrips = tripData.map((item) => {
-                        const seats = item.seatNameBooking.map((seat) => ({
-                            seatName: seat.seatName,
-                            status: seat.status,
-                            idTicket: seat.idTicket,
-                            idTrip: seat.idTrip,
-                        }));
+                    const processedTrips = tripData?.map((item) => {
+                        // const seats = item?.seatNameBusy?.map((seat) => ({
+                        //     seatName: seat.seatName,
+                        //     status: seat.status,
+                        //     idTicket: seat.idTicket,
+                        //     idTrip: seat.idTrip,
+                        // }));
 
                         return {
-                            id: item.idTrip.toString(),
-                            idRoute: item.idRoute.toString(),
-                            fare: item.fare,
-                            name:
-                                item.route?.departurePoint +
-                                " - " +
-                                item.route?.destination,
-                            availableSeat: item.availableSeat,
-                            seats,
-
-                            listtripStopDTO: item.listtripStopDTO,
-                            busDTO: item.busDTO,
+                            id: item.idTrip?.toString(),
+                            idRoute: item?.route?.idRoute?.toString(),
+                            // fare: item.fare,
+                            name: item?.route?.name,
+                            availableSeat: item?.availableSeat,
+                            seats: item?.seatNameBusy,
+                            listTripStopDTO: item?.route?.listStationInRoute,
+                            listTicketType: item?.route?.listTicketType,
+                            departurePoint: item?.route?.departurePoint,
+                            destination: item?.route?.destination,
+                            busDTO: item?.vehicle,
+                            subTrip: item?.subTrip
                         };
                     });
-
+                    console.log("check processedTrips: ", processedTrips);
                     dispatch(setTripData(processedTrips));
                 }
             })
@@ -140,7 +141,7 @@ const Bg_Banner = () => {
     };
 
     useEffect(() => {
-        fetch("http://btbs.ap-southeast-1.elasticbeanstalk.com/province-city")
+        fetch("https://triptix2.azurewebsites.net/province-city")
             .then((response) => response.json())
             .then((data) => {
                 const mappedData = data.data.map((item) => ({
@@ -152,7 +153,7 @@ const Bg_Banner = () => {
             .catch((error) => {
                 console.error("Error fetching data:", error);
                 dispatch(setTripData([]));
-                console.log("API_ERRRor", tripData);
+                // console.log("API_ERRRor", tripData);
             });
     }, []); // Ensure the dependencies are properly managed
     const [openDestination, setOpenDestination] = useState(false);
@@ -172,8 +173,8 @@ const Bg_Banner = () => {
         }
         // setOpenDestination(false);
     };
-    console.log("hahaha:321", diemDen);
-    console.log(provinces);
+    // console.log("hahaha:321", diemDen);
+    // console.log(provinces);
 
     const [isRoundTrip, setIsRoundTrip] = useState(false);
 
@@ -191,16 +192,12 @@ const Bg_Banner = () => {
         setIsRoundTrip(!isRoundTrip);
         setMoveSearchRecently(!isRoundTrip);
     };
-    console.log(diemDi);
+    // console.log(diemDi);
     const [loading, setLoading] = useState(false);
     const [searchCompleted, setSearchCompleted] = useState(false); // Add this state variable
 
     const handleSearch = () => {
         setLoading(true);
-
-        // const timestamp = convertDateToTimestamp(selectedDate);
-
-        // Perform API call to fetch trip information
         fetchTripInformation();
 
         setTimeout(() => {
@@ -218,17 +215,18 @@ const Bg_Banner = () => {
     const destinationFilter = provinces.filter((province) =>
         province.name.toLowerCase().includes(searchQueryDestination.toLowerCase())
     );
-    console.log(originFilter);
+    // console.log(originFilter);
 
     return (
         <section>
-            <Container className="body-bg">
+            <div className="body-bg">
+                <BackDrop open={loading} />
                 <Row>
                     <Col className="navigation flex">
                         <div className=" header-menu w-[876.2px] h-[79px] p-12 rounded-2xl mx-auto bg-slate-50 mt-10 shadow-2xl">
                             <ul className="menu flex justify-center gap-[78px] mt-[-35px]">
                                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                                    <NavLink to="/home">
+                                    <NavLink to="/home" style={{ textDecoration: "none" }}>
                                         <img
                                             src={IconHome}
                                             className="w-[39px] h-[39px]"
@@ -238,7 +236,7 @@ const Bg_Banner = () => {
                                     </NavLink>
                                 </motion.li>
                                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                                    <NavLink to="/schedule2">
+                                    <NavLink to="/schedule2" style={{ textDecoration: "none" }}>
                                         <img
                                             src={IconSchedule}
                                             className="w-[39px] h-[38px]"
@@ -248,7 +246,7 @@ const Bg_Banner = () => {
                                     </NavLink>
                                 </motion.li>
                                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                                    <NavLink to="/news">
+                                    <NavLink to="/news" style={{ textDecoration: "none" }}>
                                         <img
                                             src={IconNews}
                                             className="w-[39px] h-[38px]"
@@ -258,7 +256,7 @@ const Bg_Banner = () => {
                                     </NavLink>
                                 </motion.li>
                                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                                    <NavLink to="/" onClick={handleOpen}>
+                                    <NavLink to="/" onClick={handleOpen} style={{ textDecoration: "none" }}>
                                         <img
                                             src={IconBill}
                                             className="w-[39px] h-[38px]"
@@ -295,7 +293,7 @@ const Bg_Banner = () => {
                                     </Modal>
                                 </motion.li>
                                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                                    <NavLink to="/contact">
+                                    <NavLink to="/contact" style={{ textDecoration: "none" }}>
                                         <img
                                             src={IconContact}
                                             className="w-[39px] h-[38px]"
@@ -305,7 +303,7 @@ const Bg_Banner = () => {
                                     </NavLink>
                                 </motion.li>
                                 <motion.li whileTap={{ scale: 1.1 }} className="nav_item">
-                                    <NavLink to="/about-us">
+                                    <NavLink to="/about-us" style={{ textDecoration: "none" }}>
                                         <img
                                             src={IconAboutUs}
                                             className="w-[39px] h-[38px]"
@@ -321,7 +319,7 @@ const Bg_Banner = () => {
                     <Col className="Widget-Section">
                         <div className="header-choose w-[1200px] h-[321px] p-12 rounded-2xl mx-auto bg-slate-50 mt-[-40px] shadow-2xl ">
                             <section>
-                                <Container>
+                                <div>
                                     <Row className="mt-10">
                                         <Col className="flex align-items-center gap-16  round-checkbox mt-3 ">
                                             <div>
@@ -451,7 +449,7 @@ const Bg_Banner = () => {
                                             </div>
                                         </Col>
                                     </Row>
-                                </Container>
+                                </div>
                             </section>
                         </div>
                     </Col>
@@ -469,7 +467,7 @@ const Bg_Banner = () => {
                         </div>
                     </Col>
                 </Row>
-            </Container>
+            </div>
         </section>
     );
 };

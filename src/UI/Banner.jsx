@@ -8,19 +8,19 @@ import "swiper/css/navigation";
 const slide_img = [
     {
         id: 1,
-        img: "https://storage.googleapis.com/futa-busline-cms-dev/343x184_4x_29d182ce55/343x184_4x_29d182ce55.png",
+        img: "https://i.ibb.co/LnPJpsq/bus.png",
     },
     {
         id: 2,
-        img: "https://storage.googleapis.com/futa-busline-web-cms-prod/Zalo_11b66ecb81/Zalo_11b66ecb81.png",
+        img: "https://homepage.momocdn.net/blogscontents/momo-upload-api-220803151053-637951362531172965.jpg",
     },
     {
         id: 3,
-        img: "https://storage.googleapis.com/futa-busline-web-cms-prod/5_343_x_184_px_fe99f594f1/5_343_x_184_px_fe99f594f1.png",
+        img: "https://i.ibb.co/0nZhntN/anhmomo.png",
     },
     {
         id: 4,
-        img: "https://storage.googleapis.com/futa-busline-web-cms-prod/343_x_184_px_0b1588190d/343_x_184_px_0b1588190d.png",
+        img: "https://www.hyundaivna.com/wp-content/uploads/2019/02/11.jpg",
     },
 
 ];
@@ -43,9 +43,9 @@ const Banner = () => {
         >
             {slide_img.map((item) => (
                 <SwiperSlide key={item.id}>
-                    <div className="h-screen w-[1200px] flex justify-center items-center mx-auto">
+                    <div className="h-[750px] w-[1200px] flex justify-center items-center mx-auto">
                         <div className="swipper shadow-2xl">
-                            <img src={item.img} className="img_banner rounded-2xl shadow-2xl" alt="" />
+                            <img src={item.img} className="img_banner rounded-2xl shadow-2xl h-[630px] w-[1200px]" alt="" />
                         </div>
                     </div>
                 </SwiperSlide>

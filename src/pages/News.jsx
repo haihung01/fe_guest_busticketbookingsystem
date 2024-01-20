@@ -1,12 +1,12 @@
 import React from 'react'
 import { Card, Col, Container, Row } from 'reactstrap'
-import Bg_Banner from '../UI/bg-banner/Bg_Banner'
+import BgBanner from '../UI/bg-banner/Bg_Banner'
 import Banner from '../UI/Banner'
 import PopularNew from '../UI/NewPageUI/PopularNew'
 const News = () => {
     return (
         <>
-            <section className='choosFrom_wrap'>
+            {/* <section className='choosFrom_wrap'>
                 <Container>
                     <Row>
                         <Col lg="12">
@@ -19,24 +19,24 @@ const News = () => {
                         </Col>
                     </Row>
                 </Container>
-            </section>
+            </section> */}
             <section className="banner mt-16">
-                <Container >
+                <div >
                     <Row>
                         <Col lg="12" className="">
                             {/* <Banner /> */}
                         </Col>
                     </Row>
-                </Container>
+                </div>
             </section>
             <section className="banner mt-16">
-                <Container >
+                <div >
                     <Row>
                         <Col lg="12" className="">
                             <PopularNew />
                         </Col>
                     </Row>
-                </Container>
+                </div>
             </section>
         </>
 

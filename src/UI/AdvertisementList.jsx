@@ -42,18 +42,9 @@ const CardList = () => {
 
     const visibleImages = showMore ? slide_img : slide_img.slice(0, 3);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [title, setTitle] = useState("")
     const [title2, setTitle2] = useState("")
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-            setTitle("KHUYẾN MÃI NỔI BẬT")
-            setTitle2("TUYẾN PHỔ BIẾN")
-        }, 3000)
-    }, [])
-
 
 
     return (
@@ -61,11 +52,11 @@ const CardList = () => {
             <section>
                 <div className="w-full bg-orange-50">
                     <div className="flex">
-                        <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center mt-10">
+                        <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center mt-1">
                             {title || <Skeleton />}
                         </h1>
                     </div>
-
+                    <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center">KHUYẾN MÃI NỔI BẬT</h1>
                     <div className="list_counsera w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3">
                         {loading ? (
                             Array.from({ length: 3 }).map((_, index) => (
@@ -94,11 +85,11 @@ const CardList = () => {
             <section className="mt-16">
                 <div className="w-full bg-slate-100">
                     <div className="flex">
-                        <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center mt-10">
+                        <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center mt-1">
                             {title2 || <Skeleton />}
                         </h1>
                     </div>
-
+                    <h1 className="text-blue-900 text-2xl font-medium mx-auto text-center">TUYẾN PHỔ BIẾN</h1>
                     <div className="list_counsera w-[1200px] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3">
                         {loading ? (
                             Array.from({ length: 3 }).map((_, index) => (

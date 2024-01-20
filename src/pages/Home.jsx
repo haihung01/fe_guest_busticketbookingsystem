@@ -1,24 +1,60 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Col, Container, Row } from 'reactstrap'
-import Bg_Banner from '../UI/bg-banner/Bg_Banner'
+import BgBanner from '../UI/bg-banner/Bg_Banner'
 import Banner from '../UI/Banner'
 import CardList from '../UI/AdvertisementList'
 import Skeleton from "react-loading-skeleton";
+import { Alert, Snackbar } from '@mui/material'
+import BackDrop from '../components/loading/Loading'
 
 const Home = () => {
 
     const [loading, setLoading] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [openFail, setOpenFail] = useState(false);
 
     useEffect(() => {
+        const status = window.location.href?.split("status");
+        if (status[1] === "=success") {
+            setOpen(true)
+        }
+        if (status[1] === "=false") {
+            setOpenFail(true)
+        }
         setTimeout(() => {
             setLoading(false);
-        }, 3000)
-    }, [])
+        }, 1000)
+    }, []);
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+    const handleCloseFail = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenFail(false);
+    };
 
     return (
         <>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Thanh toán thành công
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openFail} autoHideDuration={6000} onClose={handleCloseFail}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    Thanh toán thất bại!
+                </Alert>
+            </Snackbar>
             <section className='bg-Adtech-desk  '>
-                <Container>
+                <div>
+                    <BackDrop open={loading} />
                     <Row>
                         <Col lg="12">
                             <div>
@@ -40,31 +76,35 @@ const Home = () => {
                             </div>
                         </Col>
                     </Row>
-                </Container>
+                </div>
             </section>
 
-            <section className="banner mt-[-50px]">
-                <Container >
+            <section className="banner">
+                <div className='' >
                     <Row>
-                        <Col lg="12" className="">
-                            {/* <Banner /> */}
+                        <Col lg="12" >
+                            {loading ? (
+                                [<Skeleton className=" h-[550px]" />]
+                            ) : (
+                                <Banner />
+                            )}
                         </Col>
                     </Row>
-                </Container>
+                </div>
             </section>
 
-            <section className='mt-16'>
-                <Container >
+            <section className='mt-2'>
+                <div >
                     <Row>
                         <Col lg="12" className="">
                             <CardList />
                         </Col>
                     </Row>
-                </Container>
+                </div>
             </section>
 
             <section className='mt-16'>
-                <Container >
+                <div >
                     <Row>
                         <Col lg="12" className=" h-[550px]">
                             {loading ? (
@@ -90,6 +130,7 @@ const Home = () => {
                                                 </h1>
                                             </div>
                                             <img
+                                                alt="img"
                                                 src="https://free.vector6.com/wp-content/uploads/2020/04/072-Vector-Viet-Nam-poeqrc006.jpg"
                                                 className="w-[600px] h-[470px]"
                                             />
@@ -100,7 +141,7 @@ const Home = () => {
 
                         </Col>
                     </Row>
-                </Container>
+                </div>
             </section>
 
         </>

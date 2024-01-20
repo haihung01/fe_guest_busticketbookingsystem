@@ -1,49 +1,100 @@
+import {
+  Alert,
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Snackbar,
+  Stack,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { setTripData } from '../../action/tripAction'; // Assuming you have an action creator
-import IconDot from '../../assets/img/dot-circle-svgrepo-com.svg'
-import IconLocation from '../../assets/img/location-pin-svgrepo-com.svg'
 import Skeleton from "react-loading-skeleton";
-
-import { getSeatFromTrip } from "../../action/tripAction"; // Assuming you have an action creator
-import moment from "moment";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { setTripDetail } from "../../action/tripAction"; // Assuming you have an action creator
+import IconDot from "../../assets/img/dot-circle-svgrepo-com.svg";
+import IconLocation from "../../assets/img/location-pin-svgrepo-com.svg";
+import axiosClient from "../../utils/customizeAPI";
 
 const Schedule_card = ({ trip }) => {
   const dispatch = useDispatch();
-  const dataTrip = [trip];
+  const [pickupPointSelected, setPickupPointSelected] = useState(null);
+  const [dropOffPointSelected, setDropOffPointSelected] = useState(null);
+  const navigate = useNavigate();
+  const [openFail, setOpenFail] = React.useState(false);
+  const handleCloseFail = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
-  const handleClick = () => {
-
-    dispatch(getSeatFromTrip(dataTrip));
+    setOpenFail(false);
   };
-
+  const handleClick = async () => {
+    if (pickupPointSelected === null || dropOffPointSelected === null) {
+      setOpenFail(true);
+      return;
+    }
+    try {
+      const responseSeats = await axiosClient.put("/trips/find-seat", {
+        idStationPickUp: pickupPointSelected?.idStation,
+        idStationDropOff: dropOffPointSelected?.idStation,
+        idTrip: trip?.id,
+      });
+      const responseTypeTicket = await axiosClient.get(
+        "/booking/get-tick-type-of-trip",
+        {
+          params: {
+            codePickUpPoint: pickupPointSelected?.idStation,
+            codeDropOffPoint: dropOffPointSelected?.idStation,
+            idTrip: trip?.id,
+          },
+        }
+      );
+      console.log("list seat from api: ", responseSeats);
+      console.log("ticket type from api: ", responseTypeTicket);
+      const tripDetailTemp = {
+        ...trip,
+        defaultPrice: responseTypeTicket?.data?.data?.pricePerSeat || 0,
+        listSeatBooked: responseSeats?.data?.data || [],
+        idStationPickUp: pickupPointSelected?.idStation,
+        idStationDropOff: dropOffPointSelected?.idStation,
+        stationOn: pickupPointSelected?.station?.name,
+        stationOff: dropOffPointSelected?.station?.name,
+      };
+      dispatch(setTripDetail(tripDetailTemp));
+      navigate("/product-cart");
+    } catch (error) {
+      console.log("err", error);
+    }
+  };
   const [loading, setLoading] = useState(true);
-
+  console.log("check listTripStopDTO[0]", trip);
+  const firstTimeComess = trip?.listTripStopDTO[0]?.timeCome;
+  const lastTimeComess =
+    trip?.listTripStopDTO[trip?.listTripStopDTO?.length - 1]?.timeCome;
+  const firstAddress = trip?.departurePoint;
+  const lastAddress = trip?.destination;
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000)
+    }, 1000)
   }, [])
-  const firstTimeComess = trip.listtripStopDTO[0].timeComess;
-  const lastTimeComess = trip.listtripStopDTO[trip.listtripStopDTO.length - 1].timeComess;
-  console.log("TRip123321", dataTrip);
 
-  const firstAddress = trip.listtripStopDTO[0].stationDTO.name;
-  const lastAddress = trip.listtripStopDTO[trip.listtripStopDTO.length - 1].stationDTO.name;
-
+  // useEffect(() => {
+  //   setTypeTikect(trip?.listTicketType[0]);
+  // }, []);
 
   return (
-    <>
-      <div className="no-scrollbar max-h-[84vh] overflow-y-auto bg-[#F7F7F7] sm:max-h-full sm:overflow-visible sm:bg-white sm:pt-6" />
+    <Box>
+      <div className="no-scrollbar max-h-[84vh] w-[700px] overflow-y-auto bg-[#F7F7F7] sm:max-h-full sm:overflow-visible sm:bg-white sm:pt-6" />
       {loading ? (
         <Skeleton className="w-[700px] h-36" />
       ) : (
         <div className="mb-2 flex w-full flex-col border border-[#DDE2E8] bg-white p-3 pb-4 sm:mb-6 sm:rounded-xl sm:p-6">
           <div className="flex items-center justify-between gap-8">
             <span>
-              <p>{moment(firstTimeComess * 1000).subtract(7, "hours").format(" hh:mm A")}</p>
-
+              <p>{firstTimeComess}</p>
             </span>
             <div className="flex w-full items-center">
               <img src={IconDot} className="h-5 w-5" alt="pickup" />
@@ -57,7 +108,7 @@ const Schedule_card = ({ trip }) => {
               <img src={IconLocation} className="h-5 w-5" alt="station" />
             </div>
             <span>
-              {/* {trip.listtripStopDTO.map((stop) => {
+              {/* {trip.listTripStopDTO.map((stop) => {
                 if (stop.type === "DROPOFF") {
                   return (
                     <div key={stop.idStation}>
@@ -67,16 +118,14 @@ const Schedule_card = ({ trip }) => {
                 }
                 return null;
               })} */}
-              <p>{moment(lastTimeComess * 1000).subtract(7, "hours").format(" hh:mm A")}</p>
-
-
-
+              {/* <p>{moment(lastTimeComess* 1000).subtract(7, "hours").format(" hh:mm A")}</p> */}
+              <p>{lastTimeComess}</p>
             </span>
           </div>
           <div className="mt-3 flex justify-between text-[13px] font-normal">
             <div className="flex-1">
               <span className="text-[15px] font-medium">
-                {/* {trip.listtripStopDTO.map((stop) => {
+                {/* {trip.listTripStopDTO.map((stop) => {
                   if (stop.type === "PICKUP") {
                     return (
                       <div key={stop.idStation}>
@@ -90,16 +139,15 @@ const Schedule_card = ({ trip }) => {
 
                 <div>
                   <p>{firstAddress}</p>
-                  <p className="text-gray-500 font-normal text-sm">Đ/c: {trip.listtripStopDTO[0].stationDTO.address}</p>
+                  {/* <p className="text-gray-500 font-normal text-sm">Đ/c: {trip.listTripStopDTO[0]?.stationDTO?.address}</p> */}
                 </div>
-
               </span>
               <br />
               <span className="text-gray mt-2"></span>
             </div>
             <div className="flex-1 text-right">
               <span className="text-[15px] font-medium">
-                {/* {trip.listtripStopDTO.map((stop) => {
+                {/* {trip.listTripStopDTO.map((stop) => {
                   if (stop.type === "DROPOFF") {
                     return (
                       <div key={stop.idStation}>
@@ -112,76 +160,121 @@ const Schedule_card = ({ trip }) => {
                 })} */}
                 <div>
                   <p>{lastAddress}</p>
-                  <p className="text-gray-500 font-normal text-sm">Đ/c: {trip.listtripStopDTO[trip.listtripStopDTO.length - 1].stationDTO.address}</p>
+                  {/* <p className="text-gray-500 font-normal text-sm">Đ/c: {trip.listTripStopDTO[trip.listTripStopDTO.length - 1].stationDTO.address}</p> */}
                 </div>
               </span>
               <br />
               <span className="text-gray mt-2"></span>
             </div>
           </div>
+          <Stack direction={"row"} spacing={2}>
+            <Box sx={{ width: "100%" }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Điểm đón</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={pickupPointSelected}
+                  size="small"
+                  label="Điểm đón"
+                  sx={{ maxWidth: 300 }}
+                  onChange={(e) => {
+                    setPickupPointSelected(e.target.value);
+                  }}
+                >
+                  {trip?.listTripStopDTO
+                    ?.slice(0, trip?.listTripStopDTO?.length - 1)
+                    ?.map((s) => (
+                      <MenuItem key={s.idStation} value={s}>
+                        {s?.station?.name} - (
+                        <span className="text-gray-500 italic">{s?.station?.address}</span>)
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+            </Box>
 
-          {/* <div className="divide my-3 sm:my-4"></div> */}
-          {/* <div className="flex items-center justify-between">
-            <div className="text-gray flex items-center gap-2 text-sm">
-              <span className="text-orange">{trip.price}</span>
-              <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
-              <span className="text-orange-400 text-base">Loại xe</span>
-              <span >: {trip.busDTO?.type}</span><br></br>
-              <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
+            <Box sx={{ width: "100%" }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Điểm đến</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={dropOffPointSelected}
+                  size="small"
+                  sx={{ maxWidth: 300 }}
+                  label="Điểm đến"
+                  onChange={(e) => {
+                    setDropOffPointSelected(e.target.value);
+                  }}
+                >
+                  {trip?.listTripStopDTO
+                    ?.filter(
+                      (f) => f?.orderInRoute > pickupPointSelected?.orderInRoute
+                    )
+                    ?.map((s) => (
+                      <MenuItem key={s.idStation} value={s}>
+                        {s?.station?.name} - (
+                        <span className="text-gray-500 italic">{s?.station?.address}</span>)
+                      </MenuItem>
+                    ))}
+                </Select>
 
-              <span className=" text-orange-400 text-base">
-                Số ghế trống
-              </span>
-              <span className="text-orange">: {trip.availableSeat}</span>
-            </div> */}
-          {/* <div className="flex-1 text-right">
-              <span className="text-[15px] font-medium">
-                {trip.listtripStopDTO.map((stop) => {
-                  if (stop.type === "DROPOFF") {
-                    return (
-                      <div key={stop.idStation}>
-                        <p> {stop.stationDTO.name}</p>
-                        <p className="text-gray-500 font-normal text-sm">Đ/c: {stop.stationDTO.address}</p>
-                      </div>
-                    );
-                  }
-                  return null;
-                })}
-              </span>
-              <br />
-              <span className="text-gray mt-2"></span>
-            </div> */}
-          {/* </div> */}
-
+              </FormControl>
+            </Box>
+          </Stack>
           <div className="divide my-3 sm:my-4"></div>
           <div className="flex items-center justify-between">
             <div className="text-gray flex items-center gap-2 text-sm">
               <span className="text-orange">{trip.price}</span>
               <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
               <span className="text-orange-400 text-base">Loại xe</span>
-              <span >: {trip.busDTO?.type}</span><br></br>
+              <span>: {trip?.busDTO?.type}</span>
+              <br></br>
               <div className="h-[6px] w-[6px] rounded-full bg-[#C8CCD3]"></div>
 
-              <span className=" text-orange-400 text-base">
-                Số ghế trống
-              </span>
+              <span className=" text-orange-400 text-base">Số ghế trống</span>
               <span className="text-orange">: {trip.availableSeat}</span>
+              {/* {typeTicket && (
+                <>
+                  <span className=" text-orange-400 text-base">Giá vé</span>
+                  <span className="text-orange">
+                    : {typeTicket?.defaultPrice}
+                  </span>
+                </>
+              )} */}
             </div>
-            <Link
-              to={{
-                pathname: "/product-cart",
-                state: { trip }, // Pass your state object here
-              }}
+            {/* <Link
+              to={`/product-cart`}
+              // state = {{tripSend: trip}} // Pass your state object here
+            > */}
+            <button
+              type="button"
+              onClick={handleClick}
+              className="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block border border-orange-200 w-28 h-8 rounded-xl bg-orange-100"
             >
-              <button type="button" onClick={handleClick} className="ant-btn ant-btn-round ant-btn-default button-default hidden sm:block border border-orange-200 w-28 h-8 rounded-xl bg-orange-100">
-                <span className="font-medium text-orange-500">Chọn chuyến</span>
-              </button>
-            </Link>
+              <span className="font-medium text-orange-500">Chọn chuyến</span>
+            </button>
+            {/* </Link> */}
           </div>
+          <p>{trip?.subTrip}</p>
         </div>
       )}
-
-    </>
+      <Snackbar
+        open={openFail}
+        autoHideDuration={6000}
+        onClose={handleCloseFail}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={handleCloseFail}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          Vui lòng chọn đủ điểm đón và điểm trả
+        </Alert>
+      </Snackbar>
+    </Box>
   );
 };
 export default Schedule_card;

@@ -308,12 +308,12 @@ const ProductCart2 = () => {
     return (
         <>
             <section className="home-banner">
-                <Container>
+                <div>
                     <Row>
                         <Col className=" mt-20">
                             <div className="w-[1200px] p-12 rounded-2xl mx-auto bg-slate-50 border border-gray-200 ">
                                 <section>
-                                    <Container>
+                                    <div>
                                         <Row className="flex justify-between">
                                             <Col className="w-[700px] h-[556px] border border-gray-200 rounded-2xl shadow-xl overflow-auto">
                                                 {/* {loading ? (
@@ -666,12 +666,12 @@ const ProductCart2 = () => {
                                                 </div>
                                             </Col>
                                         </Row>
-                                    </Container>
+                                    </div>
                                 </section>
                             </div>
                         </Col>
                     </Row>
-                </Container>
+                </div>
             </section>
 
             {/* <section className="mt-16">

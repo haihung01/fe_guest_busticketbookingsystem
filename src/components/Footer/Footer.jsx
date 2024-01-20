@@ -6,7 +6,7 @@ const Footer = () => {
 
     return (
         <footer className="bg-white" style={{ backgroundColor: '#F9F2F2' }}>
-            <Container className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+            <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <Row className="md:flex md:justify-between">
                     <Col className="mb-6 md:mb-0">
                         <a href="https://flowbite.com/" className="flex items-center">
@@ -36,9 +36,9 @@ const Footer = () => {
                                             <a href="#" className="text-gray-400 hover:text-gray-900 ">
                                                 <img src='https://storage.googleapis.com/futa-busline-cms-dev/CH_Play_712783c88a/CH_Play_712783c88a.svg' className='w-28 h-9' alt='' />
                                             </a>
-                                            <a href="#" className="text-gray-400 hover:text-gray-900">
+                                            {/* <a href="#" className="text-gray-400 hover:text-gray-900">
                                                 <img src='https://storage.googleapis.com/futa-busline-cms-dev/App_Store_60da92cb12/App_Store_60da92cb12.svg' className='w-28 h-9' alt='' />
-                                            </a>
+                                            </a> */}
                                         </div>
                                     </div>
 
@@ -104,7 +104,7 @@ const Footer = () => {
 
                 </Row>
 
-            </Container>
+            </div>
         </footer >
 
 
