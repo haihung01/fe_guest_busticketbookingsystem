@@ -3,7 +3,7 @@ import axios from "axios";
 const axiosClient = axios.create({
   // baseURL: "http://btbs.ap-southeast-1.elasticbeanstalk.com",
   //baseURL: "https://triptix3.azurewebsites.net",
-  baseURL: "https://triptix2.azurewebsites.net/",
+  baseURL: "https://triptixv2.azurewebsites.net/",
 
   headers: {
     headers: {
